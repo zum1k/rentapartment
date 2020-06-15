@@ -57,7 +57,7 @@ public class ConnectionPool {
             LOGGER.info(Thread.currentThread().getName() + " used.");
             return connection;
         } catch (InterruptedException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(), e);
         } finally {
             CONNECTION_LOCK.unlock();
         }
@@ -67,10 +67,10 @@ public class ConnectionPool {
 
     public void releaseConnection(Connection connection) {
         try {
-            LOGGER.info(Thread.currentThread().getName() + " trying to return resource.");
+            LOGGER.info(Thread.currentThread().getName() , " trying to return resource.");
             CONNECTION_LOCK.lock();
             connections.add(connection);
-            LOGGER.info(Thread.currentThread().getName() + " returned!");
+            LOGGER.info(Thread.currentThread().getName() , " returned!");
             connectionSemaphore.release();
         } finally {
             CONNECTION_LOCK.unlock();

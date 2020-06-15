@@ -36,7 +36,7 @@ public class ConnectionCreator {
             Driver driver = new com.mysql.jdbc.Driver();
             DriverManager.registerDriver(driver);
         } catch (SQLException | IOException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
