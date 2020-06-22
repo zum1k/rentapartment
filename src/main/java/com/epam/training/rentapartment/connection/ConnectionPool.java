@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
@@ -77,6 +78,16 @@ public class ConnectionPool {
         }
     }
 
+
+    public void closeConnections() throws ConnectionPoolException {
+        try {
+            for (Connection connection : connections) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new ConnectionPoolException(e.getMessage(), e);
+        }
+    }
     private void createConnections() {
         for (int i = 0; i < POOL_SIZE; i++) {
             Connection connection = connectionCreator.createConnection();
