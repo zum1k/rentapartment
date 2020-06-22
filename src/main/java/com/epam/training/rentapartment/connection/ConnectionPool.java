@@ -1,6 +1,7 @@
 package com.epam.training.rentapartment.connection;
 
 import com.epam.training.rentapartment.exception.ConnectionException;
+import com.epam.training.rentapartment.exception.ConnectionPoolException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

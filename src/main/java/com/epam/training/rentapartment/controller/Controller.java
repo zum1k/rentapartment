@@ -1,11 +1,10 @@
 package com.epam.training.rentapartment.controller;
 
 import com.epam.training.rentapartment.connection.ConnectionPool;
-import com.epam.training.rentapartment.connection.ConnectionPoolException;
+import com.epam.training.rentapartment.exception.ConnectionPoolException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

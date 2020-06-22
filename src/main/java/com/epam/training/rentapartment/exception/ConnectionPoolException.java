@@ -1,4 +1,4 @@
-package com.epam.training.rentapartment.connection;
+package com.epam.training.rentapartment.exception;
 
 import java.sql.SQLException;
 
