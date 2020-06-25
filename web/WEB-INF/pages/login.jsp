@@ -7,10 +7,19 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
+<head><title>Login</title></head>
+<body><h3>Login</h3>
+<hr/>
+<form name="loginForm" method="POST"
+      action="controller?command=login">
+    Login:<br/>
+    <input type="text" name="login" value=""><br/>
+    Password:<br/>
+    <input type="password" name="password" value="">
+    <br/>
+    <br/>
+    <input type="submit" value="Войти">
+</form>
+<hr/>
 </body>
 </html>

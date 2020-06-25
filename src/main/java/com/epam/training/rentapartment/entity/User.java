@@ -3,7 +3,7 @@ package com.epam.training.rentapartment.entity;
 import java.util.Objects;
 
 public class User {
-    private long id;
+    private long userId;
     private UserType type;
     private String login;
     private String password;
@@ -13,7 +13,7 @@ public class User {
     }
 
     public User(long id, UserType type, String login, String password, String email) {
-        this.id = id;
+        this.userId = id;
         this.type = type;
         this.login = login;
         this.password = password;
@@ -21,11 +21,11 @@ public class User {
     }
 
     public long getId() {
-        return id;
+        return userId;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.userId = id;
     }
 
     public UserType getType() {
@@ -69,7 +69,7 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return id == user.id &&
+        return userId == user.userId &&
                 type == user.type &&
                 Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
@@ -78,12 +78,12 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, login, password, email); //TODO
+        return Objects.hash(userId, type, login, password, email); //TODO
     }
 
     @Override
     public String toString() {
-        return new StringBuilder().append("User{" + "id=").append(id).append(", type=")
+        return new StringBuilder().append("User{" + "id=").append(userId).append(", type=")
                 .append(type).append(", login='").append(login).append('\'')
                 .append(", password='").append(password).append('\'')
                 .append(", email='").append(email)
