@@ -1,8 +1,8 @@
-package com.epam.training.rentapartment.repository.imp;
+package com.epam.training.rentapartment.repository.impl.image;
 
 import com.epam.training.rentapartment.entity.Image;
 import com.epam.training.rentapartment.repository.Repository;
-import com.epam.training.rentapartment.repository.Specification;
+import com.epam.training.rentapartment.specification.Specification;
 
 import java.util.Comparator;
 import java.util.List;
@@ -10,17 +10,14 @@ import java.util.List;
 public class ImageRepository implements Repository<Image>, AutoCloseable { //TODO
     @Override
     public void add(Image image) {
-
     }
 
     @Override
     public void remove(Image image) {
-
     }
 
     @Override
     public void update(Image image) {
-
     }
 
     @Override
@@ -40,6 +37,5 @@ public class ImageRepository implements Repository<Image>, AutoCloseable { //TOD
 
     @Override
     public void close() throws Exception {
-
     }
 }

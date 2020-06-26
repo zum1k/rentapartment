@@ -1,8 +1,8 @@
-package com.epam.training.rentapartment.repository.imp;
+package com.epam.training.rentapartment.repository.impl.ad;
 
 import com.epam.training.rentapartment.entity.Ad;
 import com.epam.training.rentapartment.repository.Repository;
-import com.epam.training.rentapartment.repository.Specification;
+import com.epam.training.rentapartment.specification.Specification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

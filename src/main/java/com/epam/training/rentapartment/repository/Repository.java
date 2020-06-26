@@ -1,5 +1,7 @@
 package com.epam.training.rentapartment.repository;
 
+import com.epam.training.rentapartment.specification.Specification;
+
 import java.util.Comparator;
 import java.util.List;
 

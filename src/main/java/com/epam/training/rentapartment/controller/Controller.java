@@ -47,10 +47,6 @@ public class Controller extends HttpServlet {
         }
     }
 
-    private void doProcess(HttpServletRequest request, HttpServletResponse response)  {
-        String commandType = request.getParameter(REQUEST_PARAMETER_COMMAND);
-        switch (commandType){
-        }
-//TODO
+    private void doProcess(HttpServletRequest request, HttpServletResponse response)  {//
     }
 }

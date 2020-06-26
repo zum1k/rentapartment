@@ -1,8 +1,8 @@
-package com.epam.training.rentapartment.repository.imp;
+package com.epam.training.rentapartment.repository.impl.address;
 
 import com.epam.training.rentapartment.entity.Address;
 import com.epam.training.rentapartment.repository.Repository;
-import com.epam.training.rentapartment.repository.Specification;
+import com.epam.training.rentapartment.specification.Specification;
 
 import java.util.Comparator;
 import java.util.List;
@@ -10,17 +10,14 @@ import java.util.List;
 public class AddressRepository implements Repository<Address>, AutoCloseable { //TODO
     @Override
     public void add(Address address) {
-
     }
 
     @Override
     public void remove(Address address) {
-
     }
 
     @Override
     public void update(Address address) {
-
     }
 
     @Override
@@ -40,6 +37,5 @@ public class AddressRepository implements Repository<Address>, AutoCloseable { /
 
     @Override
     public void close() throws Exception {
-
     }
 }

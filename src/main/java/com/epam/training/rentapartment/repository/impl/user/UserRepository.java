@@ -1,16 +1,22 @@
-package com.epam.training.rentapartment.repository.imp;
+package com.epam.training.rentapartment.repository.impl.user;
 
 import com.epam.training.rentapartment.entity.User;
 import com.epam.training.rentapartment.repository.Repository;
-import com.epam.training.rentapartment.repository.Specification;
+import com.epam.training.rentapartment.specification.Specification;
 
+import java.sql.Connection;
 import java.util.Comparator;
 import java.util.List;
 
-public class UserRepository implements Repository<User>, AutoCloseable { //TODO
+public class UserRepository implements Repository<User>, AutoCloseable {
+    private Connection connection;
+
+    public UserRepository(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public void add(User user) {
-
     }
 
     @Override
