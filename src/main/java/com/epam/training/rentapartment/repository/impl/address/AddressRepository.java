@@ -26,11 +26,6 @@ public class AddressRepository implements Repository<Address>, AutoCloseable { /
     }
 
     @Override
-    public List<Address> sort(Comparator<Address> comparator) {
-        return null;
-    }
-
-    @Override
     public List<Address> query(Specification specification) {
         return null;
     }

@@ -1,5 +1,8 @@
 package com.epam.training.rentapartment.specification;
 
+import java.util.List;
+
 public interface Specification<T> {
-    boolean isSpecified(T t);
+    String toSqlRequest();
+    List<T> receiveParameters();
 }

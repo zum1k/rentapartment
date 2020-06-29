@@ -3,6 +3,8 @@ package com.epam.training.rentapartment.entity;
 import java.util.Objects;
 
 public class Ad {
+    public static final String AD_TABLE_NAME = "ad";
+
     private int adId;
     private int cost;
     private int rooms;

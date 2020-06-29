@@ -22,7 +22,7 @@ public class LogInCommand implements Command {
         String loginValue = request.getParameter(LOGIN_PARAMETER);
         String passwordValue
                 = request.getParameter(PASSWORD_PARAMETER);
-        if (service.checkUser(loginValue, passwordValue)) {
+        if (service.logIn(request)) {
             page = PagePath.MAIN;
         } else {
             page = PagePath.LOGIN;

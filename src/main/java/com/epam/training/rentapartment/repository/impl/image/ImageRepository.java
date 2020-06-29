@@ -26,11 +26,6 @@ public class ImageRepository implements Repository<Image>, AutoCloseable { //TOD
     }
 
     @Override
-    public List<Image> sort(Comparator<Image> comparator) {
-        return null;
-    }
-
-    @Override
     public List<Image> query(Specification specification) {
         return null;
     }

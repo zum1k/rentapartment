@@ -3,6 +3,8 @@ package com.epam.training.rentapartment.entity;
 import java.util.Objects;
 
 public class Address {
+    public static final String ADDRESS_TABLE_NAME = "address";
+
     private int addressId;
     private int adId;
     private String city;

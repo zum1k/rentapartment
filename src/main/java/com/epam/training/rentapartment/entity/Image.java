@@ -3,6 +3,8 @@ package com.epam.training.rentapartment.entity;
 import java.util.Objects;
 
 public class Image {
+    public static final String IMAGE_TABLE_NAME = "image";
+
     private int adId;
     private int imageId;
     private String imageURL;

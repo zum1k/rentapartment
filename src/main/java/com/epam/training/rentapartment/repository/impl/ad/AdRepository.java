@@ -29,13 +29,6 @@ public class AdRepository implements Repository<Ad>, AutoCloseable { //TODO
 
     @Override
     public List<Ad> findAll() {
-        //TODO
-        return null;
-    }
-
-    @Override
-    public List<Ad> sort(Comparator<Ad> comparator) {
-        //TODO
         return null;
     }
 
