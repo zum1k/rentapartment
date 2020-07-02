@@ -16,7 +16,7 @@ import java.util.Properties;
 public class ConnectionCreator {
     private static final Logger LOGGER = LogManager.getLogger(ConnectionCreator.class);
 
-    private static final String DB_PROPERTIES = "./src/main/resources/res/config.properties";
+    private static final String DB_PROPERTIES = "src/main/resources/config.properties";
     private static final String DB_HOST = "db.host";
     private static final String DB_LOGIN = "db.login";
     private static final String DB_PASSWORD = "db.password";

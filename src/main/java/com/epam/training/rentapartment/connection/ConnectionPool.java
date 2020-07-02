@@ -69,10 +69,10 @@ public class ConnectionPool {
 
     public void releaseConnection(Connection connection) {
         try {
-            LOGGER.info(Thread.currentThread().getName() , " trying to return resource.");
+            LOGGER.info(Thread.currentThread().getName(), " trying to return resource.");
             CONNECTION_LOCK.lock();
             connections.add(connection);
-            LOGGER.info(Thread.currentThread().getName() , " returned!");
+            LOGGER.info(Thread.currentThread().getName(), " returned!");
             connectionSemaphore.release();
         } finally {
             CONNECTION_LOCK.unlock();
@@ -82,13 +82,14 @@ public class ConnectionPool {
 
     public void closeConnections() throws ConnectionPoolException {
         try {
-            for(int i =0; i < connections.size(); i++){
+            for (int i = 0; i < connections.size(); i++) {
                 connections.poll().close();
             }
         } catch (SQLException e) {
             throw new ConnectionPoolException(e.getMessage(), e);
         }
     }
+
     private void createConnections() {
         for (int i = 0; i < POOL_SIZE; i++) {
             Connection connection = connectionCreator.createConnection();
@@ -96,5 +97,4 @@ public class ConnectionPool {
         }
         initialized.set(true);
     }
-
 }
