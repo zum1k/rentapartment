@@ -20,6 +20,7 @@ public class UserRepository implements Repository<User>, AutoCloseable {
 
     private static final String SELECT_QUERY = "SELECT * FROM ";
     private static final String DELETE_QUERY = "DELETE FROM ";
+    private static final String INSERT_QUERY = "INSERT INTO ";
 
     public UserRepository(Connection connection) {
         this.connection = connection;
@@ -28,12 +29,12 @@ public class UserRepository implements Repository<User>, AutoCloseable {
     @Override
     public void add(User user) {
         try {
-            String sql = "INSERT INTO Products (login, password, email, type) Values (?, ?, ?, ?)";
+            String sql = INSERT_QUERY+User.USER_TABLE_NAME +" (login, password, email, type) Values (?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(2, user.getLogin());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getType().toString());
-            preparedStatement.setString(5, user.getEmail());
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getType().toString());
+            preparedStatement.setString(4, user.getEmail());
 
             int rows = preparedStatement.executeUpdate();
 
