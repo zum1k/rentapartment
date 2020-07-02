@@ -5,14 +5,14 @@ import com.epam.training.rentapartment.specification.Specification;
 
 import java.util.List;
 
-public class AddressByStreet implements Specification<Address> {
+public class AddressByStreet implements Specification {
     @Override
     public String toSqlRequest() {
         return null;
     }
 
     @Override
-    public List<Address> receiveParameters() {
+    public List<String> receiveParameters() {
         return null;
     }
 }

@@ -5,7 +5,7 @@ import com.epam.training.rentapartment.specification.Specification;
 
 import java.util.List;
 
-public class AddressByNumberLessThanSpecification implements Specification<Address> {
+public class AddressByNumberLessThanSpecification implements Specification {
 
     @Override
     public String toSqlRequest() {
@@ -13,7 +13,7 @@ public class AddressByNumberLessThanSpecification implements Specification<Addre
     }
 
     @Override
-    public List<Address> receiveParameters() {
+    public List<String> receiveParameters() {
         return null;
     }
 }

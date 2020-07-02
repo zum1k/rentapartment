@@ -5,7 +5,7 @@ import com.epam.training.rentapartment.specification.Specification;
 
 import java.util.List;
 
-public class UserByLoginSpecification implements Specification<User> {
+public class UserByLoginSpecification implements Specification {
     private String requestLogin;
 
     @Override
@@ -14,7 +14,7 @@ public class UserByLoginSpecification implements Specification<User> {
     }
 
     @Override
-    public List<User> receiveParameters() {
+    public List<String> receiveParameters() {
         return null;
     }
 }

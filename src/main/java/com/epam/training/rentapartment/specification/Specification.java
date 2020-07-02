@@ -2,7 +2,7 @@ package com.epam.training.rentapartment.specification;
 
 import java.util.List;
 
-public interface Specification<T> {
+public interface Specification {
     String toSqlRequest();
-    List<T> receiveParameters();
+    List<String> receiveParameters();
 }

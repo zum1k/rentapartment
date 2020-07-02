@@ -11,12 +11,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class UserRepository implements Repository<User>, AutoCloseable {
     private static final Logger LOGGER = LogManager.getLogger(UserRepository.class);
+
     private Connection connection;
+
+    private static final String SELECT_QUERY = "SELECT * FROM ";
+    private static final String DELETE_QUERY = "DELETE FROM ";
 
     public UserRepository(Connection connection) {
         this.connection = connection;
@@ -24,6 +27,19 @@ public class UserRepository implements Repository<User>, AutoCloseable {
 
     @Override
     public void add(User user) {
+        try {
+            String sql = "INSERT INTO Products (login, password, email, type) Values (?, ?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(2, user.getLogin());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getType().toString());
+            preparedStatement.setString(5, user.getEmail());
+
+            int rows = preparedStatement.executeUpdate();
+
+        } catch (SQLException exception) {
+            LOGGER.error(exception.getMessage(), exception);
+        }
     }
 
     @Override
@@ -42,10 +58,16 @@ public class UserRepository implements Repository<User>, AutoCloseable {
     @Override
     public List<User> query(Specification specification) {
         List<User> queriedUsers = new ArrayList<>();
-        PreparedStatement statement = null;
+        List<String> parameters = specification.receiveParameters();
+        PreparedStatement preparedStatement = null;
+        String sqlQuery = SELECT_QUERY + specification.toSqlRequest();
+        int parametersLength = specification.receiveParameters().size();
         try {
-            statement = connection.prepareStatement(specification.toSqlRequest());
-            ResultSet resultSet = statement.executeQuery();
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            for (int i = 0; i < parametersLength; i++) {
+                preparedStatement.setString(i + 1, parameters.get(i));
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             User user = new User();
 
@@ -54,7 +76,7 @@ public class UserRepository implements Repository<User>, AutoCloseable {
             user.setPassword(resultSet.getString(3));
             user.setEmail(resultSet.getString(4));
 
-           queriedUsers.add(user);
+            queriedUsers.add(user);
 
         } catch (SQLException exception) {
             LOGGER.error(exception.getMessage(), exception);

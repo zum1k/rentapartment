@@ -13,9 +13,14 @@ public class RegisterCommand implements Command {
 
     private GuestService service;
 
-    public RegisterCommand(GuestService service){
+    public RegisterCommand() {
+        this.service = GuestService.INSTANCE;
+    }
+
+    public RegisterCommand(GuestService service) {
         this.service = service;
     }
+
     @Override
     public String execute(HttpServletRequest request) {
         return PagePath.MAIN;

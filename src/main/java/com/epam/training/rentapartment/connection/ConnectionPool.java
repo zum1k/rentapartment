@@ -82,7 +82,6 @@ public class ConnectionPool {
 
     public void closeConnections() throws ConnectionPoolException {
         try {
-
             for(int i =0; i < connections.size(); i++){
                 connections.poll().close();
             }

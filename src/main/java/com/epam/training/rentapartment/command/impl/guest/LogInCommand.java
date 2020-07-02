@@ -10,7 +10,11 @@ public class LogInCommand implements Command {
     private static final String LOGIN_PARAMETER = "login";
     private static final String PASSWORD_PARAMETER = "password";
 
-    private GuestService service;
+    private final GuestService service;
+
+    public LogInCommand() {
+        this.service = GuestService.INSTANCE;
+    }
 
     public LogInCommand(GuestService service) {
         this.service = service;
@@ -20,8 +24,7 @@ public class LogInCommand implements Command {
     public String execute(HttpServletRequest request) {
         String page;
         String loginValue = request.getParameter(LOGIN_PARAMETER);
-        String passwordValue
-                = request.getParameter(PASSWORD_PARAMETER);
+        String passwordValue = request.getParameter(PASSWORD_PARAMETER);
         if (service.logIn(request)) {
             page = PagePath.MAIN;
         } else {

@@ -1,8 +1,10 @@
 package com.epam.training.rentapartment.service;
 
+import com.epam.training.rentapartment.connection.ConnectionPool;
 import com.epam.training.rentapartment.entity.User;
 import com.epam.training.rentapartment.repository.impl.user.UserRepository;
 import com.epam.training.rentapartment.specification.impl.user.UserByLoginSpecification;
+import com.epam.training.rentapartment.validator.GuestValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -18,6 +20,7 @@ public class GuestService {
     private UserRepository userRepository;
 
     private GuestService() {
+        this.userRepository =  new UserRepository(ConnectionPool.getINSTANCE().getConnection());
     }
 
     public GuestService getINSTANCE() {
@@ -28,7 +31,7 @@ public class GuestService {
         String loginValue = request.getParameter(LOGIN_PARAMETER);
         String passwordValue = request.getParameter(PASSWORD_PARAMETER);
 
-        if (Validator.logIndValidate(loginValue, passwordValue)) {
+        if (GuestValidator.validateLogin(loginValue, passwordValue)) {
             List<User> users = userRepository.query(new UserByLoginSpecification());
             User currentUser = users.get(USER_INDEX);
             return currentUser.getLogin().equals(loginValue) && currentUser.getPassword().equals(passwordValue);
@@ -37,17 +40,18 @@ public class GuestService {
         }
     }
 
-    public boolean register(HttpServletRequest request) {
-        String loginValue = request.getParameter(LOGIN_PARAMETER);
-        String passwordValue = request.getParameter(PASSWORD_PARAMETER);
-        String emailValue = request.getParameter(EMAIL_PARAMETER);
-
-        if (Validator.registerValidate(loginValue, passwordValue, emailValue)) {
-            List<User> users = userRepository.query(new UserByLoginSpecification());
-            User currentUser = users.get(USER_INDEX);
-            return currentUser.getLogin().equals(loginValue) && currentUser.getPassword().equals(passwordValue);
-        } else {
-            return false;
-        }
+    public boolean register(HttpServletRequest request) { //TODO
+//        String loginValue = request.getParameter(LOGIN_PARAMETER);
+//        String passwordValue = request.getParameter(PASSWORD_PARAMETER);
+//        String emailValue = request.getParameter(EMAIL_PARAMETER);
+//
+//        if (Validator.registerValidate(loginValue, passwordValue, emailValue)) {
+//            List<User> users = userRepository.add(new User(loginValue, passwordValue, emailValue));
+//            User currentUser = users.get(USER_INDEX);
+//            return currentUser.getLogin().equals(loginValue) && currentUser.getPassword().equals(passwordValue);
+//        } else {
+//            return false;
+//        }
+        return false;
     }
 }
