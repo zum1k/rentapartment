@@ -13,7 +13,7 @@ public class LogInCommand implements Command {
     private final GuestService service;
 
     public LogInCommand() {
-        this.service = GuestService.INSTANCE;
+        this.service = GuestService.getINSTANCE();
     }
 
     public LogInCommand(GuestService service) {
@@ -26,7 +26,7 @@ public class LogInCommand implements Command {
         String loginValue = request.getParameter(LOGIN_PARAMETER);
         String passwordValue = request.getParameter(PASSWORD_PARAMETER);
         if (service.logIn(request)) {
-            page = PagePath.MAIN;
+            page = PagePath.CLIENT;
         } else {
             page = PagePath.LOGIN;
         }

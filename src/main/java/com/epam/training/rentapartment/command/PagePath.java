@@ -7,6 +7,7 @@ public class PagePath {
     public static final String AD = "/pages/ad.jsp";
     public static final String EXCEPTION = "/pages/exception.jsp";
     public static final String REGISTRATION = "/pages/registration.jsp";
+    public static final String CLIENT = "WEB-INF/pages/client.jsp";
 
     private PagePath() {
     }

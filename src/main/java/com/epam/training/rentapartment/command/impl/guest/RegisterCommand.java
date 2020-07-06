@@ -14,7 +14,7 @@ public class RegisterCommand implements Command {
     private GuestService service;
 
     public RegisterCommand() {
-        this.service = GuestService.INSTANCE;
+        this.service = GuestService.getINSTANCE();
     }
 
     public RegisterCommand(GuestService service) {

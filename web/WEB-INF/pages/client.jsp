@@ -14,6 +14,5 @@
  HELLO FROM CLIENT PAGE
  <br/>
  <a href="http://localhost:8080/rentapartment_war_exploded">Выйти</a>
-
 </body>
 </html>

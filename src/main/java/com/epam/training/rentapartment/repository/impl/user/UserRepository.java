@@ -1,5 +1,6 @@
 package com.epam.training.rentapartment.repository.impl.user;
 
+import com.epam.training.rentapartment.connection.ConnectionPool;
 import com.epam.training.rentapartment.entity.User;
 import com.epam.training.rentapartment.repository.Repository;
 import com.epam.training.rentapartment.specification.Specification;
@@ -60,24 +61,31 @@ public class UserRepository implements Repository<User>, AutoCloseable {
     public List<User> query(Specification specification) {
         List<User> queriedUsers = new ArrayList<>();
         List<String> parameters = specification.receiveParameters();
-        PreparedStatement preparedStatement = null;
         String sqlQuery = SELECT_QUERY + specification.toSqlRequest();
         int parametersLength = specification.receiveParameters().size();
-        try {
-            preparedStatement = connection.prepareStatement(sqlQuery);
+        ResultSet resultSet = null;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+
             for (int i = 0; i < parametersLength; i++) {
                 preparedStatement.setString(i + 1, parameters.get(i));
             }
-            ResultSet resultSet = preparedStatement.executeQuery();
 
-            User user = new User();
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                try {
 
-            user.setId(resultSet.getInt(1));
-            user.setLogin(resultSet.getString(2));
-            user.setPassword(resultSet.getString(3));
-            user.setEmail(resultSet.getString(4));
+                    User user = new User();
+                    user.setId(Integer.parseInt(resultSet.getString(1)));
+                    user.setLogin(resultSet.getString(2));
+                    user.setPassword(resultSet.getString(3));
+                    user.setEmail(resultSet.getString(4));
 
-            queriedUsers.add(user);
+                    queriedUsers.add(user);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
 
         } catch (SQLException exception) {
             LOGGER.error(exception.getMessage(), exception);
@@ -87,6 +95,7 @@ public class UserRepository implements Repository<User>, AutoCloseable {
 
     @Override
     public void close() throws Exception {
-
+        ConnectionPool connectionPool = ConnectionPool.getINSTANCE();
+        connectionPool.releaseConnection(connection);
     }
 }

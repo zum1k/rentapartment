@@ -3,6 +3,7 @@ package com.epam.training.rentapartment.service;
 import com.epam.training.rentapartment.connection.ConnectionPool;
 import com.epam.training.rentapartment.entity.User;
 import com.epam.training.rentapartment.repository.impl.user.UserRepository;
+import com.epam.training.rentapartment.specification.impl.user.UserByLoginPasswordSpecification;
 import com.epam.training.rentapartment.specification.impl.user.UserByLoginSpecification;
 import com.epam.training.rentapartment.validator.GuestValidator;
 
@@ -14,7 +15,7 @@ public class GuestService {
     static final String PASSWORD_PARAMETER = "password";
     static final String EMAIL_PARAMETER = "email";
 
-    public static final GuestService INSTANCE = new GuestService();
+    private static GuestService INSTANCE = new GuestService();
     private static final int USER_INDEX = 0;
 
     private UserRepository userRepository;
@@ -23,7 +24,7 @@ public class GuestService {
         this.userRepository =  new UserRepository(ConnectionPool.getINSTANCE().getConnection());
     }
 
-    public GuestService getINSTANCE() {
+    public static GuestService getINSTANCE() {
         return INSTANCE;
     }
 
@@ -32,7 +33,7 @@ public class GuestService {
         String passwordValue = request.getParameter(PASSWORD_PARAMETER);
 
         if (GuestValidator.validateLogin(loginValue, passwordValue)) {
-            List<User> users = userRepository.query(new UserByLoginSpecification());
+            List<User> users = userRepository.query(new UserByLoginPasswordSpecification(loginValue, passwordValue));
             User currentUser = users.get(USER_INDEX);
             return currentUser.getLogin().equals(loginValue) && currentUser.getPassword().equals(passwordValue);
         } else {
