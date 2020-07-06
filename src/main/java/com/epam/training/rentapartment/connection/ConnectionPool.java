@@ -15,7 +15,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ConnectionPool {
-    private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
+    private static Logger logger = LogManager.getLogger(ConnectionPool.class);
 
     private static ConnectionPool INSTANCE;
     private final ConnectionCreator connectionCreator = new ConnectionCreator();
@@ -42,7 +42,7 @@ public class ConnectionPool {
                     INSTANCE.createConnections();
                 }
             } catch (ConnectionException e) {
-                LOGGER.error(e.getMessage(), e);
+                logger.error(e.getMessage(), e);
             } finally {
                 INSTANCE_LOCK.unlock();
             }
@@ -52,27 +52,27 @@ public class ConnectionPool {
 
     public Connection getConnection() {
         try {
-            LOGGER.info(Thread.currentThread().getName() + " trying to get resource.");
+            logger.info(Thread.currentThread().getName() + " trying to get resource.");
             connectionSemaphore.acquire();
             CONNECTION_LOCK.lock();
             Connection connection = connections.poll();
-            LOGGER.info(Thread.currentThread().getName() + " used.");
+            logger.info(Thread.currentThread().getName() + " used.");
             return connection;
         } catch (InterruptedException e) {
-            LOGGER.error(e.getMessage(), e);
+            logger.error(e.getMessage(), e);
         } finally {
             CONNECTION_LOCK.unlock();
         }
-        LOGGER.error(new RuntimeException("Somethings happened wrong."));
+        logger.error(new RuntimeException("Somethings happened wrong."));
         throw new RuntimeException("Somethings happened wrong.");
     }
 
     public void releaseConnection(Connection connection) {
         try {
-            LOGGER.info(Thread.currentThread().getName(), " trying to return resource.");
+            logger.info(Thread.currentThread().getName(), " trying to return resource.");
             CONNECTION_LOCK.lock();
             connections.add(connection);
-            LOGGER.info(Thread.currentThread().getName(), " returned!");
+            logger.info(Thread.currentThread().getName(), " returned!");
             connectionSemaphore.release();
         } finally {
             CONNECTION_LOCK.unlock();

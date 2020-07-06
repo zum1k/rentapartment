@@ -14,9 +14,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionCreator {
-    private static final Logger LOGGER = LogManager.getLogger(ConnectionCreator.class);
+    private static Logger logger = LogManager.getLogger(ConnectionCreator.class);
 
-    private static final String DB_PROPERTIES = "C:\\Users\\smugl\\IdeaProjects\\rentapartment\\src\\main\\resources*\\res\\config.properties";
+    private static final String DB_PROPERTIES = "C:\\Users\\smugl\\IdeaProjects\\rentapartment\\src\\main\\resources*\\res\\config.properties"; //todo
     private static final String DB_HOST = "db.host";
     private static final String DB_LOGIN = "db.login";
     private static final String DB_PASSWORD = "db.password";
@@ -35,7 +35,7 @@ public class ConnectionCreator {
             Driver driver = new com.mysql.cj.jdbc.Driver();
             DriverManager.registerDriver(driver);
         } catch (SQLException | IOException e) {
-            LOGGER.error(e.getMessage(), e);
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -44,7 +44,7 @@ public class ConnectionCreator {
         try {
             connection = DriverManager.getConnection(host, login, password);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            logger.error(e);
         }
         return connection;
     }
