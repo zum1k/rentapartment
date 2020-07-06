@@ -4,7 +4,6 @@ import com.epam.training.rentapartment.connection.ConnectionPool;
 import com.epam.training.rentapartment.entity.User;
 import com.epam.training.rentapartment.repository.impl.user.UserRepository;
 import com.epam.training.rentapartment.specification.impl.user.UserByLoginPasswordSpecification;
-import com.epam.training.rentapartment.specification.impl.user.UserByLoginSpecification;
 import com.epam.training.rentapartment.validator.GuestValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,14 +30,16 @@ public class GuestService {
     public boolean logIn(HttpServletRequest request) {
         String loginValue = request.getParameter(LOGIN_PARAMETER);
         String passwordValue = request.getParameter(PASSWORD_PARAMETER);
+        boolean result = false;
 
         if (GuestValidator.validateLogin(loginValue, passwordValue)) {
             List<User> users = userRepository.query(new UserByLoginPasswordSpecification(loginValue, passwordValue));
-            User currentUser = users.get(USER_INDEX);
-            return currentUser.getLogin().equals(loginValue) && currentUser.getPassword().equals(passwordValue);
-        } else {
-            return false;
+            if (users.size() > 0) {            //TODO
+                User currentUser = users.get(USER_INDEX);
+                result = currentUser.getLogin().equals(loginValue) && currentUser.getPassword().equals(passwordValue);
+            }
         }
+        return result;
     }
 
     public boolean register(HttpServletRequest request) { //TODO
