@@ -28,9 +28,9 @@ public class UserRepository implements Repository<User>, AutoCloseable {
     }
 
     @Override
-    public void add(User user) {
+    public void add(User user) { //TODO
         try {
-            String sql = INSERT_QUERY+User.USER_TABLE_NAME +" (login, password, email, type) Values (?, ?, ?, ?)";
+            String sql = INSERT_QUERY + User.USER_TABLE_NAME + " (login, password, email, type) Values (?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
@@ -64,28 +64,13 @@ public class UserRepository implements Repository<User>, AutoCloseable {
         String sqlQuery = SELECT_QUERY + specification.toSqlRequest();
         int parametersLength = specification.receiveParameters().size();
         ResultSet resultSet = null;
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
 
             for (int i = 0; i < parametersLength; i++) {
                 preparedStatement.setString(i + 1, parameters.get(i));
             }
-
             resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                try {
-
-                    User user = new User();
-                    user.setId(Integer.parseInt(resultSet.getString(1)));
-                    user.setLogin(resultSet.getString(2));
-                    user.setPassword(resultSet.getString(3));
-                    user.setEmail(resultSet.getString(4));
-
-                    queriedUsers.add(user);
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            queriedUsers = new UserMapperImpl().toEntity(resultSet);
 
         } catch (SQLException exception) {
             LOGGER.error(exception.getMessage(), exception);

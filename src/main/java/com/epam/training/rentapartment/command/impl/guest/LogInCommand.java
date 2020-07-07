@@ -21,10 +21,10 @@ public class LogInCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) { //TODO
         String page;
-        String loginValue = request.getParameter(LOGIN_PARAMETER);
-        String passwordValue = request.getParameter(PASSWORD_PARAMETER);
+//        String loginValue = request.getParameter(LOGIN_PARAMETER);
+//        String passwordValue = request.getParameter(PASSWORD_PARAMETER);
         if (service.logIn(request)) {
             page = PagePath.CLIENT;
         } else {

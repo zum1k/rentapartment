@@ -20,7 +20,7 @@ public class GuestService {
     private UserRepository userRepository;
 
     private GuestService() {
-        this.userRepository =  new UserRepository(ConnectionPool.getINSTANCE().getConnection());
+        this.userRepository = new UserRepository(ConnectionPool.getINSTANCE().getConnection());
     }
 
     public static GuestService getINSTANCE() {
