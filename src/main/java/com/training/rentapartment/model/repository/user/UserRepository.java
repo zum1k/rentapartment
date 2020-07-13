@@ -2,7 +2,7 @@ package com.training.rentapartment.model.repository.user;
 
 import com.training.rentapartment.entity.User;
 import com.training.rentapartment.model.Repository;
-import com.training.rentapartment.model.SQLConstant;
+import com.training.rentapartment.model.SqlConstant;
 import com.training.rentapartment.model.Specification;
 import com.training.rentapartment.model.pool.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -63,7 +63,7 @@ public class UserRepository implements Repository<User>, AutoCloseable {
     private List<User> doQuery(Specification specification) {
         List<User> queriedUsers = new ArrayList<>();
         List<Object> parameters = specification.receiveParameters();
-        String sqlQuery = SELECT_QUERY + SQLConstant.USER_TABLE_NAME + specification.toSqlRequest();
+        String sqlQuery = SELECT_QUERY + SqlConstant.USER_TABLE_NAME + specification.toSqlRequest();
         int parametersLength = specification.receiveParameters().size();
         ResultSet resultSet = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -80,7 +80,7 @@ public class UserRepository implements Repository<User>, AutoCloseable {
     }
 
     private void doDelete(Specification specification) {
-        String sqlQuery = DELETE_QUERY + SQLConstant.USER_TABLE_NAME + " " + specification.toSqlRequest();
+        String sqlQuery = DELETE_QUERY + SqlConstant.USER_TABLE_NAME + " " + specification.toSqlRequest();
         int parametersLength = specification.receiveParameters().size();
         List<Object> parameters = specification.receiveParameters();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {

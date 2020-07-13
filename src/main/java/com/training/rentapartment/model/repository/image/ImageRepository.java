@@ -3,11 +3,9 @@ package com.training.rentapartment.model.repository.image;
 import com.training.rentapartment.entity.Image;
 import com.training.rentapartment.entity.User;
 import com.training.rentapartment.model.Repository;
-import com.training.rentapartment.model.SQLConstant;
+import com.training.rentapartment.model.SqlConstant;
 import com.training.rentapartment.model.Specification;
 import com.training.rentapartment.model.pool.ConnectionPool;
-import com.training.rentapartment.model.repository.user.UserMapperImpl;
-import com.training.rentapartment.model.repository.user.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -65,7 +63,7 @@ public class ImageRepository implements Repository<Image>, AutoCloseable {
     private List<Image> doQuery(Specification specification) {
         List<Image> queriedImages = new ArrayList<>();
         List<Object> parameters = specification.receiveParameters();
-        String sqlQuery = SELECT_QUERY + SQLConstant.USER_TABLE_NAME + specification.toSqlRequest();
+        String sqlQuery = SELECT_QUERY + SqlConstant.USER_TABLE_NAME + specification.toSqlRequest();
         int parametersLength = specification.receiveParameters().size();
         ResultSet resultSet = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -82,7 +80,7 @@ public class ImageRepository implements Repository<Image>, AutoCloseable {
     }
 
     private void doDelete(Specification specification) {
-        String sqlQuery = DELETE_QUERY + SQLConstant.USER_TABLE_NAME + " " + specification.toSqlRequest();
+        String sqlQuery = DELETE_QUERY + SqlConstant.USER_TABLE_NAME + " " + specification.toSqlRequest();
         int parametersLength = specification.receiveParameters().size();
         List<Object> parameters = specification.receiveParameters();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {

@@ -2,7 +2,7 @@ package com.training.rentapartment.model.repository.user;
 
 import com.training.rentapartment.entity.User;
 import com.training.rentapartment.model.EntityMapper;
-import com.training.rentapartment.model.SQLConstant;
+import com.training.rentapartment.model.SqlConstant;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,11 +33,11 @@ public class UserMapperImpl implements EntityMapper<User> {
     @Override
     public Map<String, Object> toEntityFields(User user) {
         Map<String, Object> fields = new HashMap<>();
-        fields.put(SQLConstant.USER_ID, user.getId());
-        fields.put(SQLConstant.LOGIN, user.getLogin());
-        fields.put(SQLConstant.PASSWORD, user.getPassword());
-        fields.put(SQLConstant.TYPE, user.getType());
-        fields.put(SQLConstant.EMAIL, user.getEmail());
+        fields.put(SqlConstant.USER_ID, user.getId());
+        fields.put(SqlConstant.LOGIN, user.getLogin());
+        fields.put(SqlConstant.PASSWORD, user.getPassword());
+        fields.put(SqlConstant.TYPE, user.getType());
+        fields.put(SqlConstant.EMAIL, user.getEmail());
         return fields;
     }
 }

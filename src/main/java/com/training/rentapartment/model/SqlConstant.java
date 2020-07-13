@@ -1,6 +1,6 @@
 package com.training.rentapartment.model;
 
-public class SQLConstant {
+public class SqlConstant {
     //User
     //SQL table and columns names
     public static final String USER_TABLE_NAME = "users";

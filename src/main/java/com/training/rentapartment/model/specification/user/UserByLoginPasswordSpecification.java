@@ -1,6 +1,6 @@
 package com.training.rentapartment.model.specification.user;
 
-import com.training.rentapartment.model.SQLConstant;
+import com.training.rentapartment.model.SqlConstant;
 import com.training.rentapartment.model.Specification;
 
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class UserByLoginPasswordSpecification implements Specification {
 
     @Override
     public String toSqlRequest() {
-        return " WHERE " + SQLConstant.LOGIN + " = ? AND " + SQLConstant.PASSWORD + " = ?";
+        return " WHERE " + SqlConstant.LOGIN + " = ? AND " + SqlConstant.PASSWORD + " = ?";
     }
 
     @Override
