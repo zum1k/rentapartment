@@ -60,7 +60,7 @@ public class ImageRepository implements Repository<Image>, AutoCloseable {
         connectionPool.releaseConnection(connection);
     }
 
-    private List<Image> doQuery(Specification specification) {
+    private List<Image> doQuery(Specification specification) { //TODO
         List<Image> queriedImages = new ArrayList<>();
         List<Object> parameters = specification.receiveParameters();
         String sqlQuery = SELECT_QUERY + SqlConstant.USER_TABLE_NAME + specification.toSqlRequest();
@@ -79,7 +79,7 @@ public class ImageRepository implements Repository<Image>, AutoCloseable {
         return queriedImages;
     }
 
-    private void doDelete(Specification specification) {
+    private void doDelete(Specification specification) { //TODO
         String sqlQuery = DELETE_QUERY + SqlConstant.USER_TABLE_NAME + " " + specification.toSqlRequest();
         int parametersLength = specification.receiveParameters().size();
         List<Object> parameters = specification.receiveParameters();
@@ -93,7 +93,7 @@ public class ImageRepository implements Repository<Image>, AutoCloseable {
         }
     }
 
-    private void doAdd(Image image) {
+    private void doAdd(Image image) { //TODO
         try {
             Map<String, Object> fields = new ImageMapperImpl().toEntityFields(image);
             String sql = INSERT_QUERY + User.USER_TABLE_NAME + doInsertQuery(fields);
@@ -109,7 +109,7 @@ public class ImageRepository implements Repository<Image>, AutoCloseable {
         }
     }
 
-    private String doInsertQuery(Map<String, Object> fields) {
+    private String doInsertQuery(Map<String, Object> fields) { //TODO
         StringBuilder columns = new StringBuilder(" (");
         StringBuilder values = new StringBuilder("VALUES (");
         for (Map.Entry<String, Object> entry : fields.entrySet()) {
