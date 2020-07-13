@@ -96,7 +96,7 @@ public class UserRepository implements Repository<User>, AutoCloseable {
     private void doAdd(User user) {
         try {
             Map<String, Object> fields = new UserMapperImpl().toEntityFields(user);
-            String sql = INSERT_QUERY + User.USER_TABLE_NAME + doInsertQuery(fields);
+            String sql = INSERT_QUERY + SqlConstant.USER_TABLE_NAME + doInsertQuery(fields);
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             int i = 1;
             for (Map.Entry<String, Object> entry : fields.entrySet()) {
