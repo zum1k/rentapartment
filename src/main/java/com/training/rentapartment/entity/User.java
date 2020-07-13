@@ -18,19 +18,19 @@ public class User {
     public static final int TYPE_INDEX = 5;
     //class fields
     private long userId;
-    private UserType type;
     private String login;
     private String password;
+    private UserType type;
     private String email;
 
     public User() {
     }
 
-    public User(long id, UserType type, String login, String password, String email) {
+    public User(long id, String login, String password,UserType type, String email) {
         this.userId = id;
-        this.type = type;
         this.login = login;
         this.password = password;
+        this.type = type;
         this.email = email;
     }
 

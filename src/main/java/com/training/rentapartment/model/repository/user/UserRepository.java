@@ -1,8 +1,8 @@
 package com.training.rentapartment.model.repository.user;
 
-import com.training.rentapartment.model.SQLConstant;
 import com.training.rentapartment.entity.User;
 import com.training.rentapartment.model.Repository;
+import com.training.rentapartment.model.SQLConstant;
 import com.training.rentapartment.model.Specification;
 import com.training.rentapartment.model.pool.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class UserRepository implements Repository<User>, AutoCloseable {
@@ -31,28 +32,12 @@ public class UserRepository implements Repository<User>, AutoCloseable {
 
     @Override
     public void add(User user) { //TODO
-        try {
-            String sql = INSERT_QUERY + User.USER_TABLE_NAME + " (login, password, email, type) Values (?, ?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, user.getLogin());
-            preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setString(3, user.getType().toString());
-            preparedStatement.setString(4, user.getEmail());
-
-            int rows = preparedStatement.executeUpdate();
-
-        } catch (SQLException exception) {
-            LOGGER.error(exception.getMessage(), exception);
-        }
+        doAdd(user);
     }
 
     @Override
-    public void remove(User user) {
-    }
-
-    @Override
-    public void update(User user) {
-
+    public void remove(Specification specification) {
+        doDelete(specification);
     }
 
     @Override
@@ -63,7 +48,10 @@ public class UserRepository implements Repository<User>, AutoCloseable {
     @Override
     public Optional<User> singleQuery(Specification specification) {
         List<User> queriedUsers = doQuery(specification);
-        return Optional.ofNullable(queriedUsers.get(0));
+        if (queriedUsers.size() == 1) {
+            return Optional.of(queriedUsers.get(0));
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -79,7 +67,6 @@ public class UserRepository implements Repository<User>, AutoCloseable {
         int parametersLength = specification.receiveParameters().size();
         ResultSet resultSet = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
-
             for (int i = 0; i < parametersLength; i++) {
                 preparedStatement.setString(i + 1, parameters.get(i).toString());
             }
@@ -92,11 +79,48 @@ public class UserRepository implements Repository<User>, AutoCloseable {
         return queriedUsers;
     }
 
-    private void doDelete() { //TODO
-
+    private void doDelete(Specification specification) {
+        String sqlQuery = DELETE_QUERY + SQLConstant.USER_TABLE_NAME + " " + specification.toSqlRequest();
+        int parametersLength = specification.receiveParameters().size();
+        List<Object> parameters = specification.receiveParameters();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            for (int i = 0; i < parametersLength; i++) {
+                preparedStatement.setString(i + 1, parameters.get(i).toString());
+            }
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception) {
+            LOGGER.error(exception.getMessage(), exception);
+        }
     }
 
-    private void doAdd() { //TODO
+    private void doAdd(User user) {
+        try {
+            Map<String, Object> fields = new UserMapperImpl().toEntityFields(user);
+            String sql = INSERT_QUERY + User.USER_TABLE_NAME + doInsertQuery(fields);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            int i = 1;
+            for (Map.Entry<String, Object> entry : fields.entrySet()) {
+                Object value = entry.getValue();
+                preparedStatement.setString(i++, String.valueOf(value));
+            }
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception) {
+            LOGGER.error(exception.getMessage(), exception);
+        }
+    }
 
+    private String doInsertQuery(Map<String, Object> fields) {
+        StringBuilder columns = new StringBuilder(" (");
+        StringBuilder values = new StringBuilder("VALUES (");
+        for (Map.Entry<String, Object> entry : fields.entrySet()) {
+            String column = entry.getKey();
+            columns.append(column).append(", ");
+            values.append("?, ");
+        }
+        columns.deleteCharAt(columns.lastIndexOf(","));
+        values.deleteCharAt(values.lastIndexOf(","));
+        columns.append(")");
+        values.append(")");
+        return columns.append(values).toString();
     }
 }

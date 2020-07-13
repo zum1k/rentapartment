@@ -6,9 +6,7 @@ import java.util.Optional;
 public interface Repository<T> {
     void add(T t);
 
-    void remove(T t);
-
-    void update(T t);
+    void remove(Specification specification);
 
     List<T> query(Specification specification);
 

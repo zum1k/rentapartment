@@ -4,7 +4,6 @@ import com.training.rentapartment.controller.command.Command;
 import com.training.rentapartment.controller.command.impl.admin.DeleteUserCommand;
 import com.training.rentapartment.controller.command.impl.guest.LogInCommand;
 import com.training.rentapartment.controller.command.impl.guest.RegisterCommand;
-import com.epam.training.rentapartment.controller.command.impl.user.*;
 import com.training.rentapartment.controller.command.impl.user.*;
 
 public class CommandFactory {

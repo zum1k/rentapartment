@@ -13,24 +13,17 @@ public class AdvertisementRepository implements Repository<Advertisement>, AutoC
     private static final Logger LOGGER = LogManager.getLogger(AdvertisementRepository.class);
 
     @Override
-    public void add(Advertisement ad) {
-        //TODO
+    public void add(Advertisement advertisement) {
+
     }
 
     @Override
-    public void remove(Advertisement ad) {
-        //TODO
-    }
+    public void remove(Specification specification) {
 
-    @Override
-    public void update(Advertisement ad) {
-        //TODO
     }
-
 
     @Override
     public List<Advertisement> query(Specification specification) {
-        //TODO
         return null;
     }
 
@@ -41,6 +34,6 @@ public class AdvertisementRepository implements Repository<Advertisement>, AutoC
 
     @Override
     public void close() throws Exception {
-        //TODO
+
     }
 }
