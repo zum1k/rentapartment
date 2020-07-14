@@ -8,16 +8,18 @@ public class User {
     private String password;
     private UserType type;
     private String email;
+    private boolean verified;
 
     public User() {
     }
 
-    public User(long id, String login, String password,UserType type, String email) {
+    public User(long id, String login, String password,UserType type, String email, boolean verified) {
         this.userId = id;
         this.login = login;
         this.password = password;
         this.type = type;
         this.email = email;
+        this.verified = verified;
     }
 
     public long getId() {
@@ -60,6 +62,9 @@ public class User {
         this.email = email;
     }
 
+    public boolean getVerified(){ return  verified; }
+    public void setVerified(boolean verified){ this.verified = verified; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -73,12 +78,13 @@ public class User {
                 type == user.type &&
                 Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
-                Objects.equals(email, user.email);
+                Objects.equals(email, user.email) &&
+                verified == user.verified;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, type, login, password, email); //TODO
+        return Objects.hash(userId, type, login, password, email, verified); //TODO
     }
 
     @Override
@@ -87,6 +93,7 @@ public class User {
                 .append(type).append(", login='").append(login).append('\'')
                 .append(", password='").append(password).append('\'')
                 .append(", email='").append(email)
+                .append(", verified= '").append(verified)
                 .append('\'').append('}').toString();
     }
 }

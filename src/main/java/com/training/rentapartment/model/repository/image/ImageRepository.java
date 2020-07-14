@@ -96,7 +96,7 @@ public class ImageRepository implements Repository<Image>, AutoCloseable {
     private void doAdd(Image image) { //TODO
         try {
             Map<String, Object> fields = new ImageMapperImpl().toEntityFields(image);
-            String sql = INSERT_QUERY + User.USER_TABLE_NAME + doInsertQuery(fields);
+            String sql = INSERT_QUERY + Image.IMAGE_TABLE_NAME + doInsertQuery(fields);
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             int i = 1;
             for (Map.Entry<String, Object> entry : fields.entrySet()) {

@@ -1,4 +1,4 @@
-package com.training.rentapartment.model.repository.ad;
+package com.training.rentapartment.model.repository.advertisement;
 
 import com.training.rentapartment.entity.Advertisement;
 import com.training.rentapartment.model.EntityMapper;

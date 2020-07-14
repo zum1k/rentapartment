@@ -17,7 +17,7 @@ public class UserByLoginPasswordSpecification implements Specification {
 
     @Override
     public String toSqlRequest() {
-        return " WHERE " + SqlConstant.LOGIN + " = ? AND " + SqlConstant.PASSWORD + " = ?";
+        return " WHERE " + SqlConstant.USER_LOGIN + " = ? AND " + SqlConstant.USER_PASSWORD + " = ?";
     }
 
     @Override

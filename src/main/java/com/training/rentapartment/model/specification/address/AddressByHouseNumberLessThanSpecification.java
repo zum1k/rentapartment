@@ -4,7 +4,7 @@ import com.training.rentapartment.model.Specification;
 
 import java.util.List;
 
-public class AddressByNumberLessThanSpecification implements Specification {
+public class AddressByHouseNumberLessThanSpecification implements Specification {
 
     @Override
     public String toSqlRequest() {
@@ -12,7 +12,7 @@ public class AddressByNumberLessThanSpecification implements Specification {
     }
 
     @Override
-    public List<String> receiveParameters() {
+    public List<Object> receiveParameters() {
         return null;
     }
 }
