@@ -1,13 +1,13 @@
 package com.training.rentapartment.service;
 
-import com.training.rentapartment.model.pool.ConnectionPool;
 import com.training.rentapartment.entity.User;
+import com.training.rentapartment.entity.UserType;
 import com.training.rentapartment.model.repository.user.UserRepository;
 import com.training.rentapartment.model.specification.user.UserByLoginPasswordSpecification;
 import com.training.rentapartment.service.validator.GuestValidator;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 public class GuestService {
     static final String LOGIN_PARAMETER = "login";
@@ -17,7 +17,7 @@ public class GuestService {
     private static GuestService INSTANCE = new GuestService();
     private static final int USER_INDEX = 0;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     private GuestService() {
         this.userRepository = new UserRepository();
@@ -27,13 +27,11 @@ public class GuestService {
         return INSTANCE;
     }
 
-    public boolean logIn(HttpServletRequest request) {
-        String loginValue = request.getParameter(LOGIN_PARAMETER);
-        String passwordValue = request.getParameter(PASSWORD_PARAMETER);
+    public boolean logIn(String loginValue, String passwordValue) {
         boolean result = false;
-
         if (GuestValidator.validateLogin(loginValue, passwordValue)) {
-            List<User> users = userRepository.query(new UserByLoginPasswordSpecification(loginValue, passwordValue));
+            UserByLoginPasswordSpecification specification = new UserByLoginPasswordSpecification(loginValue, passwordValue);
+            List<User> users = userRepository.query(specification);
             if (users.size() > 0) {            //TODO
                 User currentUser = users.get(USER_INDEX);
                 result = currentUser.getLogin().equals(loginValue) && currentUser.getPassword().equals(passwordValue);
@@ -42,18 +40,21 @@ public class GuestService {
         return result;
     }
 
-    public boolean register(HttpServletRequest request) { //TODO
-//        String loginValue = request.getParameter(LOGIN_PARAMETER);
-//        String passwordValue = request.getParameter(PASSWORD_PARAMETER);
-//        String emailValue = request.getParameter(EMAIL_PARAMETER);
-//
-//        if (Validator.registerValidate(loginValue, passwordValue, emailValue)) {
-//            List<User> users = userRepository.add(new User(loginValue, passwordValue, emailValue));
-//            User currentUser = users.get(USER_INDEX);
-//            return currentUser.getLogin().equals(loginValue) && currentUser.getPassword().equals(passwordValue);
-//        } else {
-//            return false;
-//        }
-        return false;
+    public boolean register(String loginValue, String passwordValue, String emailValue) {
+        boolean result = false;
+        if (GuestValidator.validateRegistration(loginValue, passwordValue, emailValue)) {
+            User user = new User();
+            user.setLogin(loginValue);
+            user.setPassword(passwordValue);
+            user.setEmail(emailValue);
+            user.setType(UserType.CLIENT);
+            UserByLoginPasswordSpecification specification = new UserByLoginPasswordSpecification(loginValue, passwordValue);
+            Optional<User> queriedUser = userRepository.singleQuery(specification);
+            if (queriedUser.isEmpty()) {
+                userRepository.add(user);
+                result = true;
+            }
+        }
+        return result;
     }
 }
