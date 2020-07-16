@@ -1,6 +1,5 @@
 package com.training.rentapartment.controller.utils;
 
-import com.training.rentapartment.model.pool.ConnectionCreator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,8 +17,7 @@ public class MailSender {
     private final int PORT = 465;
     private final String HOST = "smtp.gmail.com";
     private final String PROTOCOL = "smtps";
-
-    private static Logger logger = LogManager.getLogger(MailSender.class);
+    private static final Logger logger = LogManager.getLogger(MailSender.class);
 
     public MailSender(String mailSubject, String mailText, String mailTo) {
         this.mailSubject = mailSubject;
@@ -33,8 +31,7 @@ public class MailSender {
         try {
             session = createSession(propertiesPath);
             transport = session.getTransport(PROTOCOL);
-            transport.connect(HOST, PORT,
-                    session.getProperty("mail.user.name"), session.getProperty("mail.user.password"));
+            transport.connect(HOST, PORT, session.getProperty("mail.user.name"), session.getProperty("mail.user.password"));
             MimeMessage message = initMessage(session);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
