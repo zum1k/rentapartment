@@ -1,6 +1,7 @@
 package com.training.rentapartment.controller.command.impl.guest;
 
 import com.training.rentapartment.controller.command.Command;
+import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.service.GuestService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,8 @@ public class VerificationCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
-        return null;
-    } //TODO
+    public String execute(HttpServletRequest request) { //TODO
+        String page = PagePath.VERIFICATION;
+        return page;
+    }
 }
