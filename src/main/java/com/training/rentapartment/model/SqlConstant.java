@@ -1,6 +1,9 @@
 package com.training.rentapartment.model;
 
 public class SqlConstant {
+    public static final String SELECT_QUERY = "SELECT * FROM ";
+    public static final String DELETE_QUERY = "DELETE FROM ";
+    public static final String INSERT_QUERY = "INSERT INTO ";
     //SQL table and columns names of USER
     public static final String USER_TABLE_NAME = "users";
     public static final String USER_LOGIN = "login";

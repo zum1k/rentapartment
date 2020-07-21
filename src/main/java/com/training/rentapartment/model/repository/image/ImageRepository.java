@@ -25,7 +25,7 @@ public class ImageRepository implements Repository<Image>, AutoCloseable {
     private static final String DELETE_QUERY = "DELETE FROM ";
     private static final String INSERT_QUERY = "INSERT INTO ";
 
-    public ImageRepository() {
+    public ImageRepository()  {
         this.connection = ConnectionPool.getINSTANCE().getConnection();
     }
 
