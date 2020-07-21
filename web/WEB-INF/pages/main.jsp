@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Main</title>
 </head>
 <body>
-     "<jsp:forward page="/WEB-INF/pages/login.jsp"/>"
+     <jsp:forward page="/WEB-INF/pages/add_advertisement.jsp"/>
     </body>
 </html>

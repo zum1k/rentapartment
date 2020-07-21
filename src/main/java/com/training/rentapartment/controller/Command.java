@@ -1,4 +1,4 @@
-package com.training.rentapartment.controller.command;
+package com.training.rentapartment.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -1,7 +1,6 @@
 package com.training.rentapartment.model.repository.image;
 
 import com.training.rentapartment.entity.Image;
-import com.training.rentapartment.entity.User;
 import com.training.rentapartment.model.Repository;
 import com.training.rentapartment.model.SqlConstant;
 import com.training.rentapartment.model.Specification;

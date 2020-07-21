@@ -1,18 +1,15 @@
 package com.training.rentapartment.service;
 
-import com.training.rentapartment.entity.User;
-import com.training.rentapartment.entity.UserType;
 import com.training.rentapartment.model.repository.user.UserRepository;
 import com.training.rentapartment.model.specification.user.UserByLoginPasswordSpecification;
 import com.training.rentapartment.service.validator.GuestValidator;
+import com.training.rentapartment.entity.User;
+import com.training.rentapartment.entity.UserType;
 
 import java.util.List;
 import java.util.Optional;
 
 public class GuestService {
-    static final String LOGIN_PARAMETER = "login";
-    static final String PASSWORD_PARAMETER = "password";
-    static final String EMAIL_PARAMETER = "email";
 
     private static GuestService INSTANCE = new GuestService();
     private static final int USER_INDEX = 0;
@@ -48,6 +45,7 @@ public class GuestService {
             user.setPassword(passwordValue);
             user.setEmail(emailValue);
             user.setType(UserType.CLIENT);
+            user.setVerified(false);
             UserByLoginPasswordSpecification specification = new UserByLoginPasswordSpecification(loginValue, passwordValue);
             Optional<User> queriedUser = userRepository.singleQuery(specification);
             if (queriedUser.isEmpty()) {

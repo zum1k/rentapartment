@@ -12,7 +12,8 @@ public class SqlConstant {
     //SQL table and columns names of IMAGES
     public static final String IMAGES_TABLE_NAME = "images";
     public static final String IMAGES_ID = "image_id";
-    public static final String IMAGES_IMAGE = "image";
+    public static final String IMAGES_IMAGE_URL = "image_name";
+    public static final String IMAGES_IMAGE_DATA = "image_data";
     //SQL table and columns names of ADVERTISEMENT
     public static final String ADVERTISEMENT_TABLE_NAME = "ad";
     public static final String ADVERTISEMENT_ID = "ad_id";

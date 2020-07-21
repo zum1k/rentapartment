@@ -1,6 +1,6 @@
-package com.training.rentapartment.controller.command.impl.admin;
+package com.training.rentapartment.controller.command.admin;
 
-import com.training.rentapartment.controller.command.Command;
+import com.training.rentapartment.controller.Command;
 
 import javax.servlet.http.HttpServletRequest;
 

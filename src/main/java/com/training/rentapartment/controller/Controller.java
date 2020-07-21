@@ -1,21 +1,22 @@
 package com.training.rentapartment.controller;
 
-import com.training.rentapartment.controller.command.Command;
-import com.training.rentapartment.controller.command.impl.CommandFactory;
-import com.training.rentapartment.model.pool.ConnectionPool;
+import com.training.rentapartment.controller.command.CommandFactory;
 import com.training.rentapartment.exception.ConnectionPoolException;
+import com.training.rentapartment.model.pool.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/controller")
+//@WebServlet(urlPatterns = "/controller")
+@MultipartConfig(maxFileSize = 16172216)
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Controller.class);
     private static final String REQUEST_PARAMETER_COMMAND = "command";
@@ -58,7 +59,6 @@ public class Controller extends HttpServlet {
         String page = command.execute(request);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(page);
         requestDispatcher.forward(request, response);
-
     }
 }
 

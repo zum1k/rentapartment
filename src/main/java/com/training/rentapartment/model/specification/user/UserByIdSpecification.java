@@ -1,7 +1,7 @@
 package com.training.rentapartment.model.specification.user;
 
-import com.training.rentapartment.model.SqlConstant;
 import com.training.rentapartment.model.Specification;
+import com.training.rentapartment.model.SqlConstant;
 
 import java.util.Arrays;
 import java.util.List;

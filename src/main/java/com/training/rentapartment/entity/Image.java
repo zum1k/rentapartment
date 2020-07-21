@@ -8,14 +8,16 @@ public class Image {
     private int adId;
     private int imageId;
     private String imageURL;
+    private byte[] imageData;
 
     public Image() {
     }
 
-    public Image(int adId, int imageId, String imageURL) {
+    public Image(int adId, int imageId, String imageURL, byte[] imageData) {
         this.adId = adId;
         this.imageId = imageId;
         this.imageURL = imageURL;
+        this.imageData = imageData;
     }
 
     public int getAdId() {
@@ -42,6 +44,14 @@ public class Image {
         this.imageURL = imageURL;
     }
 
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -58,7 +68,7 @@ public class Image {
 
     @Override
     public int hashCode() {
-        return Objects.hash(adId, imageId, imageURL);
+        return Objects.hash(adId, imageId, imageURL, imageData);
     }
 
     @Override

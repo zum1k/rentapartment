@@ -1,12 +1,12 @@
-package com.training.rentapartment.controller.command.impl;
+package com.training.rentapartment.controller.command;
 
-import com.training.rentapartment.controller.command.Command;
-import com.training.rentapartment.controller.command.impl.admin.DeleteUserCommand;
-import com.training.rentapartment.controller.command.impl.guest.LogInCommand;
-import com.training.rentapartment.controller.command.impl.guest.RegisterCommand;
-import com.training.rentapartment.controller.command.impl.guest.ShowAllAdvertisementsCommand;
-import com.training.rentapartment.controller.command.impl.guest.VerificationCommand;
-import com.training.rentapartment.controller.command.impl.user.*;
+import com.training.rentapartment.controller.command.admin.DeleteUserCommand;
+import com.training.rentapartment.controller.command.guest.AllAdvertisementsCommand;
+import com.training.rentapartment.controller.Command;
+import com.training.rentapartment.controller.command.guest.LogInCommand;
+import com.training.rentapartment.controller.command.guest.RegisterCommand;
+import com.training.rentapartment.controller.command.guest.VerificationCommand;
+import com.training.rentapartment.controller.command.user.*;
 
 public class CommandFactory {
     public Command createCommand(String commandName) {
@@ -24,7 +24,7 @@ public class CommandFactory {
                 command = new VerificationCommand();
                 break;
             case "show_all_advertisements":
-                command = new ShowAllAdvertisementsCommand();
+                command = new AllAdvertisementsCommand();
 
             //user commands
             case "delete_account":

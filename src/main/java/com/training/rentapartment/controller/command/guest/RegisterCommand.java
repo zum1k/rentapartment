@@ -1,8 +1,8 @@
-package com.training.rentapartment.controller.command.impl.guest;
+package com.training.rentapartment.controller.command.guest;
 
-import com.training.rentapartment.controller.command.Command;
-import com.training.rentapartment.controller.command.PagePath;
+import com.training.rentapartment.controller.Command;
 import com.training.rentapartment.controller.utils.MailSender;
+import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.service.GuestService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +37,7 @@ public class RegisterCommand implements Command {
             MailSender mailSender = new MailSender(VERIFICATION_EMAIL_SUBJECT, VERIFICATION_EMAIL_MESSAGE, emailValue);
             mailSender.send();
         } else {
-            page = PagePath.LOGIN;
+            page = PagePath.REGISTRATION;
         }
         return page;
     }

@@ -1,6 +1,6 @@
-package com.training.rentapartment.controller.command.impl.user;
+package com.training.rentapartment.controller.command.user;
 
-import com.training.rentapartment.controller.command.Command;
+import com.training.rentapartment.controller.Command;
 import com.training.rentapartment.controller.command.PagePath;
 
 import javax.servlet.http.HttpServletRequest;

@@ -8,9 +8,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Registration</title>
 </head>
 <body>
+<form name="RegistrationForm" method="POST"
+    action="controller?command=register">
+    Login:<br/>
+    <input type="text" name="login" value=""><br/>
+    Password:<br/>
+    <input type="password" name="password" value=""><br/>
+     EMAIL:<br/>
+    <input type="email" name="email" value=""><br/>
+    <br/>
+    <input type="submit" value="Отправить">
+</form>
+<hr/>
 
 </body>
 </html>

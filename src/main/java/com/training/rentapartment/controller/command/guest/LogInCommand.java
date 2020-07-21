@@ -1,6 +1,6 @@
-package com.training.rentapartment.controller.command.impl.guest;
+package com.training.rentapartment.controller.command.guest;
 
-import com.training.rentapartment.controller.command.Command;
+import com.training.rentapartment.controller.Command;
 import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.service.GuestService;
 
