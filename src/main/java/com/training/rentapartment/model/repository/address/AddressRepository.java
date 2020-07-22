@@ -1,7 +1,6 @@
 package com.training.rentapartment.model.repository.address;
 
 import com.training.rentapartment.entity.Address;
-import com.training.rentapartment.model.Repository;
 import com.training.rentapartment.model.SqlConstant;
 import com.training.rentapartment.model.pool.ConnectionPool;
 import com.training.rentapartment.model.repository.AbstractRepository;
@@ -22,12 +21,12 @@ public class AddressRepository extends AbstractRepository<Address> {
 
     @Override
     protected List<Address> toEntity(ResultSet resultSet) throws SQLException {
-        return new AddressMapperImpl().toEntity(resultSet);
+        return new AddressSqlMapper().toEntity(resultSet);
     }
 
     @Override
     protected Map<String, Object> toEntityFields(Address address) {
-        return new AddressMapperImpl().toEntityFields(address);
+        return new AddressSqlMapper().toEntityFields(address);
     }
 
     @Override

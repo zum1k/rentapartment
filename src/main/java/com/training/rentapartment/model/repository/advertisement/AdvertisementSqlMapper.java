@@ -1,11 +1,9 @@
 package com.training.rentapartment.model.repository.advertisement;
 
-import com.training.rentapartment.entity.Address;
 import com.training.rentapartment.entity.Advertisement;
 import com.training.rentapartment.entity.OwnerType;
-import com.training.rentapartment.entity.UserType;
 import com.training.rentapartment.model.SqlConstant;
-import com.training.rentapartment.model.SqlEntityConverter;
+import com.training.rentapartment.model.SqlMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class AdvertisementMapperImpl implements SqlEntityConverter<Advertisement> {
+public class AdvertisementSqlMapper implements SqlMapper<Advertisement> {
 
     @Override
     public List<Advertisement> toEntity(ResultSet resultSet) throws SQLException {

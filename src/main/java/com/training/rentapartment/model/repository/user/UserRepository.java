@@ -7,7 +7,6 @@ import com.training.rentapartment.model.repository.AbstractRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -24,7 +23,7 @@ public class UserRepository extends AbstractRepository<User> {
     protected List<User> toEntity(ResultSet resultSet) {
         List<User> users = null;
         try {
-            users = new UserMapperImpl().toEntity(resultSet);
+            users = new UserSqlMapper().toEntity(resultSet);
         } catch (SQLException exception) {
             LOGGER.error(exception.getMessage(), exception);
         }
@@ -33,7 +32,7 @@ public class UserRepository extends AbstractRepository<User> {
 
     @Override
     protected Map<String, Object> toEntityFields(User user) {
-        return new UserMapperImpl().toEntityFields(user);
+        return new UserSqlMapper().toEntityFields(user);
     }
 
     @Override

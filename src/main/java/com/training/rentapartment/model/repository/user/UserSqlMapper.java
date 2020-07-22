@@ -3,7 +3,7 @@ package com.training.rentapartment.model.repository.user;
 import com.training.rentapartment.entity.User;
 import com.training.rentapartment.entity.UserType;
 import com.training.rentapartment.model.SqlConstant;
-import com.training.rentapartment.model.SqlEntityConverter;
+import com.training.rentapartment.model.SqlMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserMapperImpl implements SqlEntityConverter<User> {
+public class UserSqlMapper implements SqlMapper<User> {
     @Override
     public List<User> toEntity(ResultSet resultSet) throws SQLException {
         List<User> queriedList = new ArrayList<>();
