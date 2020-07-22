@@ -2,8 +2,8 @@ package com.training.rentapartment.model.repository.user;
 
 import com.training.rentapartment.entity.User;
 import com.training.rentapartment.entity.UserType;
-import com.training.rentapartment.model.SqlEntityConverter;
 import com.training.rentapartment.model.SqlConstant;
+import com.training.rentapartment.model.SqlEntityConverter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ import java.util.Map;
 public class UserMapperImpl implements SqlEntityConverter<User> {
     @Override
     public List<User> toEntity(ResultSet resultSet) throws SQLException {
-        List<User> queriedUsers = new ArrayList<>();
+        List<User> queriedList = new ArrayList<>();
         while (resultSet.next()) {
             try {
                 User user = new User();
@@ -25,12 +25,12 @@ public class UserMapperImpl implements SqlEntityConverter<User> {
                 user.setType(UserType.valueOf(resultSet.getString(SqlConstant.USER_TYPE).toUpperCase()));
                 user.setEmail(resultSet.getString(SqlConstant.USER_EMAIL));
                 user.setVerified(resultSet.getBoolean(SqlConstant.USER_VERIFIED));
-                queriedUsers.add(user);
+                queriedList.add(user);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        return queriedUsers;
+        return queriedList;
     }
 
     @Override

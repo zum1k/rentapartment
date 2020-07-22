@@ -32,8 +32,12 @@ public class AdvertisementDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         AdvertisementDto that = (AdvertisementDto) o;
         return Objects.equals(advertisement, that.advertisement) &&
                 Objects.equals(address, that.address) &&
