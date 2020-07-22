@@ -12,16 +12,22 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-public class AdvertisementRepository extends AbstractRepository<Advertisement>  { //TODO
+public class AdvertisementRepository extends AbstractRepository<Advertisement> { //TODO
     private static final Logger LOGGER = LogManager.getLogger(AdvertisementRepository.class);
 
-    public AdvertisementRepository(){
+    public AdvertisementRepository() {
         super(ConnectionPool.getINSTANCE().getConnection());
     }
 
     @Override
-    protected List<Advertisement> toEntity(ResultSet resultSet) throws SQLException {
-        return null;
+    protected List<Advertisement> toEntity(ResultSet resultSet) {
+        List<Advertisement> advertisementList = null;
+        try {
+            advertisementList = new AdvertisementSqlMapper().toEntity(resultSet);
+        } catch (SQLException exception) {
+            LOGGER.error(exception.getMessage(), exception);
+        }
+        return advertisementList;
     }
 
     @Override

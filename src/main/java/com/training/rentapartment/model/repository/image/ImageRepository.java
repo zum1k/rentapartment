@@ -20,8 +20,14 @@ public class ImageRepository extends AbstractRepository<Image> {
     }
 
     @Override
-    protected List<Image> toEntity(ResultSet resultSet) throws SQLException {
-        return null;
+    protected List<Image> toEntity(ResultSet resultSet) {
+        List<Image> imageList = null;
+        try {
+            imageList = new ImageSqlMapper().toEntity(resultSet);
+        } catch (SQLException exception) {
+            LOGGER.error(exception.getMessage(), exception);
+        }
+        return imageList;
     }
 
     @Override

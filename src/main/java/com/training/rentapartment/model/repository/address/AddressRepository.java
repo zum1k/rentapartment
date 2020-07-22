@@ -20,8 +20,14 @@ public class AddressRepository extends AbstractRepository<Address> {
     }
 
     @Override
-    protected List<Address> toEntity(ResultSet resultSet) throws SQLException {
-        return new AddressSqlMapper().toEntity(resultSet);
+    protected List<Address> toEntity(ResultSet resultSet) {
+        List<Address> addressList = null;
+        try {
+            addressList = new AddressSqlMapper().toEntity(resultSet);
+        } catch (SQLException exception) {
+            LOGGER.error(exception.getMessage(), exception);
+        }
+        return addressList;
     }
 
     @Override
@@ -33,5 +39,4 @@ public class AddressRepository extends AbstractRepository<Address> {
     protected String getTableName() {
         return SqlConstant.ADDRESS_TABLE_NAME;
     }
-
 }
