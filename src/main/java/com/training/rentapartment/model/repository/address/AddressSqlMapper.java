@@ -17,17 +17,18 @@ public class AddressSqlMapper implements SqlMapper<Address> {
     public List<Address> toEntity(ResultSet resultSet) throws SQLException {
         List<Address> queriedList = new ArrayList<>();
         while (resultSet.next()) {
-                Address address = new Address();
-                address.setAddressId(resultSet.getInt(SqlConstant.ADDRESS_ID));
-                address.setAdId(resultSet.getInt(SqlConstant.ADVERTISEMENT_ID));
-                address.setCity(resultSet.getString(SqlConstant.ADDRESS_CITY));
-                address.setStreet(resultSet.getString(SqlConstant.ADDRESS_STREET));
-                address.setHouseNumber(resultSet.getInt(SqlConstant.ADDRESS_HOUSE_NUMBER));
-                address.setHouseIndex(resultSet.getInt(SqlConstant.ADDRESS_HOUSE_INDEX));
-                queriedList.add(address);
+            Address address = new Address();
+            address.setAddressId(resultSet.getInt(SqlConstant.ADDRESS_ID));
+            address.setAdId(resultSet.getInt(SqlConstant.ADVERTISEMENT_ID));
+            address.setCity(resultSet.getString(SqlConstant.ADDRESS_CITY));
+            address.setStreet(resultSet.getString(SqlConstant.ADDRESS_STREET));
+            address.setHouseNumber(resultSet.getInt(SqlConstant.ADDRESS_HOUSE_NUMBER));
+            address.setHouseIndex(resultSet.getInt(SqlConstant.ADDRESS_HOUSE_INDEX));
+            queriedList.add(address);
         }
         return queriedList;
     }
+
     @Override
     public Map<String, Object> toEntityFields(Address address) {
         Map<String, Object> fields = new HashMap<>();

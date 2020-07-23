@@ -6,16 +6,16 @@ import com.training.rentapartment.model.SqlConstant;
 import java.util.Arrays;
 import java.util.List;
 
-public class AddressByHouseNumberLessThanSpecification implements Specification {
+public class AddressByHouseNumberSpecification implements Specification {
     private final Integer houseNumber;
 
-    public AddressByHouseNumberLessThanSpecification(int houseNumber) {
+    public AddressByHouseNumberSpecification(Integer houseNumber) {
         this.houseNumber = houseNumber;
     }
 
     @Override
     public String toSqlRequest() {
-        return " WHERE " + SqlConstant.ADDRESS_HOUSE_NUMBER + " < ? ";
+        return " WHERE " + SqlConstant.ADDRESS_HOUSE_NUMBER + " = ? ";
     }
 
     @Override
