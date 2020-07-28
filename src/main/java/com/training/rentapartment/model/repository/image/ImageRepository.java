@@ -32,7 +32,7 @@ public class ImageRepository extends AbstractRepository<Image> {
 
     @Override
     protected Map<String, Object> toEntityFields(Image image) {
-        return null;
+        return new ImageSqlMapper().toEntityFields(image);
     }
 
     @Override

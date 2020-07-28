@@ -1,16 +1,19 @@
 package com.training.rentapartment.service;
 
+import com.training.rentapartment.entity.User;
+import com.training.rentapartment.entity.UserType;
+import com.training.rentapartment.exception.RepositoryException;
 import com.training.rentapartment.model.repository.user.UserRepository;
 import com.training.rentapartment.model.specification.user.UserByLoginPasswordSpecification;
 import com.training.rentapartment.service.validator.GuestValidator;
-import com.training.rentapartment.entity.User;
-import com.training.rentapartment.entity.UserType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 
 public class GuestService {
-
+    private static Logger logger = LogManager.getLogger(GuestService.class);
     private static GuestService INSTANCE = new GuestService();
     private static final int USER_INDEX = 0;
 
@@ -28,7 +31,12 @@ public class GuestService {
         boolean result = false;
         if (GuestValidator.validateLogin(loginValue, passwordValue)) {
             UserByLoginPasswordSpecification specification = new UserByLoginPasswordSpecification(loginValue, passwordValue);
-            List<User> users = userRepository.query(specification);
+            List<User> users = null;
+            try {
+                users = userRepository.query(specification);
+            } catch (RepositoryException e) {
+                logger.error(e.getMessage(), e);
+            }
             if (users.size() > 0) {            //TODO
                 User currentUser = users.get(USER_INDEX);
                 result = currentUser.getLogin().equals(loginValue) && currentUser.getPassword().equals(passwordValue);
@@ -47,9 +55,18 @@ public class GuestService {
             user.setType(UserType.CLIENT);
             user.setVerified(false);
             UserByLoginPasswordSpecification specification = new UserByLoginPasswordSpecification(loginValue, passwordValue);
-            Optional<User> queriedUser = userRepository.singleQuery(specification);
+            Optional<User> queriedUser = null;
+            try {
+                queriedUser = userRepository.singleQuery(specification);
+            } catch (RepositoryException e) {
+                logger.error(e.getMessage(), e);
+            }
             if (queriedUser.isEmpty()) {
-                userRepository.add(user);
+                try {
+                    userRepository.add(user);
+                } catch (RepositoryException e) {
+                    logger.error(e.getMessage(), e);
+                }
                 result = true;
             }
         }

@@ -6,13 +6,12 @@ import com.training.rentapartment.entity.Advertisement;
 import com.training.rentapartment.entity.OwnerType;
 import com.training.rentapartment.model.SqlConstant;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class AdvertisementMapper implements EntityMapper<Advertisement> {
     @Override
-    public Advertisement toEntity(HttpServletRequest request) {
+    public Advertisement toEntity(HttpServletRequest request) { //TODO
         HttpSession session = request.getSession();
         int adId = 1; // TODO
         int cost = Integer.parseInt(request.getParameter(SqlConstant.ADVERTISEMENT_COST));
@@ -24,10 +23,11 @@ public class AdvertisementMapper implements EntityMapper<Advertisement> {
         OwnerType owner = OwnerType.valueOf(request.getParameter(SqlConstant.ADVERTISEMENT_OWNER));
         String phone = request.getParameter(SqlConstant.ADVERTISEMENT_PHONE);
         String adDate = request.getParameter(SqlConstant.ADVERTISEMENT_DATE);
-        int userID = (Integer)request.getSession().getAttribute(SessionAttribute.USER_ID_ATTRIBUTE);
+        int addressId = Integer.parseInt(request.getParameter(SqlConstant.ADDRESS_ID));
+        int userID = (Integer) request.getSession().getAttribute(SessionAttribute.USER_ID_ATTRIBUTE);
         String description = request.getParameter(SqlConstant.ADVERTISEMENT_DESCRIPTION);
-        Advertisement advertisement = new Advertisement(adId, cost,rooms,floor,square,livingSquare,
-                kitchenSquare,owner, phone,adDate,userID, description);
+        Advertisement advertisement = new Advertisement(adId, cost, rooms, floor, square, livingSquare,
+                kitchenSquare, owner, phone, adDate, addressId, userID, description);
         return advertisement;
     }
 }

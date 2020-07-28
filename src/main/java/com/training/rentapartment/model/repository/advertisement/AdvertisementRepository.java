@@ -32,7 +32,7 @@ public class AdvertisementRepository extends AbstractRepository<Advertisement> {
 
     @Override
     protected Map<String, Object> toEntityFields(Advertisement advertisement) {
-        return null;
+        return new AdvertisementSqlMapper().toEntityFields(advertisement);
     }
 
     @Override

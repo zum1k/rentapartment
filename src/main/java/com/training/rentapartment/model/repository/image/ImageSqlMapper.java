@@ -4,6 +4,9 @@ import com.training.rentapartment.entity.Image;
 import com.training.rentapartment.model.SqlConstant;
 import com.training.rentapartment.model.SqlMapper;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ public class ImageSqlMapper implements SqlMapper<Image> {
             image.setImageId(resultSet.getInt(SqlConstant.IMAGES_ID));
             image.setAdId(resultSet.getInt(SqlConstant.ADVERTISEMENT_ID));
             image.setImageURL(resultSet.getString(SqlConstant.IMAGES_IMAGE_URL));
-            image.setImageData(resultSet.getBytes(SqlConstant.IMAGES_IMAGE_DATA));
+            image.setImageData(extractBytes(resultSet));
             queriedList.add(image);
         }
         return queriedList;
@@ -33,7 +36,23 @@ public class ImageSqlMapper implements SqlMapper<Image> {
         fields.put(SqlConstant.IMAGES_ID, image.getImageId());
         fields.put(SqlConstant.ADVERTISEMENT_ID, image.getAdId());
         fields.put(SqlConstant.IMAGES_IMAGE_URL, image.getImageURL());
-        fields.put(SqlConstant.IMAGES_IMAGE_DATA, image.getImageData());
+        fields.put(SqlConstant.IMAGES_IMAGE_DATA, convertBytesToStream(image.getImageData()));
         return fields;
+    }
+
+    private byte[] extractBytes(ResultSet resultSet) {
+        Blob blob = null;
+        byte[] bytes = null;
+        try {
+            blob = resultSet.getBlob(SqlConstant.IMAGES_IMAGE_DATA);
+            bytes = blob.getBytes(1, (int) blob.length());
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return bytes;
+    }
+
+    private InputStream convertBytesToStream(byte[] bytes) {
+        return new ByteArrayInputStream(bytes);
     }
 }

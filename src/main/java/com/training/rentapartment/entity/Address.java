@@ -6,7 +6,6 @@ public class Address {
     public static final String ADDRESS_TABLE_NAME = "address";
 
     private int addressId;
-    private int adId;
     private String city;
     private String street;
     private int houseNumber;
@@ -15,21 +14,12 @@ public class Address {
     public Address() {
     }
 
-    public Address(int addressId, int adId, String city, String street, int houseNumber, int houseIndex) {
+    public Address(int addressId, String city, String street, int houseNumber, int houseIndex) {
         this.addressId = addressId;
-        this.adId = adId;
         this.city = city;
         this.street = street;
         this.houseNumber = houseNumber;
         this.houseIndex = houseIndex;
-    }
-
-    public int getAdId() {
-        return adId;
-    }
-
-    public void setAdId(int adId) {
-        this.adId = adId;
     }
 
     public int getAddressId() {
@@ -81,8 +71,7 @@ public class Address {
             return false;
         }
         Address address = (Address) o;
-        return adId == address.adId &&
-                addressId == address.addressId &&
+        return addressId == address.addressId &&
                 houseNumber == address.houseNumber &&
                 houseIndex == address.houseIndex &&
                 Objects.equals(city, address.city) &&
@@ -91,14 +80,13 @@ public class Address {
 
     @Override
     public int hashCode() {
-        return Objects.hash(adId, addressId, city, street, houseNumber, houseIndex);
+        return Objects.hash(addressId, city, street, houseNumber, houseIndex);
     }
 
     @Override
     public String toString() {
-        return new StringBuilder().append("Address{" + "adId=")
-                .append(adId).append(", addressId=").append(addressId)
-                .append(", city='").append(city).append('\'')
+        return new StringBuilder().append("Address{" + ", addressId=")
+                .append(addressId).append(", city='").append(city).append('\'')
                 .append(", street='").append(street).append('\'')
                 .append(", houseNumber=").append(houseNumber)
                 .append(", houseIndex=").append(houseIndex)

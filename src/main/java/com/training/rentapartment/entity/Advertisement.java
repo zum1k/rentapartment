@@ -15,6 +15,7 @@ public class Advertisement {
     private OwnerType owner;
     private String phoneNumber;
     private String adDate;
+    private int addressId;
     private int userId;
     private String description;
 
@@ -23,7 +24,7 @@ public class Advertisement {
 
     public Advertisement(int adId, int cost, int rooms, int floor, double square, double livingSquare,
                          double kitchenSquare, OwnerType owner, String phoneNumber,
-                         String adDate, int userId, String description) {
+                         String adDate, int addressId, int userId, String description) {
         this.adId = adId;
         this.cost = cost;
         this.rooms = rooms;
@@ -35,7 +36,16 @@ public class Advertisement {
         this.phoneNumber = phoneNumber;
         this.adDate = adDate;
         this.userId = userId;
+        this.addressId = addressId;
         this.description = description;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public int getAdId() {
@@ -136,31 +146,28 @@ public class Advertisement {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Advertisement ad = (Advertisement) o;
-        return adId == ad.adId &&
-                cost == ad.cost &&
-                rooms == ad.rooms &&
-                floor == ad.floor &&
-                Double.compare(ad.square, square) == 0 &&
-                Double.compare(ad.livingSquare, livingSquare) == 0 &&
-                Double.compare(ad.kitchenSquare, kitchenSquare) == 0 &&
-                userId == ad.userId &&
-                owner == ad.owner &&
-                Objects.equals(phoneNumber, ad.phoneNumber) &&
-                Objects.equals(adDate, ad.adDate) &&
-                Objects.equals(description, ad.description);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Advertisement that = (Advertisement) o;
+        return adId == that.adId &&
+                cost == that.cost &&
+                rooms == that.rooms &&
+                floor == that.floor &&
+                Double.compare(that.square, square) == 0 &&
+                Double.compare(that.livingSquare, livingSquare) == 0 &&
+                Double.compare(that.kitchenSquare, kitchenSquare) == 0 &&
+                addressId == that.addressId &&
+                userId == that.userId &&
+                owner == that.owner &&
+                Objects.equals(phoneNumber, that.phoneNumber) &&
+                Objects.equals(adDate, that.adDate) &&
+                Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(adId, cost, rooms, floor, square, livingSquare,
-                kitchenSquare, owner, phoneNumber, adDate, userId, description);
+                kitchenSquare, owner, phoneNumber, adDate, addressId, userId, description);
     }
 
     @Override
@@ -170,7 +177,8 @@ public class Advertisement {
                 .append(floor).append(", square=").append(square).append(", livingSquare=")
                 .append(livingSquare).append(", kitchenSquare=").append(kitchenSquare)
                 .append(", owner=").append(owner).append(", phoneNumber='").append(phoneNumber)
-                .append('\'').append(", adDate='").append(adDate).append('\'').append(", userId=")
+                .append('\'').append(", adDate='").append(adDate).append('\'').append(", addressId=")
+                .append(addressId).append(", userId=")
                 .append(userId).append(", description='").append(description).append('\'')
                 .append('}').toString();
     }

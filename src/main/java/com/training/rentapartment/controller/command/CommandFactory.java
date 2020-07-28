@@ -31,7 +31,7 @@ public class CommandFactory {
                 command = new DeleteAccountCommand();
                 break;
             case "add_ad":
-                command = new AddAdCommand();
+                command = new AddAdvertisementCommand();
                 break;
             case "delete_ad":
                 command = new DeleteAdCommand();

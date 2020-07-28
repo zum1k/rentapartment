@@ -19,7 +19,6 @@ public class AddressSqlMapper implements SqlMapper<Address> {
         while (resultSet.next()) {
             Address address = new Address();
             address.setAddressId(resultSet.getInt(SqlConstant.ADDRESS_ID));
-            address.setAdId(resultSet.getInt(SqlConstant.ADVERTISEMENT_ID));
             address.setCity(resultSet.getString(SqlConstant.ADDRESS_CITY));
             address.setStreet(resultSet.getString(SqlConstant.ADDRESS_STREET));
             address.setHouseNumber(resultSet.getInt(SqlConstant.ADDRESS_HOUSE_NUMBER));
@@ -33,7 +32,6 @@ public class AddressSqlMapper implements SqlMapper<Address> {
     public Map<String, Object> toEntityFields(Address address) {
         Map<String, Object> fields = new HashMap<>();
         fields.put(SqlConstant.ADDRESS_ID, address.getAddressId());
-        fields.put(SqlConstant.ADVERTISEMENT_ID, address.getAdId());
         fields.put(SqlConstant.ADDRESS_CITY, address.getCity());
         fields.put(SqlConstant.ADDRESS_STREET, address.getStreet());
         fields.put(SqlConstant.ADDRESS_HOUSE_NUMBER, address.getHouseNumber());
