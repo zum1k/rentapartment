@@ -5,7 +5,7 @@ import com.training.rentapartment.entity.UserType;
 import com.training.rentapartment.exception.RepositoryException;
 import com.training.rentapartment.model.repository.user.UserRepository;
 import com.training.rentapartment.model.specification.user.UserByLoginPasswordSpecification;
-import com.training.rentapartment.service.validator.GuestValidator;
+import com.training.rentapartment.controller.validator.GuestValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

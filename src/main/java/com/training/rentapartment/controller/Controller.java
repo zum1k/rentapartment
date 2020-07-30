@@ -1,6 +1,7 @@
 package com.training.rentapartment.controller;
 
 import com.training.rentapartment.controller.command.CommandFactory;
+import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ConnectionPoolException;
 import com.training.rentapartment.model.pool.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -56,7 +57,12 @@ public class Controller extends HttpServlet {
         String commandType = request.getParameter(REQUEST_PARAMETER_COMMAND);
         Command command = commandFactory.createCommand(commandType);
 
-        String page = command.execute(request);
+        String page = null;
+        try {
+            page = command.execute(request);
+        } catch (CommandException e) {
+            e.printStackTrace();
+        }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(page);
         requestDispatcher.forward(request, response);
     }

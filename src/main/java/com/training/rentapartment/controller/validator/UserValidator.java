@@ -1,4 +1,4 @@
-package com.training.rentapartment.service.validator;
+package com.training.rentapartment.controller.validator;
 
 public class UserValidator {
     static final String PASSWORD_PATTERN = "^[\\p{Alpha}\\d]{9,14}$ ";
