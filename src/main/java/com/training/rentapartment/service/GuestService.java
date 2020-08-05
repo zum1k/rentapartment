@@ -26,7 +26,6 @@ public class GuestService {
     }
 
     public User logIn(String loginValue, String passwordValue) {
-        boolean result = false;
         User currentUser = null;
         UserByLoginPasswordSpecification specification = new UserByLoginPasswordSpecification(loginValue, passwordValue);
         List<User> users = null;

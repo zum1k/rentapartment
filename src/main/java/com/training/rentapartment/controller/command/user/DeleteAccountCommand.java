@@ -22,7 +22,7 @@ public class DeleteAccountCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request) {
         String page = PagePath.CLIENT;
-        int userId = Integer.parseInt(request.getParameter(SqlConstant.USER_ID);
+        int userId = Integer.parseInt(request.getParameter(SqlConstant.USER_ID));
         if (service.deleteAccount(userId)) {
             page = PagePath.MAIN;
         }
