@@ -1,11 +1,18 @@
 package com.training.rentapartment.controller.command.guest;
 
 import com.training.rentapartment.controller.Command;
-import com.training.rentapartment.controller.utils.MailSender;
+import com.training.rentapartment.controller.SessionAttribute;
+import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
+import com.training.rentapartment.controller.mapper.UserMapper;
+import com.training.rentapartment.controller.utils.MailSender;
+import com.training.rentapartment.controller.validator.GuestValidator;
+import com.training.rentapartment.entity.User;
 import com.training.rentapartment.service.GuestService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 public class RegisterCommand implements Command {
     private static final String VERIFICATION_EMAIL_MESSAGE = "Hello, you received this message, " +
@@ -27,18 +34,30 @@ public class RegisterCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) { //TODO
-        String page;
+    public CommandResult execute(HttpServletRequest request) { //TODO
+        String page = null;
         String loginValue = request.getParameter(LOGIN_PARAMETER);
         String passwordValue = request.getParameter(PASSWORD_PARAMETER);
         String emailValue = request.getParameter(EMAIL_PARAMETER);
-        if (service.register(loginValue, passwordValue, emailValue)) {
-            page = PagePath.MAIN;
-            MailSender mailSender = new MailSender(VERIFICATION_EMAIL_SUBJECT, VERIFICATION_EMAIL_MESSAGE, emailValue);
-            mailSender.send();
+        if (GuestValidator.validateRegistration(loginValue, passwordValue, emailValue)) {
+            try {
+                User user = new UserMapper().toEntity(request);
+                User currentUser = service.register(user);
+                if (currentUser != null) {
+                    request.getSession().setAttribute(SessionAttribute.USER_ID_ATTRIBUTE, currentUser);
+                    page = PagePath.MAIN;
+                    MailSender mailSender = new MailSender(VERIFICATION_EMAIL_SUBJECT, VERIFICATION_EMAIL_MESSAGE, emailValue);
+                    mailSender.send();
+                } else {
+                    page = PagePath.REGISTRATION;
+                }
+
+            } catch (IOException | ServletException e) {
+                e.printStackTrace();
+            }
         } else {
             page = PagePath.REGISTRATION;
         }
-        return page;
+        return CommandResult.redirect(page);
     }
 }

@@ -22,10 +22,9 @@ public class Advertisement {
     public Advertisement() {
     }
 
-    public Advertisement(int adId, int cost, int rooms, int floor, double square, double livingSquare,
+    public Advertisement(int cost, int rooms, int floor, double square, double livingSquare,
                          double kitchenSquare, OwnerType owner, String phoneNumber,
                          String adDate, int addressId, int userId, String description) {
-        this.adId = adId;
         this.cost = cost;
         this.rooms = rooms;
         this.floor = floor;

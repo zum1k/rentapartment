@@ -13,8 +13,7 @@ public class User {
     public User() {
     }
 
-    public User(long id, String login, String password,UserType type, String email, boolean verified) {
-        this.userId = id;
+    public User(String login, String password,UserType type, String email, boolean verified) {
         this.login = login;
         this.password = password;
         this.type = type;

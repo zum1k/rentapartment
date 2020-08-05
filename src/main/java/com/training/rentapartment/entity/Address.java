@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class Address {
     public static final String ADDRESS_TABLE_NAME = "address";
-
     private int addressId;
     private String city;
     private String street;
@@ -14,8 +13,7 @@ public class Address {
     public Address() {
     }
 
-    public Address(int addressId, String city, String street, int houseNumber, int houseIndex) {
-        this.addressId = addressId;
+    public Address( String city, String street, int houseNumber, int houseIndex) {
         this.city = city;
         this.street = street;
         this.houseNumber = houseNumber;

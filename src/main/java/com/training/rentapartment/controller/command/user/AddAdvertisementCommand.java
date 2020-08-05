@@ -1,6 +1,7 @@
 package com.training.rentapartment.controller.command.user;
 
 import com.training.rentapartment.controller.Command;
+import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.controller.mapper.AddressMapper;
 import com.training.rentapartment.controller.mapper.AdvertisementMapper;
@@ -30,7 +31,7 @@ public class AddAdvertisementCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) { //TODO
+    public CommandResult execute(HttpServletRequest request) { //TODO
         String page = null;
         if (AdvertisementValidator.validateAdvertisementRequest(request)) {
             try {
@@ -40,11 +41,11 @@ public class AddAdvertisementCommand implements Command {
                 service.addAdvertisement(advertisement, address, image);
                 page = PagePath.CLIENT;
             } catch (IOException | ServletException e) {
-                return PagePath.EXCEPTION;
+                return CommandResult.forward(PagePath.EXCEPTION);
             }
         } else {
             page = PagePath.ADD_ADVERTISEMENT;
         }
-        return page;
+        return CommandResult.redirect(page);
     }
 }

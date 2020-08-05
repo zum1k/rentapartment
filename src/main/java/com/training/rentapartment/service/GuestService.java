@@ -1,11 +1,9 @@
 package com.training.rentapartment.service;
 
 import com.training.rentapartment.entity.User;
-import com.training.rentapartment.entity.UserType;
 import com.training.rentapartment.exception.RepositoryException;
 import com.training.rentapartment.model.repository.user.UserRepository;
 import com.training.rentapartment.model.specification.user.UserByLoginPasswordSpecification;
-import com.training.rentapartment.controller.validator.GuestValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,49 +25,42 @@ public class GuestService {
         return INSTANCE;
     }
 
-    public boolean logIn(String loginValue, String passwordValue) {
+    public User logIn(String loginValue, String passwordValue) {
         boolean result = false;
-        if (GuestValidator.validateLogin(loginValue, passwordValue)) {
-            UserByLoginPasswordSpecification specification = new UserByLoginPasswordSpecification(loginValue, passwordValue);
-            List<User> users = null;
-            try {
-                users = userRepository.query(specification);
-            } catch (RepositoryException e) {
-                logger.error(e.getMessage(), e);
-            }
-            if (users.size() > 0) {            //TODO
-                User currentUser = users.get(USER_INDEX);
-                result = currentUser.getLogin().equals(loginValue) && currentUser.getPassword().equals(passwordValue);
-            }
+        User currentUser = null;
+        UserByLoginPasswordSpecification specification = new UserByLoginPasswordSpecification(loginValue, passwordValue);
+        List<User> users = null;
+        try {
+            users = userRepository.query(specification);
+        } catch (RepositoryException e) {
+            logger.error(e.getMessage(), e);
         }
-        return result;
+        if (users.size() > 0) {
+            currentUser = users.get(USER_INDEX);
+        }
+        return currentUser;
     }
 
-    public boolean register(String loginValue, String passwordValue, String emailValue) {
-        boolean result = false;
-        if (GuestValidator.validateRegistration(loginValue, passwordValue, emailValue)) {
-            User user = new User();
-            user.setLogin(loginValue);
-            user.setPassword(passwordValue);
-            user.setEmail(emailValue);
-            user.setType(UserType.CLIENT);
-            user.setVerified(false);
-            UserByLoginPasswordSpecification specification = new UserByLoginPasswordSpecification(loginValue, passwordValue);
-            Optional<User> queriedUser = null;
+    public User register(User user) {
+        User currentUser = null;
+        String loginValue = user.getLogin();
+        String passwordValue = user.getPassword();
+        UserByLoginPasswordSpecification specification = new UserByLoginPasswordSpecification(loginValue, passwordValue);
+        Optional<User> queriedUser = null;
+        try {
+            queriedUser = userRepository.singleQuery(specification);
+        } catch (RepositoryException e) {
+            logger.error(e.getMessage(), e);
+        }
+        if (queriedUser.isEmpty()) {
             try {
-                queriedUser = userRepository.singleQuery(specification);
+                userRepository.add(user);
+                currentUser = user;
             } catch (RepositoryException e) {
                 logger.error(e.getMessage(), e);
             }
-            if (queriedUser.isEmpty()) {
-                try {
-                    userRepository.add(user);
-                } catch (RepositoryException e) {
-                    logger.error(e.getMessage(), e);
-                }
-                result = true;
-            }
         }
-        return result;
+        return currentUser;
     }
 }
+

@@ -36,7 +36,6 @@ public class UserSqlMapper implements SqlMapper<User> {
     @Override
     public Map<String, Object> toEntityFields(User user) {
         Map<String, Object> fields = new HashMap<>();
-        fields.put(SqlConstant.USER_ID, user.getId());
         fields.put(SqlConstant.USER_LOGIN, user.getLogin());
         fields.put(SqlConstant.USER_PASSWORD, user.getPassword());
         fields.put(SqlConstant.USER_TYPE, user.getType());

@@ -3,6 +3,7 @@ package com.training.rentapartment.service;
 import com.training.rentapartment.entity.Address;
 import com.training.rentapartment.entity.Advertisement;
 import com.training.rentapartment.entity.Image;
+import com.training.rentapartment.entity.User;
 import com.training.rentapartment.model.repository.address.AddressRepository;
 import com.training.rentapartment.model.repository.advertisement.AdvertisementRepository;
 import com.training.rentapartment.model.repository.image.ImageRepository;
@@ -21,7 +22,6 @@ public class UserService { //TODO
     private final AddressRepository addressRepository;
     private final ImageRepository imageRepository;
 
-
     private UserService() {
         this.userRepository = new UserRepository();
         this.advertisementRepository = new AdvertisementRepository();
@@ -33,13 +33,7 @@ public class UserService { //TODO
         return INSTANCE;
     }
 
-    public void logOut() {
-    }
-
-    public boolean addAdvertisement(Advertisement advertisement, Address address, Image image) {
+    public boolean deleteAccount(int userId) {
         return false;
-    }
-
-    public void deleteAdvertisement() {
     }
 }

@@ -1,6 +1,7 @@
 package com.training.rentapartment.controller.command.guest;
 
 import com.training.rentapartment.controller.Command;
+import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.service.GuestService;
 
@@ -18,7 +19,7 @@ public class AllAdvertisementsCommand implements Command {
         this.service = service;
     }
     @Override
-    public String execute(HttpServletRequest request) {
-        return PagePath.LOGIN;
+    public CommandResult execute(HttpServletRequest request) {
+        return CommandResult.redirect(PagePath.MAIN);
     }
 }

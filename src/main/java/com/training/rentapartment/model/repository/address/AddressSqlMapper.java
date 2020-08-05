@@ -31,7 +31,6 @@ public class AddressSqlMapper implements SqlMapper<Address> {
     @Override
     public Map<String, Object> toEntityFields(Address address) {
         Map<String, Object> fields = new HashMap<>();
-        fields.put(SqlConstant.ADDRESS_ID, address.getAddressId());
         fields.put(SqlConstant.ADDRESS_CITY, address.getCity());
         fields.put(SqlConstant.ADDRESS_STREET, address.getStreet());
         fields.put(SqlConstant.ADDRESS_HOUSE_NUMBER, address.getHouseNumber());

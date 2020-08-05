@@ -13,9 +13,7 @@ public class Image {
     public Image() {
     }
 
-    public Image(int adId, int imageId, String imageURL, byte[] imageData) {
-        this.adId = adId;
-        this.imageId = imageId;
+    public Image(String imageURL, byte[] imageData) {
         this.imageURL = imageURL;
         this.imageData = imageData;
     }

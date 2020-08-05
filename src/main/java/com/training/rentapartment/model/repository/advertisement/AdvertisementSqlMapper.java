@@ -41,7 +41,6 @@ public class AdvertisementSqlMapper implements SqlMapper<Advertisement> {
     @Override
     public Map<String, Object> toEntityFields(Advertisement advertisement) {
         Map<String, Object> fields = new HashMap<>();
-        fields.put(SqlConstant.ADVERTISEMENT_ID, advertisement.getAdId());
         fields.put(SqlConstant.ADVERTISEMENT_COST, advertisement.getCost());
         fields.put(SqlConstant.ADVERTISEMENT_ROOMS, advertisement.getRooms());
         fields.put(SqlConstant.ADVERTISEMENT_FLOOR, advertisement.getFloor());
