@@ -4,6 +4,7 @@ import com.training.rentapartment.exception.RepositoryException;
 import com.training.rentapartment.model.Repository;
 import com.training.rentapartment.model.Specification;
 import com.training.rentapartment.model.SqlConstant;
+import com.training.rentapartment.model.SqlQueryParameter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -50,7 +51,7 @@ public abstract class AbstractRepository<T> implements Repository<T>, Cloneable,
 
     private List<T> doQuery(Specification specification) throws RepositoryException {
         List<T> queriedEntities;
-        List<Object> parameters = specification.receiveParameters();
+        List<SqlQueryParameter> parameters = specification.receiveParameters();
         String sqlQuery = SqlConstant.SELECT_QUERY + getTableName() + specification.toSqlRequest();
         int parametersLength = specification.receiveParameters().size();
         ResultSet resultSet = null;
@@ -101,7 +102,7 @@ public abstract class AbstractRepository<T> implements Repository<T>, Cloneable,
     private void doDelete(Specification specification) throws RepositoryException {
         String sqlQuery = SqlConstant.DELETE_QUERY + getTableName() + " " + specification.toSqlRequest();
         int parametersLength = specification.receiveParameters().size();
-        List<Object> parameters = specification.receiveParameters();
+        List<SqlQueryParameter> parameters = specification.receiveParameters();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             for (int i = 0; i < parametersLength; i++) {
                 preparedStatement.setString(i + 1, parameters.get(i).toString());
@@ -117,4 +118,6 @@ public abstract class AbstractRepository<T> implements Repository<T>, Cloneable,
     protected abstract Map<String, Object> toEntityFields(T t);
 
     protected abstract String getTableName();
+
+
 }

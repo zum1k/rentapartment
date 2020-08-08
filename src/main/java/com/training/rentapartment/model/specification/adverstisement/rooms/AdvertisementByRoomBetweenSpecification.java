@@ -2,17 +2,19 @@ package com.training.rentapartment.model.specification.adverstisement.rooms;
 
 import com.training.rentapartment.model.Specification;
 import com.training.rentapartment.model.SqlConstant;
+import com.training.rentapartment.model.SqlQueryParameter;
+import com.training.rentapartment.model.specification.queryparameters.IntegerSqlQueryParameter;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class AdvertisementByRoomBetweenSpecification implements Specification {
-    private final int lowerValue;
-    private final int higherValue;
+    private final IntegerSqlQueryParameter lowerValue;
+    private final IntegerSqlQueryParameter higherValue;
 
     public AdvertisementByRoomBetweenSpecification(int lowerBorder, int higherBorder) {
-        this.lowerValue = lowerBorder;
-        this.higherValue = higherBorder;
+        this.lowerValue = new IntegerSqlQueryParameter(lowerBorder);
+        this.higherValue = new IntegerSqlQueryParameter(higherBorder);
     }
 
     @Override
@@ -22,7 +24,7 @@ public class AdvertisementByRoomBetweenSpecification implements Specification {
     }
 
     @Override
-    public List<Object> receiveParameters() {
+    public List<SqlQueryParameter> receiveParameters() {
         return Arrays.asList(lowerValue, higherValue);
     }
 }

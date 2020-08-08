@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface Specification {
     String toSqlRequest();
-    List<Object> receiveParameters();
+    List<SqlQueryParameter> receiveParameters();
 }
