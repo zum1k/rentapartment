@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface Repository<T> {
-    void add(T t) throws RepositoryException;
+    int add(T t) throws RepositoryException;
 
     void remove(Specification specification) throws RepositoryException;
 

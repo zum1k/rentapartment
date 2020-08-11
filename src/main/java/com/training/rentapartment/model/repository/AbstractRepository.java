@@ -6,10 +6,7 @@ import com.training.rentapartment.model.Specification;
 import com.training.rentapartment.model.SqlConstant;
 import com.training.rentapartment.model.SqlQueryParameter;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -22,8 +19,8 @@ public abstract class AbstractRepository<T> implements Repository<T>, Cloneable,
     }
 
     @Override
-    public void add(T t) throws RepositoryException {
-        doAdd(t);
+    public int add(T t) throws RepositoryException {
+       return doAdd(t);
     }
 
     @Override
@@ -83,7 +80,8 @@ public abstract class AbstractRepository<T> implements Repository<T>, Cloneable,
         return columns.append(values).toString();
     }
 
-    private void doAdd(T t) throws RepositoryException { //TODO
+    private int doAdd(T t) throws RepositoryException { //TODO
+        int keyId = 0;
         try {
             Map<String, Object> fields = toEntityFields(t);
             String sql = SqlConstant.INSERT_QUERY + getTableName() + doInsertQuery(fields);
@@ -93,10 +91,20 @@ public abstract class AbstractRepository<T> implements Repository<T>, Cloneable,
                 Object value = entry.getValue();
                 preparedStatement.setString(i++, String.valueOf(value));
             }
-            preparedStatement.executeUpdate();
+            int affectedRows =  preparedStatement.executeUpdate();
+            if(affectedRows == 0){
+                String message = "Can't add Advertisement";
+                throw new RepositoryException(message);
+            }
+            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    keyId =resultSet.getInt(1);
+                }
+            }
         } catch (SQLException exception) {
             throw new RepositoryException(exception.getMessage(), exception);
         }
+        return keyId;
     }
 
     private void doDelete(Specification specification) throws RepositoryException {

@@ -8,20 +8,20 @@ import com.training.rentapartment.model.specification.queryparameters.IntegerSql
 import java.util.Arrays;
 import java.util.List;
 
-public class ImageByIdSpecification implements Specification {
-    private final IntegerSqlQueryParameter imageId;
+public class ImageByAdvertisementIdSpecification implements Specification {
+    private final IntegerSqlQueryParameter advertisementId;
 
-    public ImageByIdSpecification(int imageId) {
-        this.imageId = new IntegerSqlQueryParameter(imageId);
+    public ImageByAdvertisementIdSpecification(int advertisementId) {
+        this.advertisementId = new IntegerSqlQueryParameter(advertisementId);
     }
 
     @Override
     public String toSqlRequest() {
-        return " WHERE " + SqlConstant.IMAGES_ID + " = ?";
+        return " WHERE " + SqlConstant.ADVERTISEMENT_ID + " = ?";
     }
 
     @Override
     public List<SqlQueryParameter> receiveParameters() {
-        return Arrays.asList(imageId);
+        return Arrays.asList(advertisementId);
     }
 }

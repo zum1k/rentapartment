@@ -33,7 +33,6 @@ public class ImageSqlMapper implements SqlMapper<Image> {
     @Override
     public Map<String, Object> toEntityFields(Image image) {
         Map<String, Object> fields = new HashMap<>();
-        fields.put(SqlConstant.IMAGES_ID, image.getImageId());
         fields.put(SqlConstant.ADVERTISEMENT_ID, image.getAdId());
         fields.put(SqlConstant.IMAGES_IMAGE_URL, image.getImageURL());
         fields.put(SqlConstant.IMAGES_IMAGE_DATA, convertBytesToStream(image.getImageData()));
