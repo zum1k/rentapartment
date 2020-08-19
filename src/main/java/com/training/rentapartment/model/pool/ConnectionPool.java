@@ -33,7 +33,7 @@ public class ConnectionPool {
         connections = new ArrayDeque<>();
     }
 
-    public static ConnectionPool getINSTANCE() {
+    public static ConnectionPool getInstance() {
         if (!initialized.get()) {
             try {
                 INSTANCE_LOCK.lock();

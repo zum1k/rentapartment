@@ -1,6 +1,6 @@
 package com.training.rentapartment.controller.validator;
 
-import com.training.rentapartment.model.SqlConstant;
+import com.training.rentapartment.model.repository.SqlConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class AdvertisementValidator {
     private static final String PHONE_NUMBER_PATTERN = "^(\\+375)(29|25|44|33|17)(\\d{3})(\\d{2})(\\d{2})$";
-    private final static String IMAGE_NAME_PATTERN = "\\w+(.jpg|.png|.bmp)$";
+    private static final String IMAGE_NAME_PATTERN = "\\w+(.jpg|.png|.bmp)$";
     private static final String CITY_NAME_PATTERN = "\\p{Upper}{1}\\p{Lower}+";
     private static final String STREET_NAME_PATTERN = "\\p{Upper}{1}\\p{Lower}+\\s{1}(avenue|street)$";
     private static final int MAX_HOUSE_NUMBER = 300;
@@ -23,8 +23,7 @@ public class AdvertisementValidator {
     }
 
     private static boolean validateAdvertisement(HttpServletRequest request) {
-        boolean result = false;
-        Integer cost = Integer.parseInt(request.getParameter(SqlConstant.ADVERTISEMENT_COST));
+        Integer cost = Integer.parseInt(request.getParameter(SqlConstant.ADVERTISEMENT_COST)); //todo think how to check null ref
         Integer rooms = Integer.parseInt(request.getParameter(SqlConstant.ADVERTISEMENT_ROOMS));
         Integer floor = Integer.parseInt(request.getParameter(SqlConstant.ADVERTISEMENT_FLOOR));
         Double square = Double.parseDouble(request.getParameter(SqlConstant.ADVERTISEMENT_SQUARE));
@@ -32,23 +31,19 @@ public class AdvertisementValidator {
         Double kitchenSquare = Double.parseDouble(request.getParameter(SqlConstant.ADVERTISEMENT_KITCHEN_SQUARE));
         String phone = request.getParameter(SqlConstant.ADVERTISEMENT_PHONE);
         String description = request.getParameter(SqlConstant.ADVERTISEMENT_DESCRIPTION);
-        boolean nullCondition = cost == null || rooms == null || floor == null || square == null
-                || livingSquare == null || kitchenSquare == null || phone == null;
-        if (nullCondition) {
+        boolean costMatcher = cost > MIN_NUMBER;
+        if (cost <= MIN_NUMBER) { //todo like this
             return false;
-        } else {
-            boolean costMatcher = cost > MIN_NUMBER;
-            boolean roomsMatcher = rooms > MIN_NUMBER;
-            boolean floorMatcher = floor > MIN_NUMBER && floor < MAX_FLOORS_NUMBER;
-            boolean squareMatcher = square > MIN_NUMBER && square < MAX_SQUARE_NUMBER;
-            boolean livingSquareMatcher = livingSquare > MIN_NUMBER && livingSquare < MAX_SQUARE_NUMBER;
-            boolean kitchenSquareMatcher = kitchenSquare > MIN_NUMBER && kitchenSquare < MAX_SQUARE_NUMBER;
-            boolean phoneMatcher = matchPatternWithString(PHONE_NUMBER_PATTERN, phone);
-            boolean descriptionMatcher = description.length() < DESCRIPTION_PATTERN_NUMBER;
-            result = costMatcher && roomsMatcher && floorMatcher && squareMatcher && livingSquareMatcher
-                    && kitchenSquareMatcher && phoneMatcher && descriptionMatcher;
         }
-        return result;
+        boolean roomsMatcher = rooms > MIN_NUMBER;
+        boolean floorMatcher = floor > MIN_NUMBER && floor < MAX_FLOORS_NUMBER;
+        boolean squareMatcher = square > MIN_NUMBER && square < MAX_SQUARE_NUMBER;
+        boolean livingSquareMatcher = livingSquare > MIN_NUMBER && livingSquare < MAX_SQUARE_NUMBER;
+        boolean kitchenSquareMatcher = kitchenSquare > MIN_NUMBER && kitchenSquare < MAX_SQUARE_NUMBER;
+        boolean phoneMatcher = matchPatternWithString(PHONE_NUMBER_PATTERN, phone);
+        boolean descriptionMatcher = description.length() < DESCRIPTION_PATTERN_NUMBER;
+        return costMatcher && roomsMatcher && floorMatcher && squareMatcher && livingSquareMatcher
+                && kitchenSquareMatcher && phoneMatcher && descriptionMatcher;
     }
 
     private static boolean validateAddress(HttpServletRequest request) {

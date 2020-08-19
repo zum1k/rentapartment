@@ -1,6 +1,6 @@
 package com.training.rentapartment.exception;
 
-public class RepositoryException extends Throwable{
+public class RepositoryException extends Throwable {
     public RepositoryException() {
     }
 

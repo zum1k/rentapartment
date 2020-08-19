@@ -6,40 +6,47 @@ import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.controller.validator.GuestValidator;
 import com.training.rentapartment.entity.User;
-import com.training.rentapartment.service.GuestService;
+import com.training.rentapartment.exception.CommandException;
+import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.service.impl.GuestServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 public class LogInCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(LogInCommand.class);
     private static final String LOGIN_PARAMETER = "login";
     private static final String PASSWORD_PARAMETER = "password";
 
-    private final GuestService service;
+    private final GuestServiceImpl service;
 
     public LogInCommand() {
-        this.service = GuestService.getINSTANCE();
+        this.service = GuestServiceImpl.getInstance();
     }
 
-    public LogInCommand(GuestService service) {
+    public LogInCommand(GuestServiceImpl service) {
         this.service = service;
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request) { //TODO
-        String page;
+    public CommandResult execute(HttpServletRequest request) throws CommandException {
+        String page = PagePath.MAIN;
         String loginValue = request.getParameter(LOGIN_PARAMETER);
         String passwordValue = request.getParameter(PASSWORD_PARAMETER);
         if (GuestValidator.validateLogin(loginValue, passwordValue)) {
-            User currentUser = service.logIn(loginValue, passwordValue);
-            if (currentUser != null) {
-                request.getSession().setAttribute(SessionAttribute.USER_ID_ATTRIBUTE, currentUser);
-                page = PagePath.CLIENT;
-            } else {
-                page = PagePath.LOGIN;
+            try {
+                Optional<User> currentUser = service.logIn(loginValue, passwordValue);
+                if (currentUser.isPresent()) {
+                    request.getSession().setAttribute(SessionAttribute.USER_ID_ATTRIBUTE, currentUser);
+                    page = PagePath.CLIENT;
+                }
+            } catch (ServiceException exception) {
+                LOGGER.error(exception.getMessage(), exception);
+                throw new CommandException(exception.getMessage(), exception);
             }
-        } else {
-            page = PagePath.LOGIN;
         }
-        return CommandResult.redirect(page);
+        return CommandResult.forward(page);
     }
 }

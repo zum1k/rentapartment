@@ -1,6 +1,7 @@
 package com.training.rentapartment.controller;
 
 import com.training.rentapartment.controller.command.CommandFactory;
+import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ConnectionPoolException;
 import com.training.rentapartment.model.pool.ConnectionPool;
@@ -10,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +44,7 @@ public class Controller extends HttpServlet {
     @Override
     public void destroy() {
         super.destroy();
-        ConnectionPool connectionPool = ConnectionPool.getINSTANCE();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
         try {
             connectionPool.closeConnections();
         } catch (ConnectionPoolException e) {
@@ -57,13 +57,13 @@ public class Controller extends HttpServlet {
         String commandType = request.getParameter(REQUEST_PARAMETER_COMMAND);
         Command command = commandFactory.createCommand(commandType);
 
-        String page = null;
+        CommandResult commandResult = null;
         try {
-            page = command.execute(request);
+            commandResult = command.execute(request);
         } catch (CommandException e) {
             e.printStackTrace();
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(page);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(commandResult.getPage());
         requestDispatcher.forward(request, response);
     }
 }

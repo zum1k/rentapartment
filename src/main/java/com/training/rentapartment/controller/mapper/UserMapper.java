@@ -3,7 +3,7 @@ package com.training.rentapartment.controller.mapper;
 import com.training.rentapartment.controller.EntityMapper;
 import com.training.rentapartment.entity.User;
 import com.training.rentapartment.entity.UserType;
-import com.training.rentapartment.model.SqlConstant;
+import com.training.rentapartment.model.repository.SqlConstant;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

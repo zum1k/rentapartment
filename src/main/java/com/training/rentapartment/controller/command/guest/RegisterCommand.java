@@ -8,13 +8,19 @@ import com.training.rentapartment.controller.mapper.UserMapper;
 import com.training.rentapartment.controller.utils.MailSender;
 import com.training.rentapartment.controller.validator.GuestValidator;
 import com.training.rentapartment.entity.User;
-import com.training.rentapartment.service.GuestService;
+import com.training.rentapartment.exception.CommandException;
+import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.service.impl.GuestServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Optional;
 
 public class RegisterCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(RegisterCommand.class);
     private static final String VERIFICATION_EMAIL_MESSAGE = "Hello, you received this message, " +
             "because you registered on RentApartment.com." +
             " For successful verification follow next link. Thank you.";
@@ -23,40 +29,35 @@ public class RegisterCommand implements Command {
     private static final String PASSWORD_PARAMETER = "password";
     private static final String EMAIL_PARAMETER = "email";
 
-    private GuestService service;
+    private GuestServiceImpl service;
 
     public RegisterCommand() {
-        this.service = GuestService.getINSTANCE();
+        this.service = GuestServiceImpl.getInstance();
     }
 
-    public RegisterCommand(GuestService service) {
+    public RegisterCommand(GuestServiceImpl service) {
         this.service = service;
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request) { //TODO
-        String page = null;
+    public CommandResult execute(HttpServletRequest request) throws CommandException {
+        String page = PagePath.REGISTRATION;
         String loginValue = request.getParameter(LOGIN_PARAMETER);
         String passwordValue = request.getParameter(PASSWORD_PARAMETER);
         String emailValue = request.getParameter(EMAIL_PARAMETER);
         if (GuestValidator.validateRegistration(loginValue, passwordValue, emailValue)) {
             try {
                 User user = new UserMapper().toEntity(request);
-                User currentUser = service.register(user);
-                if (currentUser != null) {
+                Optional<User> currentUser = service.register(user);
+                if (currentUser.isPresent()) {
                     request.getSession().setAttribute(SessionAttribute.USER_ID_ATTRIBUTE, currentUser);
                     page = PagePath.MAIN;
                     MailSender mailSender = new MailSender(VERIFICATION_EMAIL_SUBJECT, VERIFICATION_EMAIL_MESSAGE, emailValue);
                     mailSender.send();
-                } else {
-                    page = PagePath.REGISTRATION;
                 }
-
-            } catch (IOException | ServletException e) {
+            } catch (IOException | ServletException | ServiceException e) {
                 e.printStackTrace();
             }
-        } else {
-            page = PagePath.REGISTRATION;
         }
         return CommandResult.redirect(page);
     }

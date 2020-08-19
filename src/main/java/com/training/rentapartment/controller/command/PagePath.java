@@ -6,7 +6,7 @@ public class PagePath {
     public static final String LOGIN = "WEB-INF/pages/login.jsp";
     public static final String ADVERTISEMENT = "WEB-INF/pages/advertisement.jsp";
     public static final String EXCEPTION = "WEB-INF/pages/exception.jsp";
-    public static final String REGISTRATION = "WEB-INF/pages/registration.jsp";
+    public static final String REGISTRATION = "WEB-INF/pages/register.jsp";
     public static final String CLIENT = "WEB-INF/pages/client.jsp";
     public static final String VERIFICATION = "WEB-INF/pages/verification.jsp";
     public static final String ADD_ADVERTISEMENT = "WEB-INF/pages/add_advertisement.jsp";

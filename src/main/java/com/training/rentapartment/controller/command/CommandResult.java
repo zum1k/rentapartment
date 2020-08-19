@@ -1,13 +1,13 @@
 package com.training.rentapartment.controller.command;
 
 public class CommandResult {
-    enum RequestType {
+    public enum RequestType {
         FORWARD,
         REDIRECT
     }
 
-    private String page;
-    private RequestType type;
+    private final String page;
+    private final RequestType type;
 
     private CommandResult(String page, RequestType type) {
         this.page = page;
