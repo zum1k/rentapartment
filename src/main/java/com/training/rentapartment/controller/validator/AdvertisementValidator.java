@@ -1,5 +1,6 @@
 package com.training.rentapartment.controller.validator;
 
+import com.training.rentapartment.controller.HttpRequestParameters;
 import com.training.rentapartment.model.repository.SqlConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,7 @@ public class AdvertisementValidator {
     private static final int MAX_HOUSE_NUMBER = 300;
     private static final int MAX_HOUSE_INDEX = 10;
     private static final int DESCRIPTION_PATTERN_NUMBER = 400;
-    private static final int MIN_NUMBER = 0;
+    private static final int MIN_NUMBER = 1;
     private static final int MAX_FLOORS_NUMBER = 100;
     private static final int MAX_SQUARE_NUMBER = 1000;
 
@@ -23,27 +24,40 @@ public class AdvertisementValidator {
     }
 
     private static boolean validateAdvertisement(HttpServletRequest request) {
-        Integer cost = Integer.parseInt(request.getParameter(SqlConstant.ADVERTISEMENT_COST)); //todo think how to check null ref
-        Integer rooms = Integer.parseInt(request.getParameter(SqlConstant.ADVERTISEMENT_ROOMS));
-        Integer floor = Integer.parseInt(request.getParameter(SqlConstant.ADVERTISEMENT_FLOOR));
-        Double square = Double.parseDouble(request.getParameter(SqlConstant.ADVERTISEMENT_SQUARE));
-        Double livingSquare = Double.parseDouble(request.getParameter(SqlConstant.ADVERTISEMENT_LIVING_SQUARE));
-        Double kitchenSquare = Double.parseDouble(request.getParameter(SqlConstant.ADVERTISEMENT_KITCHEN_SQUARE));
-        String phone = request.getParameter(SqlConstant.ADVERTISEMENT_PHONE);
-        String description = request.getParameter(SqlConstant.ADVERTISEMENT_DESCRIPTION);
-        boolean costMatcher = cost > MIN_NUMBER;
-        if (cost <= MIN_NUMBER) { //todo like this
+        Integer cost = Integer.parseInt(request.getParameter(HttpRequestParameters.COST));
+        Integer rooms = Integer.parseInt(request.getParameter(HttpRequestParameters.ROOMS));
+        Integer floor = Integer.parseInt(request.getParameter(HttpRequestParameters.FLOOR));
+        Double square = Double.parseDouble(request.getParameter(HttpRequestParameters.SQUARE));
+        Double livingSquare = Double.parseDouble(request.getParameter(HttpRequestParameters.LIVING_SQUARE));
+        Double kitchenSquare = Double.parseDouble(request.getParameter(HttpRequestParameters.KITCHEN_SQUARE));
+        String phone = request.getParameter(HttpRequestParameters.PHONE);
+        String description = request.getParameter(HttpRequestParameters.DESCRIPTION);
+
+        if (cost >= MIN_NUMBER) {
             return false;
         }
-        boolean roomsMatcher = rooms > MIN_NUMBER;
-        boolean floorMatcher = floor > MIN_NUMBER && floor < MAX_FLOORS_NUMBER;
-        boolean squareMatcher = square > MIN_NUMBER && square < MAX_SQUARE_NUMBER;
-        boolean livingSquareMatcher = livingSquare > MIN_NUMBER && livingSquare < MAX_SQUARE_NUMBER;
-        boolean kitchenSquareMatcher = kitchenSquare > MIN_NUMBER && kitchenSquare < MAX_SQUARE_NUMBER;
-        boolean phoneMatcher = matchPatternWithString(PHONE_NUMBER_PATTERN, phone);
-        boolean descriptionMatcher = description.length() < DESCRIPTION_PATTERN_NUMBER;
-        return costMatcher && roomsMatcher && floorMatcher && squareMatcher && livingSquareMatcher
-                && kitchenSquareMatcher && phoneMatcher && descriptionMatcher;
+        if (rooms >= MIN_NUMBER) {
+            return false;
+        }
+        if (floor >= MIN_NUMBER && floor <= MAX_FLOORS_NUMBER) {
+            return false;
+        }
+        if (square >= MIN_NUMBER && square <= MAX_SQUARE_NUMBER) {
+            return false;
+        }
+        if (livingSquare > MIN_NUMBER && livingSquare < MAX_SQUARE_NUMBER) {
+            return false;
+        }
+        if (kitchenSquare > MIN_NUMBER && kitchenSquare < MAX_SQUARE_NUMBER) {
+            return false;
+        }
+        if (matchPatternWithString(PHONE_NUMBER_PATTERN, phone)) {
+            return false;
+        }
+        if (description.length() < DESCRIPTION_PATTERN_NUMBER) {
+            return false;
+        }
+        return true;
     }
 
     private static boolean validateAddress(HttpServletRequest request) {

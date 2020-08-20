@@ -12,7 +12,7 @@
 </head>
 <body>
 <form name="RegistrationForm" method="POST"
-    action="controller?command=register">
+     action="controller?command=register">
      <br/>
     <input type="text" name="login"  placeholder="Придумайте логин" value=""><br/>
     <br/>

@@ -1,5 +1,6 @@
 package com.training.rentapartment.controller.command;
 
+import com.training.rentapartment.controller.command.admin.AllUsersCommand;
 import com.training.rentapartment.controller.command.admin.DeleteUserCommand;
 import com.training.rentapartment.controller.command.guest.AllAdvertisementsCommand;
 import com.training.rentapartment.controller.Command;
@@ -47,6 +48,8 @@ public class CommandFactory {
             case "delete_user":
                 command = new DeleteUserCommand();
                 break;
+            case "show_all_users":
+                command = new AllUsersCommand();
         }
         return command;
     }

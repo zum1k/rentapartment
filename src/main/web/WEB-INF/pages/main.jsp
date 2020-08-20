@@ -11,10 +11,9 @@
     <title>Main</title>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
-<p>Main Content 1</p>
-<p>Main Content 2</p>
-<p>Main Content 3</p>
-<jsp:include page="footer.jsp"/>
+<input type="hidden" name="command" value="show_all_users"/>
+     <c:forEach var="user" items="${users}">
+         <p>${user}</p>
+     </c:forEach>
 </body>
 </html>
