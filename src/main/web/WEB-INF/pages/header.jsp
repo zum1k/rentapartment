@@ -8,10 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Header</title>
 </head>
 <body>
-<nav><a href="/controller?">Домой</a> | <a href="login.jsp">Войти</a> | <a href="register.jsp">Регистрация</a></nav>
+<nav><a href="/controller?command=show_all_users">На главную</a> | <a href="/controller?command=link_to_login">Войти</a>
+    | <a href="/controller?command=link_to_register">Регистрация</a></nav>
 <h2>HEADER</h2>
 
 </body>
