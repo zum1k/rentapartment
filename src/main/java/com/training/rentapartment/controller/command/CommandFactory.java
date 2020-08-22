@@ -1,9 +1,9 @@
 package com.training.rentapartment.controller.command;
 
+import com.training.rentapartment.controller.Command;
 import com.training.rentapartment.controller.command.admin.AllUsersCommand;
 import com.training.rentapartment.controller.command.admin.DeleteUserCommand;
 import com.training.rentapartment.controller.command.guest.AllAdvertisementsCommand;
-import com.training.rentapartment.controller.Command;
 import com.training.rentapartment.controller.command.guest.LogInCommand;
 import com.training.rentapartment.controller.command.guest.RegisterCommand;
 import com.training.rentapartment.controller.command.guest.VerificationCommand;
@@ -11,46 +11,37 @@ import com.training.rentapartment.controller.command.user.*;
 
 public class CommandFactory {
     public Command createCommand(String commandName) {
-        Command command = null;
-
+        if (commandName == null) {
+            return new AllUsersCommand();
+        }
         switch (commandName) {
             //guest commands
             case "login":
-                command = new LogInCommand();
-                break;
+                return new LogInCommand();
             case "register":
-                command = new RegisterCommand();
-                break;
+               return new RegisterCommand();
             case "verification":
-                command = new VerificationCommand();
-                break;
+                return new VerificationCommand();
             case "show_all_advertisements":
-                command = new AllAdvertisementsCommand();
-
-            //user commands
+                return new AllAdvertisementsCommand();
+                //user commands
             case "delete_account":
-                command = new DeleteAccountCommand();
-                break;
+               return new DeleteAccountCommand();
             case "add_ad":
-                command = new AddAdvertisementCommand();
-                break;
+               return new AddAdvertisementCommand();
             case "delete_ad":
-                command = new DeleteAdCommand();
-                break;
+                return new DeleteAdCommand();
             case "logout":
-                command = new LogOutCommand();
-                break;
+                return new LogOutCommand();
             case "show_user_ad":
-                command = new ShowUserAdCommand();
-                break;
-
+               return new ShowUserAdCommand();
             //admin commands
             case "delete_user":
-                command = new DeleteUserCommand();
-                break;
+                return new DeleteUserCommand();
             case "show_all_users":
-                command = new AllUsersCommand();
+               return new AllUsersCommand();
+            default:
+                return new AllUsersCommand();
         }
-        return command;
     }
 }

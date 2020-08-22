@@ -1,16 +1,12 @@
 package com.training.rentapartment.controller.command.admin;
 
 import com.training.rentapartment.controller.Command;
-import com.training.rentapartment.controller.HttpRequestParameters;
 import com.training.rentapartment.controller.SessionAttribute;
 import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
-import com.training.rentapartment.controller.command.guest.AllAdvertisementsCommand;
 import com.training.rentapartment.entity.User;
-import com.training.rentapartment.entity.dto.AdvertisementDto;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
-import com.training.rentapartment.service.impl.AdvertisementServiceImpl;
 import com.training.rentapartment.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,6 +26,7 @@ public class AllUsersCommand implements Command {
     public AllUsersCommand(UserServiceImpl service) {
         this.service = service;
     }
+
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         try {
@@ -39,6 +36,6 @@ public class AllUsersCommand implements Command {
             LOGGER.error(e.getMessage(), e);
             throw new CommandException(e.getMessage(), e);
         }
-        return CommandResult.redirect(PagePath.MAIN);
+        return CommandResult.forward(PagePath.MAIN);
     }
 }

@@ -10,10 +10,9 @@ import com.training.rentapartment.service.GuestService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
+
 import java.util.Optional;
 
-import static java.util.List.of;
 
 public class GuestServiceImpl implements GuestService {
     private static Logger logger = LogManager.getLogger(GuestServiceImpl.class);

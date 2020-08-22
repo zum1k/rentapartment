@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 //@WebServlet(urlPatterns = "/controller")
 @MultipartConfig(maxFileSize = 16172216)
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Controller.class);
     private static final String REQUEST_PARAMETER_COMMAND = "command";
-    private static final String ERROR_PARAMETER = "error";
 
     public void init() {
         try {
@@ -61,10 +61,16 @@ public class Controller extends HttpServlet {
         try {
             commandResult = command.execute(request);
         } catch (CommandException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(commandResult.getPage());
-        requestDispatcher.forward(request, response);
+        switch (Objects.requireNonNull(commandResult).getRequestType()) {
+            case FORWARD:
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher(commandResult.getPage());
+                requestDispatcher.forward(request, response);
+                break;
+            case REDIRECT:
+                response.sendRedirect(commandResult.getPage());
+        }
     }
 }
 

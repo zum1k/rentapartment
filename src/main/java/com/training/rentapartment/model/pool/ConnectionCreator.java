@@ -1,14 +1,15 @@
 package com.training.rentapartment.model.pool;
 
+import com.mysql.jdbc.Driver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+
 
 public class ConnectionCreator {
     private static Logger logger = LogManager.getLogger(ConnectionCreator.class);
@@ -29,7 +30,7 @@ public class ConnectionCreator {
             this.host = properties.getProperty(DB_HOST);
             this.login = properties.getProperty(DB_LOGIN);
             this.password = properties.getProperty(DB_PASSWORD);
-            Driver driver = new com.mysql.cj.jdbc.Driver();
+            Driver driver = new com.mysql.jdbc.Driver();
             DriverManager.registerDriver(driver);
         } catch (SQLException | IOException e) {
             logger.error(e.getMessage(), e);

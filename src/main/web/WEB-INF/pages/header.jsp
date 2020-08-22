@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<nav><a href="main.jsp">Домой</a> | <a href="login.jsp">Войти</a> | <a href="register.jsp">Регистрация</a></nav>
+<nav><a href="/controller?">Домой</a> | <a href="login.jsp">Войти</a> | <a href="register.jsp">Регистрация</a></nav>
 <h2>HEADER</h2>
 
 </body>

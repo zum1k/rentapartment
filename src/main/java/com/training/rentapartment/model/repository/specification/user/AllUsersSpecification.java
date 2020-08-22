@@ -9,7 +9,7 @@ import java.util.List;
 public class AllUsersSpecification implements Specification {
     @Override
     public String toSqlRequest() {
-        return ";";
+        return " ; ";
     }
 
     @Override
