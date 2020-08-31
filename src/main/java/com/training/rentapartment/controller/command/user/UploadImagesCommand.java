@@ -33,14 +33,15 @@ public class UploadImagesCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         ImageValidator validator = new ImageValidator();
-        try {
-            if (validator.validateImage(request)) {
+        if (validator.validateImage(request)) {
+            try {
                 List<Image> images = new ImageMapper().toEntityList(request);
                 service.addImages(images);
+
+            } catch (ServletException | IOException | ServiceException e) {
+                LOGGER.error(e.getMessage(), e);
+                throw new CommandException(e.getMessage(), e);
             }
-        } catch (ServletException | IOException | ServiceException e) {
-            LOGGER.error(e.getMessage(), e);
-            throw new CommandException(e.getMessage(), e);
         }
         return CommandResult.forward(PagePath.CLIENT);
     }
