@@ -50,7 +50,7 @@ public class RegisterCommand implements Command {
                 User user = new UserMapper().toEntity(request);
                 Optional<User> currentUser = service.register(user);
                 if (currentUser.isPresent()) {
-                    request.getSession().setAttribute(SessionAttribute.USER_ID_ATTRIBUTE, currentUser);
+                    request.getSession().setAttribute(SessionAttribute.USER, currentUser);
                     page = PagePath.MAIN;
                     MailSender mailSender = new MailSender(VERIFICATION_EMAIL_SUBJECT, VERIFICATION_EMAIL_MESSAGE, emailValue);
                     mailSender.send();

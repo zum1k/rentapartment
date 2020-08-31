@@ -13,16 +13,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class AllAdvertisementsCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(AllAdvertisementsCommand.class);
-    private AdvertisementServiceImpl service;
+    private final int DEFAULT_OFFSET_VALUE = 0;
+    private final int DEFAULT_LIMIT_VALUE = 20;
+    private int  advertisementOffset = DEFAULT_OFFSET_VALUE;
+    private int advertisementLimit = DEFAULT_LIMIT_VALUE;
 
+    private final AdvertisementServiceImpl service;
 
     public AllAdvertisementsCommand() {
-        this.service = AdvertisementServiceImpl.getINSTANCE();
+        this.service = AdvertisementServiceImpl.getInstance();
     }
 
     public AllAdvertisementsCommand(AdvertisementServiceImpl service) {
@@ -31,10 +34,12 @@ public class AllAdvertisementsCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        int advertisementNumbers = Integer.parseInt(request.getParameter(HttpRequestParameters.PAGE_COUNT));
-        int advertisementLimit = Integer.parseInt(request.getParameter(HttpRequestParameters.PAGE_LIMIT));
+        if(request.getParameter(HttpRequestParameters.PAGE_OFFSET) != null || request.getParameter(HttpRequestParameters.PAGE_LIMIT) != null){
+            advertisementOffset = Integer.parseInt(request.getParameter(HttpRequestParameters.PAGE_OFFSET));
+            advertisementLimit = Integer.parseInt(request.getParameter(HttpRequestParameters.PAGE_LIMIT));
+        }
         try {
-            List<AdvertisementDto> dtoList = service.allAdvertisements(advertisementNumbers, advertisementLimit);
+            List<AdvertisementDto> dtoList = service.findAllAdvertisements(advertisementOffset, advertisementLimit);
             setDtosInSession(dtoList, request);
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage(), e);
@@ -44,6 +49,6 @@ public class AllAdvertisementsCommand implements Command {
     }
 
     private void setDtosInSession(List<AdvertisementDto> dtoList, HttpServletRequest request) {
-        request.setAttribute(SessionAttribute.ADVERTISEMENTS, dtoList);
+        request.setAttribute(HttpRequestParameters.ADVERTISEMENTS, dtoList);
     }
 }

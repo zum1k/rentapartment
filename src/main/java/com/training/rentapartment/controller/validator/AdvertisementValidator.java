@@ -1,11 +1,9 @@
 package com.training.rentapartment.controller.validator;
 
-import com.training.rentapartment.controller.HttpRequestParameters;
-import com.training.rentapartment.model.repository.SqlConstant;
+import com.training.rentapartment.controller.validator.impl.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map;
 
 public class AdvertisementValidator {
     private static final String PHONE_NUMBER_PATTERN = "^(\\+375)(29|25|44|33|17)(\\d{3})(\\d{2})(\\d{2})$";
@@ -19,73 +17,49 @@ public class AdvertisementValidator {
     private static final int MAX_FLOORS_NUMBER = 100;
     private static final int MAX_SQUARE_NUMBER = 1000;
 
-    public static boolean validateAdvertisementRequest(HttpServletRequest request) {
-        return validateAdvertisement(request) && validateImage(request) && validateAddress(request);
+    public boolean validateAdvertisement(HttpServletRequest request) {
+        return validateParameters(request);
     }
 
-    private static boolean validateAdvertisement(HttpServletRequest request) {
-        Integer cost = Integer.parseInt(request.getParameter(HttpRequestParameters.COST));
-        Integer rooms = Integer.parseInt(request.getParameter(HttpRequestParameters.ROOMS));
-        Integer floor = Integer.parseInt(request.getParameter(HttpRequestParameters.FLOOR));
-        Double square = Double.parseDouble(request.getParameter(HttpRequestParameters.SQUARE));
-        Double livingSquare = Double.parseDouble(request.getParameter(HttpRequestParameters.LIVING_SQUARE));
-        Double kitchenSquare = Double.parseDouble(request.getParameter(HttpRequestParameters.KITCHEN_SQUARE));
-        String phone = request.getParameter(HttpRequestParameters.PHONE);
-        String description = request.getParameter(HttpRequestParameters.DESCRIPTION);
-
-        if (cost >= MIN_NUMBER) {
-            return false;
-        }
-        if (rooms >= MIN_NUMBER) {
-            return false;
-        }
-        if (floor >= MIN_NUMBER && floor <= MAX_FLOORS_NUMBER) {
-            return false;
-        }
-        if (square >= MIN_NUMBER && square <= MAX_SQUARE_NUMBER) {
-            return false;
-        }
-        if (livingSquare > MIN_NUMBER && livingSquare < MAX_SQUARE_NUMBER) {
-            return false;
-        }
-        if (kitchenSquare > MIN_NUMBER && kitchenSquare < MAX_SQUARE_NUMBER) {
-            return false;
-        }
-        if (matchPatternWithString(PHONE_NUMBER_PATTERN, phone)) {
-            return false;
-        }
-        if (description.length() < DESCRIPTION_PATTERN_NUMBER) {
-            return false;
+    private boolean validateParameters(HttpServletRequest request) {
+        Map<String, String[]> parameters = request.getParameterMap();
+        for (String key : parameters.keySet()) {
+            String value = parameters.get(key)[0];
+            if (!createValidator(key).validate(value)) {
+                return false;
+            }
         }
         return true;
     }
 
-    private static boolean validateAddress(HttpServletRequest request) {
-        boolean result = false;
-        Integer houseNumber = Integer.parseInt(request.getParameter(SqlConstant.ADDRESS_HOUSE_NUMBER));
-        Integer houseIndex = Integer.parseInt(request.getParameter(SqlConstant.ADDRESS_HOUSE_INDEX));
-        String cityName = request.getParameter(SqlConstant.ADDRESS_CITY);
-        String streetName = request.getParameter(SqlConstant.ADDRESS_STREET);
-        if (houseIndex == null || houseNumber == null || cityName == null || streetName == null) {
-            return result;
-        } else {
-            boolean cityMatcher = matchPatternWithString(CITY_NAME_PATTERN, cityName);
-            boolean streetMatcher = matchPatternWithString(STREET_NAME_PATTERN, streetName);
-            boolean houseNumberMatcher = houseNumber > MIN_NUMBER && houseNumber < MAX_HOUSE_NUMBER;
-            boolean houseIndexMatcher = houseIndex > MIN_NUMBER && houseIndex < MAX_HOUSE_INDEX;
-            result = cityMatcher && streetMatcher && houseIndexMatcher && houseNumberMatcher;
+    private StringValidator createValidator(String parameterValue) {
+        StringValidator validator = new NotNullValidator();
+        switch (parameterValue) {
+            case "cost":
+            case "rooms":
+                return new IntegerCompareValidator(MIN_NUMBER);
+            case "floor":
+                return new IntegerCompareValidator(MIN_NUMBER, MAX_FLOORS_NUMBER);
+            case "square":
+            case "living_square":
+            case "kitchen_square":
+                return new DoubleCompareValidator(MIN_NUMBER, MAX_SQUARE_NUMBER);
+            case "phone":
+                return new PatternValidator(PHONE_NUMBER_PATTERN);
+            case "description":
+                return new StringCompareValidator(DESCRIPTION_PATTERN_NUMBER);
+            case "house_number":
+                return new IntegerCompareValidator(MIN_NUMBER, MAX_HOUSE_NUMBER);
+            case "house_index":
+                return new IntegerCompareValidator(MIN_NUMBER, MAX_HOUSE_INDEX);
+            case "city":
+                return new PatternValidator(CITY_NAME_PATTERN);
+            case "street":
+                return new PatternValidator(STREET_NAME_PATTERN);
+            case "owner":
+                return new NotNullValidator();
         }
-        return result;
-    }
-
-    private static boolean validateImage(HttpServletRequest request) {
-        String imageName = request.getParameter(SqlConstant.IMAGES_IMAGE_URL);
-        return matchPatternWithString(IMAGE_NAME_PATTERN, imageName);
-    }
-
-    private static boolean matchPatternWithString(String pattern, String value) {
-        Pattern loginPattern = Pattern.compile(pattern);
-        Matcher loginMatcher = loginPattern.matcher(value);
-        return loginMatcher.matches();
+        return validator;
     }
 }
+

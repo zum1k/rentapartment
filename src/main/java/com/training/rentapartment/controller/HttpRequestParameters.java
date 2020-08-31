@@ -6,10 +6,13 @@ public class HttpRequestParameters {
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
     public static final String USER_ID = "user_id";
+    public static final String USERS = "users";
     //image parameters
     public static final String IMAGE_NAME = "image_name";
     public static final String IMAGE_DATA = "image_data";
     //SQL table and columns names of ADVERTISEMENT
+    public static final String ADVERTISEMENT_ID = "advertisement_id";
+    public static final String ADVERTISEMENTS = "advertisements";
     public static final String COST = "cost";
     public static final String ROOMS = "rooms";
     public static final String FLOOR = "floor";
@@ -18,9 +21,9 @@ public class HttpRequestParameters {
     public static final String KITCHEN_SQUARE = "kitchen_square";
     public static final String OWNER = "owner";
     public static final String PHONE = "phone";
-    public static final String ADDATE = "addate";
+    public static final String AD_DATE = "ad_date";
     public static final String DESCRIPTION = "description";
-    public static final String PAGE_COUNT = "page_count";
+    public static final String PAGE_OFFSET = "page_offset";
     public static final String PAGE_LIMIT = "page_limit";
     //SQL table and columns names of ADDRESS
     public static final String CITY = "city";

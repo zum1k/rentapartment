@@ -12,7 +12,8 @@
 </head>
 <body>
 <nav><a href="/controller?command=show_all_users">На главную</a> | <a href="/controller?command=link_to_login">Войти</a>
-    | <a href="/controller?command=link_to_register">Регистрация</a></nav>
+    | <a href="/controller?command=link_to_register">Регистрация</a>  | <a href="/controller?command=link_to_add_ad">Добавить объявление</a>
+    | <a href="/controller?command=show_all_users">Все юзеры</a> | <a href="/controller?command=link_to_upload_images">Добавить изображение</a></nav>
 <h2>HEADER</h2>
 
 </body>

@@ -7,9 +7,9 @@ import com.training.rentapartment.exception.CommandException;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class LinkToAddAdPageCommand implements Command {
+public class LinkToUploadImagesCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        return CommandResult.forward(PagePath.ADD_ADVERTISEMENT);
+        return CommandResult.forward(PagePath.IMAGES);
     }
 }

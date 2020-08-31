@@ -10,6 +10,8 @@ public class PagePath {
     public static final String CLIENT = "WEB-INF/pages/client.jsp";
     public static final String VERIFICATION = "WEB-INF/pages/verification.jsp";
     public static final String ADD_ADVERTISEMENT = "WEB-INF/pages/add_advertisement.jsp";
+    public static final String USERS = "WEB-INF/pages/users.jsp";
+    public static final String IMAGES = "WEB-INF/pages/upload_images.jsp";
 
     private PagePath() {
     }

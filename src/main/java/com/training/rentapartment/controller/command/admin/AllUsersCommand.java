@@ -1,6 +1,7 @@
 package com.training.rentapartment.controller.command.admin;
 
 import com.training.rentapartment.controller.Command;
+import com.training.rentapartment.controller.HttpRequestParameters;
 import com.training.rentapartment.controller.SessionAttribute;
 import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
@@ -31,7 +32,7 @@ public class AllUsersCommand implements Command {
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         try {
             List<User> users = service.findAllUsers();
-            request.setAttribute(SessionAttribute.USERS, users);
+            request.setAttribute(HttpRequestParameters.USERS, users);
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage(), e);
             throw new CommandException(e.getMessage(), e);

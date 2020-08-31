@@ -9,6 +9,7 @@ import com.training.rentapartment.exception.ServiceException;
 import java.util.List;
 
 public interface AdvertisementService {
-    void addAdvertisement(Advertisement advertisement, Address address, List<Image> images) throws ServiceException;
-    List<AdvertisementDto> allAdvertisements(int pageOffset, int pageLimit) throws ServiceException;
+    int addAdvertisement(Advertisement advertisement, Address address) throws ServiceException;
+    List<AdvertisementDto> findAllAdvertisements(int pageOffset, int pageLimit) throws ServiceException;
+    void addImages(List<Image> images) throws ServiceException;
 }

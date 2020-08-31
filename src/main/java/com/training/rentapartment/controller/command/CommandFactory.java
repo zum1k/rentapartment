@@ -36,6 +36,8 @@ public class CommandFactory {
                 return new LogOutCommand();
             case "show_user_ad":
                 return new ShowUserAdCommand();
+            case "upload_images":
+                return new UploadImagesCommand();
             //admin commands
             case "delete_user":
                 return new DeleteUserCommand();
@@ -54,6 +56,8 @@ public class CommandFactory {
                 return new LinkToAddAdPageCommand();
             case "link_to_login":
                 return new LinkToLoginPageCommand();
+            case "link_to_upload_images":
+                return new LinkToUploadImagesCommand();
             default:
                 return new AllUsersCommand();
         }

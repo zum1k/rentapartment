@@ -33,13 +33,14 @@ public class LogInCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         String page = PagePath.MAIN;
-        String loginValue = request.getParameter(LOGIN_PARAMETER);
-        String passwordValue = request.getParameter(PASSWORD_PARAMETER);
-        if (GuestValidator.validateLogin(loginValue, passwordValue)) {
+        if (GuestValidator.validateLogin(request.getParameter(LOGIN_PARAMETER),
+                request.getParameter(PASSWORD_PARAMETER))) {
             try {
+                String loginValue = request.getParameter(LOGIN_PARAMETER);
+                String passwordValue = request.getParameter(PASSWORD_PARAMETER);
                 Optional<User> currentUser = service.logIn(loginValue, passwordValue);
                 if (currentUser.isPresent()) {
-                    request.getSession().setAttribute(SessionAttribute.USER_ID_ATTRIBUTE, currentUser);
+                    request.getSession().setAttribute(SessionAttribute.USER, currentUser);
                     page = PagePath.CLIENT;
                 }
             } catch (ServiceException exception) {

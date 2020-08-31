@@ -6,7 +6,10 @@ import com.training.rentapartment.controller.SessionAttribute;
 import com.training.rentapartment.entity.Advertisement;
 import com.training.rentapartment.entity.OwnerType;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.List;
 
 public class AdvertisementMapper implements EntityMapper<Advertisement> {
     @Override
@@ -20,10 +23,15 @@ public class AdvertisementMapper implements EntityMapper<Advertisement> {
         OwnerType owner = OwnerType.valueOf(request.getParameter(HttpRequestParameters.OWNER));
         String phone = request.getParameter(HttpRequestParameters.PHONE);
         String adDate = request.getParameter(HttpRequestParameters.ADDATE);
-        int userID = (Integer) request.getSession().getAttribute(SessionAttribute.USER_ID_ATTRIBUTE);
+        int userID = Integer.parseInt(request.getParameter(HttpRequestParameters.USER_ID));
         String description = request.getParameter(HttpRequestParameters.DESCRIPTION);
         Advertisement advertisement = new Advertisement(cost, rooms, floor, square, livingSquare,
                 kitchenSquare, owner, phone, adDate, userID, description);
         return advertisement;
+    }
+
+    @Override
+    public List<Advertisement> toEntityList(HttpServletRequest request) throws IOException, ServletException {
+        return null;
     }
 }

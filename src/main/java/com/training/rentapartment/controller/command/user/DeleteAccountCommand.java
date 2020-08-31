@@ -22,8 +22,7 @@ public class DeleteAccountCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request)  throws CommandException {
-        String page = PagePath.CLIENT;
+    public CommandResult execute(HttpServletRequest request) throws CommandException {
         int userId = Integer.parseInt(request.getParameter(HttpRequestParameters.USER_ID));
         try {
             service.deleteAccount(userId);
@@ -31,6 +30,6 @@ public class DeleteAccountCommand implements Command {
             e.printStackTrace();
             throw new CommandException(e.getMessage(), e);
         }
-        return CommandResult.redirect(page);
+        return CommandResult.redirect(PagePath.CLIENT);
     }
 }
