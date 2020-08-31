@@ -30,7 +30,8 @@ public class AddAdvertisementCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         String page = PagePath.ADD_ADVERTISEMENT;
-        if (AdvertisementValidator.validateAdvertisementRequest(request)) {
+        AdvertisementValidator validator = new AdvertisementValidator();
+        if (validator.validateAdvertisement(request)) {
             try {
                 Address address = new AddressMapper().toEntity(request);
                 Advertisement advertisement = new AdvertisementMapper().toEntity(request);

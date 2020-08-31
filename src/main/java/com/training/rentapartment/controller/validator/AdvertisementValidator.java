@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class AdvertisementValidator {
     private static final String PHONE_NUMBER_PATTERN = "^(\\+375)(29|25|44|33|17)(\\d{3})(\\d{2})(\\d{2})$";
-    private static final String IMAGE_NAME_PATTERN = "\\w+(.jpg|.png|.bmp)$";
     private static final String CITY_NAME_PATTERN = "\\p{Upper}{1}\\p{Lower}+";
     private static final String STREET_NAME_PATTERN = "\\p{Upper}{1}\\p{Lower}+\\s{1}(avenue|street)$";
     private static final int MAX_HOUSE_NUMBER = 300;

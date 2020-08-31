@@ -12,7 +12,7 @@ public class IntegerValidator implements StringValidator {
 
     @Override
     public boolean validate(String value) {
-        if(numberFormatValidator.validate(value)) {
+        if (numberFormatValidator.validate(value)) {
             return NumberUtils.isDigits(value);
         }
         return false;
