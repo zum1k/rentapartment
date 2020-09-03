@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ShowUserAdCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request) {
+
         return null;
     }
 }

@@ -37,7 +37,7 @@ public abstract class AbstractRepository<T> implements Repository<T>, AutoClosea
     public Optional<T> singleQuery(Specification specification) throws RepositoryException {
         List<T> queriedUsers = doQuery(specification);
         if (queriedUsers.size() == 1) {
-            return Optional.of(queriedUsers.get(0));
+            return Optional.ofNullable(queriedUsers.get(0));
         }
         return Optional.empty();
     }

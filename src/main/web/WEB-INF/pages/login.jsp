@@ -8,18 +8,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head><title>Login</title></head>
-<body><h3>Login</h3>
-<hr/>
-<form name="loginForm" method="POST"
-      action="controller?command=login">
-    Login:<br/>
-    <input type="text" name="login" value=""><br/>
-    Password:<br/>
-    <input type="password" name="password" value="">
+<h4 align="center">
+    <a href="${pageContext.request.contextPath}/controller?command=show_all_users">На главную</a>
     <br/>
     <br/>
-    <input type="submit" value="Войти">
-</form>
-<hr/>
-</body>
+    <body>
+    <form name="loginForm" method="POST" action="controller?command=login">
+        <fieldset>
+            <legend>ВХОД</legend>
+            <input type="text" required id="login" name="login" placeholder="логин" value="">
+            <br/>
+            <br/>
+            <input type="password" required id="password" name="password" placeholder="пароль" value="">
+            <br/>
+            <br/>
+            <input type="submit" value="Войти">
+            <br/>
+            <br/>
+            <a href="${pageContext.request.contextPath}/controller?command=link_to_register">Зарегистрироваться</a>
+        </fieldset>
+    </form>
+    </body>
+</h4>
 </html>

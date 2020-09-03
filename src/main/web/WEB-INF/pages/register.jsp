@@ -10,19 +10,24 @@
 <head>
     <title>Registration</title>
 </head>
-<body>
-<form name="RegistrationForm" method="POST"
-     action="controller?command=register">
-     <br/>
-    <input type="text" name="login"  placeholder="Придумайте логин" value=""><br/>
+<h4 align="center">
+    <body>
+    <a href="${pageContext.request.contextPath}/controller?command=show_all_users">На главную</a>
     <br/>
-    <input type="password" name="password"  placeholder="Придумайте пароль" value=""><br/>
     <br/>
-    <input type="email" name="email" placeholder="user@email.com" value=""><br/>
-    <br/>
-    <input type="submit" value="Зарегистрироваться">
-</form>
-<hr/>
-
-</body>
+    <form name="RegistrationForm" method="POST" action="controller?command=register">
+        <fieldset>
+            <legend>РЕГИСТРАЦИЯ</legend>
+            <br/>
+            <input type="text" name="login" placeholder="Придумайте логин" value=""><br/>
+            <br/>
+            <input type="password" name="password" placeholder="Придумайте пароль" value=""><br/>
+            <br/>
+            <input type="email" name="email" placeholder="user@email.com" value=""><br/>
+            <br/>
+            <input type="submit" value="Зарегистрироваться">
+        </fieldset>
+    </form>
+    </body>
+</h4>
 </html>

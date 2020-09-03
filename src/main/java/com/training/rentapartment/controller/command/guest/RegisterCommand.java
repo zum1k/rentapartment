@@ -42,17 +42,18 @@ public class RegisterCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         String page = PagePath.REGISTRATION;
-        String loginValue = request.getParameter(LOGIN_PARAMETER);
-        String passwordValue = request.getParameter(PASSWORD_PARAMETER);
-        String emailValue = request.getParameter(EMAIL_PARAMETER);
-        if (GuestValidator.validateRegistration(loginValue, passwordValue, emailValue)) {
+        GuestValidator guestValidator = new GuestValidator();
+        if (guestValidator.validateRegistration(request.getParameter(LOGIN_PARAMETER),
+                request.getParameter(PASSWORD_PARAMETER),
+                request.getParameter(EMAIL_PARAMETER))) {
             try {
                 User user = new UserMapper().toEntity(request);
                 Optional<User> currentUser = service.register(user);
                 if (currentUser.isPresent()) {
                     request.getSession().setAttribute(SessionAttribute.USER, currentUser);
                     page = PagePath.MAIN;
-                    MailSender mailSender = new MailSender(VERIFICATION_EMAIL_SUBJECT, VERIFICATION_EMAIL_MESSAGE, emailValue);
+                    MailSender mailSender = new MailSender(VERIFICATION_EMAIL_SUBJECT, VERIFICATION_EMAIL_MESSAGE,
+                            request.getParameter(EMAIL_PARAMETER));
                     mailSender.send();
                 }
             } catch (IOException | ServletException | ServiceException e) {

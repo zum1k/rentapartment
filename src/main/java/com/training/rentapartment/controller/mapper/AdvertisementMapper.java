@@ -22,7 +22,7 @@ public class AdvertisementMapper implements EntityMapper<Advertisement> {
         double kitchenSquare = Double.parseDouble(request.getParameter(HttpRequestParameters.KITCHEN_SQUARE));
         OwnerType owner = OwnerType.valueOf(request.getParameter(HttpRequestParameters.OWNER));
         String phone = request.getParameter(HttpRequestParameters.PHONE);
-        String adDate = request.getParameter(HttpRequestParameters.ADDATE);
+        String adDate = request.getParameter(HttpRequestParameters.AD_DATE);
         int userID = Integer.parseInt(request.getParameter(HttpRequestParameters.USER_ID));
         String description = request.getParameter(HttpRequestParameters.DESCRIPTION);
         Advertisement advertisement = new Advertisement(cost, rooms, floor, square, livingSquare,

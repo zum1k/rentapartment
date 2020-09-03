@@ -33,7 +33,8 @@ public class LogInCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         String page = PagePath.MAIN;
-        if (GuestValidator.validateLogin(request.getParameter(LOGIN_PARAMETER),
+        GuestValidator validator = new GuestValidator();
+        if (validator.validateLogin(request.getParameter(LOGIN_PARAMETER),
                 request.getParameter(PASSWORD_PARAMETER))) {
             try {
                 String loginValue = request.getParameter(LOGIN_PARAMETER);
