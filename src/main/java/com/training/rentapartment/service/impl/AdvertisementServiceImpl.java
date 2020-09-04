@@ -6,6 +6,7 @@ import com.training.rentapartment.entity.Image;
 import com.training.rentapartment.entity.dto.AdvertisementDto;
 import com.training.rentapartment.exception.RepositoryException;
 import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.model.repository.Specification;
 import com.training.rentapartment.model.repository.impl.address.AddressRepository;
 import com.training.rentapartment.model.repository.impl.advertisement.AdvertisementRepository;
 import com.training.rentapartment.model.repository.impl.image.ImageRepository;
@@ -13,6 +14,7 @@ import com.training.rentapartment.model.repository.specification.address.Address
 import com.training.rentapartment.model.repository.specification.address.AddressByIdSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.AdvertisementByIdSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.AdvertisementByLimitAndOffsetSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.user.AdvertisementByUserIdSpecification;
 import com.training.rentapartment.model.repository.specification.image.ImageByAdvertisementIdSpecification;
 import com.training.rentapartment.service.AdvertisementService;
 import org.apache.logging.log4j.LogManager;
@@ -72,7 +74,7 @@ public class AdvertisementServiceImpl implements AdvertisementService { //TODO
             throw new ServiceException(e.getMessage(), e);
         }
     }
-
+    @Override
     public Optional<AdvertisementDto> findSingleAdvertisement(int advertisementId) throws ServiceException {
         try {
             AdvertisementByIdSpecification idSpecification = new AdvertisementByIdSpecification(advertisementId);
@@ -88,16 +90,21 @@ public class AdvertisementServiceImpl implements AdvertisementService { //TODO
             throw new ServiceException(e.getMessage(), e);
         }
     }
-
-    private int addAdvertisementWithAddress(int addressId, Advertisement advertisement) throws RepositoryException {
-        advertisement.setAddressId(addressId);
-        return advertisementRepository.add(advertisement);
-    }
-
+    @Override
     public List<AdvertisementDto> findAllAdvertisements(int pageOffset, int pageLimit) throws ServiceException {
-        List<AdvertisementDto> dtos = new ArrayList<>();
         AdvertisementByLimitAndOffsetSpecification specification =
                 new AdvertisementByLimitAndOffsetSpecification(pageOffset, pageLimit);
+        return findAdvertisements(specification);
+    }
+
+    @Override
+    public List<AdvertisementDto> findUserAdvertisements(int userId) throws ServiceException {
+        AdvertisementByUserIdSpecification specification = new AdvertisementByUserIdSpecification(userId);
+        return findAdvertisements(specification);
+    }
+
+    private List<AdvertisementDto> findAdvertisements(Specification specification) throws ServiceException {
+        List<AdvertisementDto> dtos = new ArrayList<>();
         try {
             List<Advertisement> queriedAdvertisements = advertisementRepository.query(specification);
             for (Advertisement advertisement : queriedAdvertisements) {
@@ -109,6 +116,11 @@ public class AdvertisementServiceImpl implements AdvertisementService { //TODO
             throw new ServiceException(e);
         }
         return dtos;
+    }
+
+    private int addAdvertisementWithAddress(int addressId, Advertisement advertisement) throws RepositoryException {
+        advertisement.setAddressId(addressId);
+        return advertisementRepository.add(advertisement);
     }
 
     private AdvertisementDto createAdvertisementDto(Advertisement advertisement) throws RepositoryException {

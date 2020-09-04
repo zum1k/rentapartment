@@ -4,7 +4,6 @@ import com.training.rentapartment.controller.Command;
 import com.training.rentapartment.controller.HttpRequestParameters;
 import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
-import com.training.rentapartment.controller.command.user.DeleteAccountCommand;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
 import com.training.rentapartment.service.UserService;
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 public class DeleteUserCommand implements Command {
     private final UserService service;
     public DeleteUserCommand(){
-        this.service = UserServiceImpl.getINSTANCE();
+        this.service = UserServiceImpl.getInstance();
     }
 
     public DeleteUserCommand(UserService service) {

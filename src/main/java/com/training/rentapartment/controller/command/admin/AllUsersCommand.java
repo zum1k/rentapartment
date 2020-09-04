@@ -2,7 +2,6 @@ package com.training.rentapartment.controller.command.admin;
 
 import com.training.rentapartment.controller.Command;
 import com.training.rentapartment.controller.HttpRequestParameters;
-import com.training.rentapartment.controller.SessionAttribute;
 import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.entity.User;
@@ -21,7 +20,7 @@ public class AllUsersCommand implements Command {
 
 
     public AllUsersCommand() {
-        this.service = UserServiceImpl.getINSTANCE();
+        this.service = UserServiceImpl.getInstance();
     }
 
     public AllUsersCommand(UserServiceImpl service) {

@@ -13,6 +13,7 @@ public class HttpRequestParameters {
     //SQL table and columns names of ADVERTISEMENT
     public static final String ADVERTISEMENT_ID = "advertisement_id";
     public static final String ADVERTISEMENTS = "advertisements";
+    public static final String ADVERTISEMENT = "advertisement";
     public static final String COST = "cost";
     public static final String ROOMS = "rooms";
     public static final String FLOOR = "floor";

@@ -11,23 +11,24 @@
     <title>Advertisement</title>
 </head>
 <body>
-<p>COST: ${cost} </p>
-<p>ROOMS: ${rooms}</p>
-<p>FLOOR: ${floor}</p>
-<p>SQUARE: ${square}</p>
-<p>KITCHEN ${kitchen_square}</p>
-<p>LIVING SQUARE: ${living_square}</p>
-<p>OWNER: ${owner}</p>
-<p>PHONE: ${phone}</p>
-<p>AD DATE ${ad_date}</p>
-<p>LIVING SQUARE: ${living_square}</p>
-<p>OWNER: ${owner}</p>
-<p>PHONE:: ${phone}</p>
-<p> DESCRIPTION: ${description}</p>
-<p> CITY: ${city}</p>
-<p> STREET: ${street}</p>
-<p> HOUSE NUMBER ${house_number} </p>
-<p>HOUSE INDEX ${house_index} </p>
+<p> ${advertisement}</p>
+<p>COST: ${advertisement.cost} </p>
+<p>ROOMS: ${advertisement.rooms}</p>
+<p>FLOOR: ${advertisement.floor}</p>
+<p>SQUARE: ${advertisement.square}</p>
+<p>KITCHEN ${advertisement.kitchen_square}</p>
+<%--<p>LIVING SQUARE: ${living_square}</p>--%>
+<%--<p>OWNER: ${owner}</p>--%>
+<%--<p>PHONE: ${phone}</p>--%>
+<%--<p>AD DATE ${ad_date}</p>--%>
+<%--<p>LIVING SQUARE: ${living_square}</p>--%>
+<%--<p>OWNER: ${owner}</p>--%>
+<%--<p>PHONE:: ${phone}</p>--%>
+<%--<p> DESCRIPTION: ${description}</p>--%>
+<%--<p> CITY: ${city}</p>--%>
+<%--<p> STREET: ${street}</p>--%>
+<%--<p> HOUSE NUMBER ${house_number} </p>--%>
+<%--<p>HOUSE INDEX ${house_index} </p>--%>
 
 </body>
 </html>

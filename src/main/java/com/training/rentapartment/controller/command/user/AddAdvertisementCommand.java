@@ -12,11 +12,13 @@ import com.training.rentapartment.entity.Advertisement;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
 import com.training.rentapartment.service.impl.AdvertisementServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class AddAdvertisementCommand implements Command {
-
+    private static final Logger LOGGER = LogManager.getLogger(AddAdvertisementCommand.class);
     private AdvertisementServiceImpl service;
 
     public AddAdvertisementCommand() {
@@ -39,6 +41,7 @@ public class AddAdvertisementCommand implements Command {
                 request.setAttribute(HttpRequestParameters.ADVERTISEMENT_ID, advertisementId);
                 page = PagePath.IMAGES;
             } catch (ServiceException e) {
+                LOGGER.error(e.getMessage(), e);
                 throw new CommandException(e.getMessage(), e);
             }
         }

@@ -3,7 +3,7 @@ package com.training.rentapartment.entity;
 import java.util.Objects;
 
 public class User {
-    private long userId;
+    private int userId;
     private String login;
     private String password;
     private UserType type;
@@ -21,11 +21,11 @@ public class User {
         this.verified = verified;
     }
 
-    public long getId() {
+    public int getId() {
         return userId;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.userId = id;
     }
 

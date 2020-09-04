@@ -15,15 +15,15 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserRepository.class);
-    private static UserServiceImpl INSTANCE = new UserServiceImpl();
+    private final static UserServiceImpl instance = new UserServiceImpl();
     private final UserRepository userRepository;
 
     private UserServiceImpl() {
         this.userRepository = new UserRepository();
     }
 
-    public static UserServiceImpl getINSTANCE() {
-        return INSTANCE;
+    public static UserServiceImpl getInstance() {
+        return instance;
     }
 
 

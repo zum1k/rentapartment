@@ -3,10 +3,7 @@ package com.training.rentapartment.controller.command;
 import com.training.rentapartment.controller.Command;
 import com.training.rentapartment.controller.command.admin.AllUsersCommand;
 import com.training.rentapartment.controller.command.admin.DeleteUserCommand;
-import com.training.rentapartment.controller.command.guest.AllAdvertisementsCommand;
-import com.training.rentapartment.controller.command.guest.LogInCommand;
-import com.training.rentapartment.controller.command.guest.RegisterCommand;
-import com.training.rentapartment.controller.command.guest.VerificationCommand;
+import com.training.rentapartment.controller.command.guest.*;
 import com.training.rentapartment.controller.command.link.*;
 import com.training.rentapartment.controller.command.user.*;
 
@@ -25,6 +22,8 @@ public class CommandFactory {
                 return new VerificationCommand();
             case "show_all_advertisements":
                 return new AllAdvertisementsCommand();
+            case "show_advertisement":
+                return  new ShowAdvertisementCommand();
             //user commands
             case "delete_account":
                 return new DeleteAccountCommand();
@@ -35,7 +34,7 @@ public class CommandFactory {
             case "logout":
                 return new LogOutCommand();
             case "show_user_ad":
-                return new ShowUserAdCommand();
+                return new ShowUserAdvertisementsCommand();
             case "upload_images":
                 return new UploadImagesCommand();
             //admin commands
@@ -59,7 +58,7 @@ public class CommandFactory {
             case "link_to_upload_images":
                 return new LinkToUploadImagesCommand();
             default:
-                return new AllUsersCommand();
+                return new AllAdvertisementsCommand();
         }
     }
 }
