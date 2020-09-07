@@ -10,7 +10,6 @@ import com.training.rentapartment.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
@@ -39,14 +38,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAllUsers() throws ServiceException {
-        List<User> users = new ArrayList<>();
         AllUsersSpecification specification = new AllUsersSpecification();
         try {
-            users = userRepository.query(specification);
+            return userRepository.query(specification);
         } catch (RepositoryException e) {
             LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
-        return users;
     }
 }

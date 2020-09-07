@@ -29,7 +29,6 @@ public class AdvertisementSqlMapper implements SqlMapper<Advertisement> {
             advertisement.setKitchenSquare(resultSet.getDouble(SqlConstant.ADVERTISEMENT_KITCHEN_SQUARE));
             advertisement.setOwner(OwnerType.valueOf(resultSet.getString(SqlConstant.ADVERTISEMENT_OWNER).toUpperCase()));
             advertisement.setPhoneNumber(resultSet.getString(SqlConstant.ADVERTISEMENT_PHONE));
-            advertisement.setAdDate(resultSet.getString(SqlConstant.ADVERTISEMENT_DATE));
             advertisement.setAddressId(resultSet.getInt(SqlConstant.ADDRESS_ID));
             advertisement.setUserId(resultSet.getInt(SqlConstant.USER_ID));
             advertisement.setDescription(resultSet.getString(SqlConstant.ADVERTISEMENT_DESCRIPTION));
@@ -49,7 +48,6 @@ public class AdvertisementSqlMapper implements SqlMapper<Advertisement> {
         fields.put(SqlConstant.ADVERTISEMENT_KITCHEN_SQUARE, advertisement.getKitchenSquare());
         fields.put(SqlConstant.ADVERTISEMENT_OWNER, advertisement.getOwner());
         fields.put(SqlConstant.ADVERTISEMENT_PHONE, advertisement.getPhoneNumber());
-        fields.put(SqlConstant.ADVERTISEMENT_DATE, advertisement.getAdDate());
         fields.put(SqlConstant.ADDRESS_ID, advertisement.getAddressId());
         fields.put(SqlConstant.USER_ID, advertisement.getUserId());
         fields.put(SqlConstant.ADVERTISEMENT_DESCRIPTION, advertisement.getDescription());

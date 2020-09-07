@@ -32,17 +32,12 @@ public class GuestServiceImpl implements GuestService {
     @Override
     public Optional<User> logIn(String loginValue, String passwordValue) throws ServiceException {
         UserByLoginPasswordSpecification specification = new UserByLoginPasswordSpecification(loginValue, passwordValue);
-        Optional<User> optionalUser;
         try {
-           optionalUser = userRepository.singleQuery(specification);
-           if(optionalUser.isPresent()){
-              return optionalUser;
-           }
+           return userRepository.singleQuery(specification);
         } catch (RepositoryException e) {
             logger.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(),e);
         }
-        return optionalUser;
     }
 
     @Override

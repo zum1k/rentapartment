@@ -7,15 +7,15 @@ public class DoubleCompareValidator implements StringValidator {
     private final int maxValue;
     private final int minValue;
 
-    public DoubleCompareValidator(int MAX_VALUE, int MIN_VALUE) {
+    public DoubleCompareValidator(int minValue, int maxValue) {
         this.numberValidator = new NumberFormatValidator();
-        this.maxValue = MAX_VALUE;
-        this.minValue = MIN_VALUE;
+        this.maxValue = maxValue;
+        this.minValue = minValue;
     }
 
-    public DoubleCompareValidator(int MIN_VALUE) {
+    public DoubleCompareValidator(int minValue) {
         this.numberValidator = new NumberFormatValidator();
-        this.minValue = MIN_VALUE;
+        this.minValue = minValue;
         this.maxValue = 1000000;
     }
 

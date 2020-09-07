@@ -22,7 +22,6 @@ public class HttpRequestParameters {
     public static final String KITCHEN_SQUARE = "kitchen_square";
     public static final String OWNER = "owner";
     public static final String PHONE = "phone";
-    public static final String AD_DATE = "ad_date";
     public static final String DESCRIPTION = "description";
     public static final String PAGE_OFFSET = "page_offset";
     public static final String PAGE_LIMIT = "page_limit";

@@ -3,7 +3,7 @@ package com.training.rentapartment.model.repository.specification.queryparameter
 import com.training.rentapartment.model.repository.SqlQueryParameter;
 
 public class StringSqlQueryParameter implements SqlQueryParameter {
-    private final String value;
+    private String value;
 
     public StringSqlQueryParameter(String value) {
         this.value = value;

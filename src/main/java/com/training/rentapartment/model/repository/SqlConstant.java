@@ -28,7 +28,6 @@ public class SqlConstant {
     public static final String ADVERTISEMENT_KITCHEN_SQUARE = "kitchensquare";
     public static final String ADVERTISEMENT_OWNER = "owner";
     public static final String ADVERTISEMENT_PHONE = "phone";
-    public static final String ADVERTISEMENT_DATE = "addate";
     public static final String ADVERTISEMENT_DESCRIPTION = "description";
     //SQL table and columns names of ADDRESS
     public static final String ADDRESS_TABLE_NAME = "address";

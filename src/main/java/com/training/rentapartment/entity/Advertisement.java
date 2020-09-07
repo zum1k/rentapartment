@@ -23,8 +23,7 @@ public class Advertisement {
     }
 
     public Advertisement(int cost, int rooms, int floor, double square, double livingSquare,
-                         double kitchenSquare, OwnerType owner, String phoneNumber,
-                         String adDate, int userId, String description) {
+                         double kitchenSquare, OwnerType owner, String phoneNumber, int userId, String description) {
         this.cost = cost;
         this.rooms = rooms;
         this.floor = floor;
@@ -33,7 +32,6 @@ public class Advertisement {
         this.kitchenSquare = kitchenSquare;
         this.owner = owner;
         this.phoneNumber = phoneNumber;
-        this.adDate = adDate;
         this.userId = userId;
         this.description = description;
     }
@@ -118,14 +116,6 @@ public class Advertisement {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getAdDate() {
-        return adDate;
-    }
-
-    public void setAdDate(String adDate) {
-        this.adDate = adDate;
-    }
-
     public int getUserId() {
         return userId;
     }
@@ -158,14 +148,13 @@ public class Advertisement {
                 userId == that.userId &&
                 owner == that.owner &&
                 Objects.equals(phoneNumber, that.phoneNumber) &&
-                Objects.equals(adDate, that.adDate) &&
                 Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(adId, cost, rooms, floor, square, livingSquare,
-                kitchenSquare, owner, phoneNumber, adDate, addressId, userId, description);
+                kitchenSquare, owner, phoneNumber, addressId, userId, description);
     }
 
     @Override
@@ -175,7 +164,7 @@ public class Advertisement {
                 .append(floor).append(", square=").append(square).append(", livingSquare=")
                 .append(livingSquare).append(", kitchenSquare=").append(kitchenSquare)
                 .append(", owner=").append(owner).append(", phoneNumber='").append(phoneNumber)
-                .append('\'').append(", adDate='").append(adDate).append('\'').append(", addressId=")
+                .append('\'').append(", addressId=")
                 .append(addressId).append(", userId=")
                 .append(userId).append(", description='").append(description).append('\'')
                 .append('}').toString();

@@ -3,7 +3,7 @@ package com.training.rentapartment.model.repository.specification.queryparameter
 import com.training.rentapartment.model.repository.SqlQueryParameter;
 
 public class IntegerSqlQueryParameter implements SqlQueryParameter {
-    private final int value;
+    private int value;
 
     public IntegerSqlQueryParameter(int value) {
         this.value = value;

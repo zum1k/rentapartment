@@ -13,6 +13,7 @@
 </head>
 <body>
  HELLO FROM CLIENT PAGE
+ <a href="${pageContext.request.contextPath}/controller?command=link_to_add_ad">Добавить объявление</a> |
  МОИ ОБЪЯВЛЕНИЯ:ul>
  <c:forEach var="advertisement" items="${advertisements}">
   <p>${advertisement}</p>
@@ -21,6 +22,6 @@
  почта:
  <br/>
  <a href="main.jsp">Выйти</a>
- <input type="hidden" name="user" value = ${sessionScope.user}>
+ <input type="hidden" name="user" value = ${sessionScope.user.userId}>
 </body>
 </html>

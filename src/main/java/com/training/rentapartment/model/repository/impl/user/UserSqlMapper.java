@@ -24,7 +24,7 @@ public class UserSqlMapper implements SqlMapper<User> {
                 user.setPassword(resultSet.getString(SqlConstant.USER_PASSWORD));
                 user.setType(UserType.valueOf(resultSet.getString(SqlConstant.USER_TYPE).toUpperCase()));
                 user.setEmail(resultSet.getString(SqlConstant.USER_EMAIL));
-                user.setVerified(resultSet.getBoolean(SqlConstant.USER_VERIFIED));
+                user.setVerified(resultSet.getInt(SqlConstant.USER_VERIFIED));
                 queriedList.add(user);
             } catch (SQLException e) {
                 e.printStackTrace();

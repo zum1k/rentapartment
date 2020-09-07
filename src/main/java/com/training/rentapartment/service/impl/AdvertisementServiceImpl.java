@@ -14,6 +14,7 @@ import com.training.rentapartment.model.repository.specification.address.Address
 import com.training.rentapartment.model.repository.specification.address.AddressByIdSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.AdvertisementByIdSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.AdvertisementByLimitAndOffsetSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.AllAdvertisementsSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.user.AdvertisementByUserIdSpecification;
 import com.training.rentapartment.model.repository.specification.image.ImageByAdvertisementIdSpecification;
 import com.training.rentapartment.service.AdvertisementService;

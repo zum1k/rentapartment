@@ -7,7 +7,7 @@ public class IntegerCompareValidator implements StringValidator {
     private final int maxValue;
     private final int minValue;
 
-    public IntegerCompareValidator(int maxValue, int minValue) {
+    public IntegerCompareValidator(int minValue, int maxValue) {
         this.integerValidator = new IntegerValidator();
         this.maxValue = maxValue;
         this.minValue = minValue;

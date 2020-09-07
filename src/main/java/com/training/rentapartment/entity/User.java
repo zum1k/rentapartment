@@ -8,12 +8,12 @@ public class User {
     private String password;
     private UserType type;
     private String email;
-    private boolean verified;
+    private int verified;
 
     public User() {
     }
 
-    public User(String login, String password,UserType type, String email, boolean verified) {
+    public User(String login, String password,UserType type, String email,int verified) {
         this.login = login;
         this.password = password;
         this.type = type;
@@ -61,8 +61,10 @@ public class User {
         this.email = email;
     }
 
-    public boolean getVerified(){ return  verified; }
-    public void setVerified(boolean verified){ this.verified = verified; }
+    public int getVerified(){
+        return  verified; }
+    public void setVerified(int verified){
+        this.verified = verified; }
 
     @Override
     public boolean equals(Object o) {

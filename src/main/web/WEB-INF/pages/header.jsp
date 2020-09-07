@@ -14,9 +14,8 @@
 <body>
 <nav><a href="${pageContext.request.contextPath}/controller?command=show_all_users">На главную</a> |
     <a href="${pageContext.request.contextPath}/controller?command=link_to_login">Войти</a>
-    | <a href="${pageContext.request.contextPath}/controller?command=link_to_add_ad">Добавить объявление</a>
-    | <a href="${pageContext.request.contextPath}/controller?command=show_all_users">Все юзеры</a> |
-    <a href="${pageContext.request.contextPath}/controller?command=link_to_upload_images">Добавить изображение</a></nav>
+    |  <a href="${pageContext.request.contextPath}/controller?command=show_all_users">Все юзеры</a> |
+</nav>
 <h2>HEADER</h2>
 
 </body>

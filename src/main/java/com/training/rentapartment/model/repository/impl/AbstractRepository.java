@@ -44,6 +44,7 @@ public abstract class AbstractRepository<T> implements Repository<T>, AutoClosea
 
     @Override
     public void close() throws Exception {
+        connection.close();
         //TODO return connection to CP;
     }
 
@@ -51,12 +52,9 @@ public abstract class AbstractRepository<T> implements Repository<T>, AutoClosea
         List<T> queriedEntities;
         List<SqlQueryParameter> parameters = specification.receiveParameters();
         String sqlQuery = SqlConstant.SELECT_QUERY + getTableName() + specification.toSqlRequest();
-        int parametersLength = specification.receiveParameters().size();
         ResultSet resultSet = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
-            for (int i = 0; i < parametersLength; i++) {
-                preparedStatement.setString(i + 1, parameters.get(i).toString());
-            }
+        try  {
+            PreparedStatement preparedStatement = setPreparedStatement(sqlQuery, specification);
             resultSet = preparedStatement.executeQuery();
             queriedEntities = toEntity(resultSet);
 
@@ -86,7 +84,7 @@ public abstract class AbstractRepository<T> implements Repository<T>, AutoClosea
         try {
             Map<String, Object> fields = toEntityFields(t);
             String sql = SqlConstant.INSERT_QUERY + getTableName() + doInsertQuery(fields);
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             int i = 1;
             for (Map.Entry<String, Object> entry : fields.entrySet()) {
                 Object value = entry.getValue();
@@ -99,7 +97,7 @@ public abstract class AbstractRepository<T> implements Repository<T>, AutoClosea
             }
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 if (resultSet.next()) {
-                    keyId =resultSet.getInt(1);
+                    keyId = resultSet.getInt(1);
                 }
             }
         } catch (SQLException exception) {
@@ -110,16 +108,24 @@ public abstract class AbstractRepository<T> implements Repository<T>, AutoClosea
 
     private void doDelete(Specification specification) throws RepositoryException {
         String sqlQuery = SqlConstant.DELETE_QUERY + getTableName() + " " + specification.toSqlRequest();
-        int parametersLength = specification.receiveParameters().size();
-        List<SqlQueryParameter> parameters = specification.receiveParameters();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
-            for (int i = 0; i < parametersLength; i++) {
-                preparedStatement.setString(i + 1, parameters.get(i).toString());
-            }
+        try  {
+            PreparedStatement preparedStatement = setPreparedStatement(sqlQuery, specification);
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             throw new RepositoryException(exception.getMessage(), exception);
         }
+    }
+    private PreparedStatement setPreparedStatement(String sqlQuery, Specification specification) throws SQLException {
+        int parametersLength = specification.receiveParameters().size();
+        List<SqlQueryParameter> parameters = specification.receiveParameters();
+        PreparedStatement statement = connection.prepareStatement(sqlQuery,Statement.RETURN_GENERATED_KEYS);
+        for (int i = 0; i < parametersLength; i++) {
+            switch (parameters.get(i).getType()){
+                case "STRING":statement.setString(i+1, parameters.get(i).toString()); break;
+                case "INT":statement.setInt(i+1, Integer.parseInt(parameters.get(i).getValue().toString())); break;
+            }
+        }
+        return statement;
     }
 
     protected abstract List<T> toEntity(ResultSet resultSet) throws SQLException;

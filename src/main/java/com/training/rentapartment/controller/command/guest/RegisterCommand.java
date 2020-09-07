@@ -51,7 +51,7 @@ public class RegisterCommand implements Command {
                 Optional<User> currentUser = service.register(user);
                 if (currentUser.isPresent()) {
                     request.getSession().setAttribute(SessionAttribute.USER, currentUser);
-                    page = PagePath.MAIN;
+                    page = PagePath.CLIENT;
                     MailSender mailSender = new MailSender(VERIFICATION_EMAIL_SUBJECT, VERIFICATION_EMAIL_MESSAGE,
                             request.getParameter(EMAIL_PARAMETER));
                     mailSender.send();
@@ -60,6 +60,6 @@ public class RegisterCommand implements Command {
                 e.printStackTrace();
             }
         }
-        return CommandResult.redirect(page);
+        return CommandResult.forward(page);
     }
 }

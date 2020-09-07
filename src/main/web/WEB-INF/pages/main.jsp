@@ -15,8 +15,9 @@
 <body>
 <jsp:include page="header.jsp" />
 <ul>
-    <c:forEach var="user" items="${users}">
-        <p>${user}</p>
+    <c:forEach var="advertisement" items="${advertisements}">
+        <p>${advertisement.advertisement}</p>
+        <p>${advertisement.address}</p>
     </c:forEach>
 </ul>
 </body>

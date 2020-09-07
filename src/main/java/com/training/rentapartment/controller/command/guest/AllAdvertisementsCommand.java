@@ -19,7 +19,7 @@ public class AllAdvertisementsCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(AllAdvertisementsCommand.class);
     private final int DEFAULT_OFFSET_VALUE = 0;
     private final int DEFAULT_LIMIT_VALUE = 20;
-    private int  advertisementOffset = DEFAULT_OFFSET_VALUE;
+    private int advertisementOffset = DEFAULT_OFFSET_VALUE;
     private int advertisementLimit = DEFAULT_LIMIT_VALUE;
 
     private final AdvertisementServiceImpl service;
@@ -34,21 +34,19 @@ public class AllAdvertisementsCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        if(request.getParameter(HttpRequestParameters.PAGE_OFFSET) != null || request.getParameter(HttpRequestParameters.PAGE_LIMIT) != null){
+
+        if (request.getParameter(HttpRequestParameters.PAGE_OFFSET) != null || request.getParameter(HttpRequestParameters.PAGE_LIMIT) != null) {
             advertisementOffset = Integer.parseInt(request.getParameter(HttpRequestParameters.PAGE_OFFSET));
             advertisementLimit = Integer.parseInt(request.getParameter(HttpRequestParameters.PAGE_LIMIT));
         }
         try {
             List<AdvertisementDto> dtoList = service.findAllAdvertisements(advertisementOffset, advertisementLimit);
-            setDtosInSession(dtoList, request);
+            request.setAttribute(HttpRequestParameters.ADVERTISEMENTS, dtoList);
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage(), e);
             throw new CommandException(e.getMessage(), e);
         }
-        return CommandResult.redirect(PagePath.MAIN);
-    }
-
-    private void setDtosInSession(List<AdvertisementDto> dtoList, HttpServletRequest request) {
-        request.setAttribute(HttpRequestParameters.ADVERTISEMENTS, dtoList);
+        return CommandResult.forward(PagePath.MAIN);
     }
 }
+

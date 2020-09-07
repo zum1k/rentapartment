@@ -12,7 +12,7 @@
 </head>
 <h4 align="center">
     <body>
-    <a href="${pageContext.request.contextPath}/controller?command=show_all_users">На главную</a>
+    <a href="${pageContext.request.contextPath}/controller?command=show_all_advertisements">На главную</a>
     <br/>
     <br/>
     <form name="RegistrationForm" method="POST" action="controller?command=register">

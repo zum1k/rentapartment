@@ -19,7 +19,7 @@ public class UserMapper implements EntityMapper<User> {
         String password = request.getParameter(SqlConstant.USER_PASSWORD);
         UserType type = UserType.CLIENT;
         String email = request.getParameter(SqlConstant.USER_EMAIL);
-        boolean verified = false;
+        int verified = 0;
         return new User(login, password, type, email, verified);
     }
 

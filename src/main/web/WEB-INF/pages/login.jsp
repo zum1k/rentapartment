@@ -9,7 +9,7 @@
 <html>
 <head><title>Login</title></head>
 <h4 align="center">
-    <a href="${pageContext.request.contextPath}/controller?command=show_all_users">На главную</a>
+    <a href="${pageContext.request.contextPath}/controller?command=show_all_advertisements">На главную</a>
     <br/>
     <br/>
     <body>
