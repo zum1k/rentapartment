@@ -3,6 +3,7 @@ package com.training.rentapartment.model.repository.impl.advertisement;
 import com.training.rentapartment.entity.Advertisement;
 import com.training.rentapartment.model.repository.SqlConstant;
 import com.training.rentapartment.model.pool.ConnectionPool;
+import com.training.rentapartment.model.repository.SqlQueryParameter;
 import com.training.rentapartment.model.repository.impl.AbstractRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +32,7 @@ public class AdvertisementRepository extends AbstractRepository<Advertisement> {
     }
 
     @Override
-    protected Map<String, Object> toEntityFields(Advertisement advertisement) {
+    protected Map<String, SqlQueryParameter> toEntityFields(Advertisement advertisement) {
         return new AdvertisementSqlMapper().toEntityFields(advertisement);
     }
 

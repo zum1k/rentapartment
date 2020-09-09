@@ -2,16 +2,18 @@ package com.training.rentapartment.model.repository.specification.queryparameter
 
 import com.training.rentapartment.model.repository.SqlQueryParameter;
 
-public class IntegerSqlQueryParameter implements SqlQueryParameter<Integer> {
-    public static final String TYPE = "INT";
-    private int value;
+import java.io.InputStream;
 
-    public IntegerSqlQueryParameter(int value) {
+public class InputStreamSqlQueryParameter implements SqlQueryParameter<InputStream> {
+    public static final String TYPE = "BYTE";
+    private final InputStream value;
+
+    public InputStreamSqlQueryParameter(InputStream value) {
         this.value = value;
     }
 
     @Override
-    public Integer getValue() {
+    public InputStream getValue() {
         return value;
     }
 

@@ -3,6 +3,10 @@ package com.training.rentapartment.model.repository.impl.image;
 import com.training.rentapartment.entity.Image;
 import com.training.rentapartment.model.repository.SqlConstant;
 import com.training.rentapartment.model.repository.SqlMapper;
+import com.training.rentapartment.model.repository.SqlQueryParameter;
+import com.training.rentapartment.model.repository.specification.queryparameters.InputStreamSqlQueryParameter;
+import com.training.rentapartment.model.repository.specification.queryparameters.IntegerSqlQueryParameter;
+import com.training.rentapartment.model.repository.specification.queryparameters.StringSqlQueryParameter;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -31,11 +35,11 @@ public class ImageSqlMapper implements SqlMapper<Image> {
     }
 
     @Override
-    public Map<String, Object> toEntityFields(Image image) {
-        Map<String, Object> fields = new HashMap<>();
-        fields.put(SqlConstant.ADVERTISEMENT_ID, image.getAdId());
-        fields.put(SqlConstant.IMAGES_IMAGE_URL, image.getImageURL());
-        fields.put(SqlConstant.IMAGES_IMAGE_DATA, convertBytesToStream(image.getImageData()));
+    public Map<String, SqlQueryParameter> toEntityFields(Image image) {
+        Map<String, SqlQueryParameter> fields = new HashMap<>();
+        fields.put(SqlConstant.ADVERTISEMENT_ID, new IntegerSqlQueryParameter(image.getAdId()));
+        fields.put(SqlConstant.IMAGES_IMAGE_URL, new StringSqlQueryParameter(image.getImageURL()));
+        fields.put(SqlConstant.IMAGES_IMAGE_DATA, new InputStreamSqlQueryParameter(convertBytesToStream(image.getImageData())));
         return fields;
     }
 

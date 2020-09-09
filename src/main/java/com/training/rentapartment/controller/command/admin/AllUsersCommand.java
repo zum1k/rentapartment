@@ -29,13 +29,15 @@ public class AllUsersCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
+        String page = PagePath.MAIN;
         try {
             List<User> users = service.findAllUsers();
             request.setAttribute(HttpRequestParameters.USERS, users);
+            page = PagePath.USERS;
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage(), e);
             throw new CommandException(e.getMessage(), e);
         }
-        return CommandResult.forward(PagePath.MAIN);
+        return CommandResult.forward(page);
     }
 }

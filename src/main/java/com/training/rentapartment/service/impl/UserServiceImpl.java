@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    private static final Logger LOGGER = LogManager.getLogger(UserRepository.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
     private final static UserServiceImpl instance = new UserServiceImpl();
     private final UserRepository userRepository;
 

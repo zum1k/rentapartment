@@ -11,6 +11,6 @@ public class LogOutCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request) {
         request.getSession().invalidate();
-        return CommandResult.redirect(PagePath.MAIN);
+        return CommandResult.forward(PagePath.LINK_TO_MAIN);
     }
 }

@@ -7,14 +7,25 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
+<%@ page import="com.training.rentapartment.entity.UserType" %>
 <html>
 <head>
     <title>Header</title>
 </head>
 <body>
-<nav><a href="${pageContext.request.contextPath}/controller?command=show_all_users">На главную</a> |
-    <a href="${pageContext.request.contextPath}/controller?command=link_to_login">Войти</a>
-    |  <a href="${pageContext.request.contextPath}/controller?command=show_all_users">Все юзеры</a> |
+<nav>
+    <c:if test="${sessionScope.user == null}">
+        <a href="${pageContext.request.contextPath}/controller?command=link_to_login">Войти</a> |
+    </c:if>
+    <c:if test="${sessionScope.user != null && sessionScope.user.type == UserType.ADMIN}">
+        <a href="${pageContext.request.contextPath}/controller?command=show_all_users">Все юзеры</a> |
+    </c:if>
+    <c:if test="${sessionScope.user != null && sessionScope.user.type != UserType.ADMIN}">
+        <a href="${pageContext.request.contextPath}/controller?command=show_user_ad">Страница пользователя</a> |
+    </c:if>
+    <c:if test="${sessionScope.user != null}">
+        <a href="${pageContext.request.contextPath}/controller?command=logout">Выйти</a> |
+    </c:if>
 </nav>
 <h2>HEADER</h2>
 

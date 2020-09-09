@@ -73,6 +73,7 @@
     <label>
         <input type="text" name="phone" placeholder="+375xxxxxxxxx" value="">
     </label>
+    <input type="hidden" name="user_id"  value=${sessionScope.user.id}>
     <br/>
     <p>
         <label for="comment">Ваш комментарий:</label><br/>

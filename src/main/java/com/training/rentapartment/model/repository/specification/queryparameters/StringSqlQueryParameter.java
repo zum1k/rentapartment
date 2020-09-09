@@ -2,7 +2,8 @@ package com.training.rentapartment.model.repository.specification.queryparameter
 
 import com.training.rentapartment.model.repository.SqlQueryParameter;
 
-public class StringSqlQueryParameter implements SqlQueryParameter {
+public class StringSqlQueryParameter implements SqlQueryParameter<String> {
+    public static final String TYPE = "STRING";
     private String value;
 
     public StringSqlQueryParameter(String value) {
@@ -10,12 +11,12 @@ public class StringSqlQueryParameter implements SqlQueryParameter {
     }
 
     @Override
-    public Object getValue() {
+    public String getValue() {
         return value;
     }
 
     @Override
     public String getType() {
-        return "STRING";
+        return TYPE;
     }
 }

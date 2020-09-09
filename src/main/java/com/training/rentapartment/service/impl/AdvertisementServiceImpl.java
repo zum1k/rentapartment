@@ -62,7 +62,7 @@ public class AdvertisementServiceImpl implements AdvertisementService { //TODO
         int advertisementId = DEFAULT_ID_VALUE;
         try {
             int addressId;
-            Optional<Address> optionalAddress = addressRepository.singleQuery(new AddressByAllParametersSpecification(address));
+            Optional<Address> optionalAddress = addressRepository.singleQuery(createAddressSpecification(address));
             if (optionalAddress.isPresent()) {
                 addressId = optionalAddress.get().getAddressId();
             } else {
@@ -154,5 +154,12 @@ public class AdvertisementServiceImpl implements AdvertisementService { //TODO
         AddressByIdSpecification specification = new AddressByIdSpecification(addressId);
         Optional<Address> addressOptional = addressRepository.singleQuery(specification);
         return addressOptional.orElseGet(Address::new);
+    }
+    private AddressByAllParametersSpecification createAddressSpecification(Address address){
+        String city = address.getCity();
+        String street = address.getStreet();
+        int houseNumber = address.getHouseNumber();
+        int houseIndex = address.getHouseIndex();
+        return new AddressByAllParametersSpecification(city, street, houseNumber, houseIndex);
     }
 }

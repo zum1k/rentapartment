@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface SqlMapper<T> {
     List<T> toEntity(ResultSet resultSet) throws SQLException;
-    Map<String, Object> toEntityFields(T t);
+    Map<String, SqlQueryParameter> toEntityFields(T t);
 }

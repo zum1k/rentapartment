@@ -2,16 +2,16 @@ package com.training.rentapartment.model.repository.specification.queryparameter
 
 import com.training.rentapartment.model.repository.SqlQueryParameter;
 
-public class IntegerSqlQueryParameter implements SqlQueryParameter<Integer> {
-    public static final String TYPE = "INT";
-    private int value;
+public class DoubleSqlQueryParameter implements SqlQueryParameter<Double> {
+    public static final String TYPE = "DOUBLE";
+    private double value;
 
-    public IntegerSqlQueryParameter(int value) {
+    public DoubleSqlQueryParameter(double value) {
         this.value = value;
     }
 
     @Override
-    public Integer getValue() {
+    public Double getValue() {
         return value;
     }
 

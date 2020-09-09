@@ -3,6 +3,7 @@ package com.training.rentapartment.model.repository.impl.image;
 import com.training.rentapartment.entity.Image;
 import com.training.rentapartment.model.repository.SqlConstant;
 import com.training.rentapartment.model.pool.ConnectionPool;
+import com.training.rentapartment.model.repository.SqlQueryParameter;
 import com.training.rentapartment.model.repository.impl.AbstractRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +32,7 @@ public class ImageRepository extends AbstractRepository<Image> {
     }
 
     @Override
-    protected Map<String, Object> toEntityFields(Image image) {
+    protected Map<String, SqlQueryParameter> toEntityFields(Image image) {
         return new ImageSqlMapper().toEntityFields(image);
     }
 

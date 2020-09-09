@@ -2,8 +2,10 @@ package com.training.rentapartment.controller.mapper;
 
 import com.training.rentapartment.controller.EntityMapper;
 import com.training.rentapartment.controller.HttpRequestParameters;
+import com.training.rentapartment.controller.SessionAttribute;
 import com.training.rentapartment.entity.Advertisement;
 import com.training.rentapartment.entity.OwnerType;
+import com.training.rentapartment.entity.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,10 +23,10 @@ public class AdvertisementMapper implements EntityMapper<Advertisement> {
         double kitchenSquare = Double.parseDouble(request.getParameter(HttpRequestParameters.KITCHEN_SQUARE));
         OwnerType owner = OwnerType.valueOf(request.getParameter(HttpRequestParameters.OWNER));
         String phone = request.getParameter(HttpRequestParameters.PHONE);
-        int userID = Integer.parseInt(request.getParameter(HttpRequestParameters.USER_ID));
+        int userId = Integer.parseInt(request.getParameter(HttpRequestParameters.USER_ID));
         String description = request.getParameter(HttpRequestParameters.DESCRIPTION);
         Advertisement advertisement = new Advertisement(cost, rooms, floor, square, livingSquare,
-                kitchenSquare, owner, phone, userID, description);
+                kitchenSquare, owner, phone, userId, description);
         return advertisement;
     }
 

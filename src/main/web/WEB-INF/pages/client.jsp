@@ -13,15 +13,19 @@
 </head>
 <body>
  HELLO FROM CLIENT PAGE
- <a href="${pageContext.request.contextPath}/controller?command=link_to_add_ad">Добавить объявление</a> |
- МОИ ОБЪЯВЛЕНИЯ:ul>
+ <a href="${pageContext.request.contextPath}/controller?command=link_to_add_ad">Добавить объявление</a>
+ <a href="${pageContext.request.contextPath}/controller?command=link_to_main">На главную</a>
+ <br/>
+ МОИ ОБЪЯВЛЕНИЯ:
  <c:forEach var="advertisement" items="${advertisements}">
-  <p>${advertisement}</p>
+  <p>${advertisement.advertisement} ${advertisement.address} </p>
  </c:forEach>
+ ${sessionScope.user}
+ ${sessionScope.user.id}
+ ${sessionScope.user.login}
  </ul>
  почта:
  <br/>
- <a href="main.jsp">Выйти</a>
- <input type="hidden" name="user" value = ${sessionScope.user.userId}>
+ <a href="${pageContext.request.contextPath}/controller?command=logout">Выйти</a>
 </body>
 </html>

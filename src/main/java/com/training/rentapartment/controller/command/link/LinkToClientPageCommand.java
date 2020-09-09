@@ -7,12 +7,12 @@ import com.training.rentapartment.exception.CommandException;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class LinkToMainPageCommand implements Command {
-    public LinkToMainPageCommand() {
+public class LinkToClientPageCommand implements Command {
+    public LinkToClientPageCommand() {
     }
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        return CommandResult.forward(PagePath.LINK_TO_MAIN);
+        return CommandResult.forward(PagePath.LINK_TO_CLIENT);
     }
 }

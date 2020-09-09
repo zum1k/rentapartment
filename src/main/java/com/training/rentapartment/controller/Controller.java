@@ -2,6 +2,7 @@ package com.training.rentapartment.controller;
 
 import com.training.rentapartment.controller.command.CommandFactory;
 import com.training.rentapartment.controller.command.CommandResult;
+import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ConnectionPoolException;
 import com.training.rentapartment.model.pool.ConnectionPool;
@@ -43,9 +44,9 @@ public class Controller extends HttpServlet {
 
     @Override
     public void destroy() {
-        super.destroy();
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
         try {
+            super.destroy();
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
             connectionPool.closeConnections();
         } catch (ConnectionPoolException e) {
             LOGGER.error(e.getMessage(), e);
@@ -62,6 +63,8 @@ public class Controller extends HttpServlet {
             commandResult = command.execute(request);
         } catch (CommandException e) {
             LOGGER.error(e.getMessage(), e);
+            request.setAttribute(HttpRequestParameters.ERROR, e.getMessage());
+            commandResult = CommandResult.forward(PagePath.EXCEPTION);
         }
         switch (Objects.requireNonNull(commandResult).getRequestType()) {
             case FORWARD:

@@ -3,6 +3,7 @@ package com.training.rentapartment.model.repository.impl.address;
 import com.training.rentapartment.entity.Address;
 import com.training.rentapartment.model.repository.SqlConstant;
 import com.training.rentapartment.model.pool.ConnectionPool;
+import com.training.rentapartment.model.repository.SqlQueryParameter;
 import com.training.rentapartment.model.repository.impl.AbstractRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +32,7 @@ public class AddressRepository extends AbstractRepository<Address> {
     }
 
     @Override
-    protected Map<String, Object> toEntityFields(Address address) {
+    protected Map<String, SqlQueryParameter> toEntityFields(Address address) {
         return new AddressSqlMapper().toEntityFields(address);
     }
 

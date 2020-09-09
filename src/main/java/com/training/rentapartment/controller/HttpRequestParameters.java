@@ -1,6 +1,7 @@
 package com.training.rentapartment.controller;
 
 public class HttpRequestParameters {
+    public static final String ERROR = "error";
     //user parameters
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
@@ -30,5 +31,7 @@ public class HttpRequestParameters {
     public static final String STREET = "street";
     public static final String HOUSE_NUMBER = "house_number";
     public static final String HOUSE_INDEX = "house_index";
-    private HttpRequestParameters(){}
+
+    private HttpRequestParameters() {
+    }
 }

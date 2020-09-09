@@ -4,6 +4,9 @@ import com.training.rentapartment.entity.User;
 import com.training.rentapartment.entity.UserType;
 import com.training.rentapartment.model.repository.SqlConstant;
 import com.training.rentapartment.model.repository.SqlMapper;
+import com.training.rentapartment.model.repository.SqlQueryParameter;
+import com.training.rentapartment.model.repository.specification.queryparameters.IntegerSqlQueryParameter;
+import com.training.rentapartment.model.repository.specification.queryparameters.StringSqlQueryParameter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,13 +37,13 @@ public class UserSqlMapper implements SqlMapper<User> {
     }
 
     @Override
-    public Map<String, Object> toEntityFields(User user) {
-        Map<String, Object> fields = new HashMap<>();
-        fields.put(SqlConstant.USER_LOGIN, user.getLogin());
-        fields.put(SqlConstant.USER_PASSWORD, user.getPassword());
-        fields.put(SqlConstant.USER_TYPE, user.getType());
-        fields.put(SqlConstant.USER_EMAIL, user.getEmail());
-        fields.put(SqlConstant.USER_VERIFIED, user.getVerified());
+    public Map<String, SqlQueryParameter> toEntityFields(User user) {
+        Map<String, SqlQueryParameter> fields = new HashMap<>();
+        fields.put(SqlConstant.USER_LOGIN, new StringSqlQueryParameter(user.getLogin()));
+        fields.put(SqlConstant.USER_PASSWORD, new StringSqlQueryParameter(user.getPassword()));
+        fields.put(SqlConstant.USER_TYPE, new StringSqlQueryParameter(user.getType().toString()));
+        fields.put(SqlConstant.USER_EMAIL, new StringSqlQueryParameter(user.getEmail()));
+        fields.put(SqlConstant.USER_VERIFIED, new IntegerSqlQueryParameter(user.getVerified()));
         return fields;
     }
 }

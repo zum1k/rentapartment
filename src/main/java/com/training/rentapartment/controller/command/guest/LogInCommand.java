@@ -41,8 +41,8 @@ public class LogInCommand implements Command {
                 String passwordValue = request.getParameter(PASSWORD_PARAMETER);
                 Optional<User> currentUser = service.logIn(loginValue, passwordValue);
                 if (currentUser.isPresent()) {
-                    request.getSession().setAttribute(SessionAttribute.USER, currentUser);
-                    page = PagePath.CLIENT;
+                    request.getSession().setAttribute(SessionAttribute.USER, currentUser.get());
+                    page = PagePath.MAIN;
                 }
             } catch (ServiceException exception) {
                 LOGGER.error(exception.getMessage(), exception);
