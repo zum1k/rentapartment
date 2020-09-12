@@ -31,6 +31,16 @@ public class HttpRequestParameters {
     public static final String STREET = "street";
     public static final String HOUSE_NUMBER = "house_number";
     public static final String HOUSE_INDEX = "house_index";
+    //Query filter parameters
+    public static final String ROOM = "room";
+    public static final String ROOM_MIN = "min_room";
+    public static final String ROOM_MAX = "max_room";
+    public static final String FLOOR_MIN = "min_floor";
+    public static final String FLOOR_MAX = "max_floor";
+    public static final String COST_MIN = "min_cost";
+    public static final String COST_MAX = "max_cost";
+    public static final String SQUARE_MIN = "min_square";
+    public static final String SQUARE_MAX = "max_square";
 
     private HttpRequestParameters() {
     }

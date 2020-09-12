@@ -10,7 +10,7 @@ import com.training.rentapartment.controller.command.user.*;
 public class CommandFactory {
     public Command createCommand(String commandName) {
         if (commandName == null) {
-            return new AllUsersCommand();
+            return new AllAdvertisementsCommand();
         }
         switch (commandName) {
             //guest commands
@@ -23,7 +23,9 @@ public class CommandFactory {
             case "show_all_advertisements":
                 return new AllAdvertisementsCommand();
             case "show_advertisement":
-                return  new ShowAdvertisementCommand();
+                return new ShowAdvertisementCommand();
+            case "show_all_advertisements_by_filter":
+                return new AllAdvertisementsByQueryCommand();
             //user commands
             case "delete_account":
                 return new DeleteAccountCommand();
@@ -59,6 +61,8 @@ public class CommandFactory {
                 return new LinkToUploadImagesCommand();
             default:
                 return new AllAdvertisementsCommand();
+
         }
+
     }
 }

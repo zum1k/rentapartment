@@ -17,7 +17,7 @@ public class AdvertisementByRoomOverThanSpecification implements Specification {
 
     @Override
     public String toSqlRequest() {
-        return " WHERE " + SqlConstant.ADVERTISEMENT_ROOMS + " > ?";
+        return " AND " + SqlConstant.ADVERTISEMENT_ROOMS + " > ?";
     }
 
     @Override

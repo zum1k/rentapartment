@@ -19,8 +19,8 @@ public class AdvertisementBySquareBetweenSpecification implements Specification 
 
     @Override
     public String toSqlRequest() {
-        return " WHERE " + SqlConstant.ADVERTISEMENT_SQUARE + " > ? "
-                + " AND WHERE " + SqlConstant.ADVERTISEMENT_SQUARE + " < ?";
+        return " AND " + SqlConstant.ADVERTISEMENT_SQUARE + ">="
+                + " AND  " + SqlConstant.ADVERTISEMENT_SQUARE + " <= ?";
     }
 
     @Override

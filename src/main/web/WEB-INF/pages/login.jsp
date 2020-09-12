@@ -37,7 +37,7 @@
     <h3>Login</h3>
     <form action="/controller?command=login" method="post">
     <div class="form-group">
-        <input type="text" required name = "login" class="form-control" placeholder="Your Login *" value=""/>
+        <input type="text" required name="login" class="form-control" placeholder="Your Login *" value=""/>
     </div>
     <div class="form-group">
         <input type="password" required name = "password" class="form-control" placeholder="Your Password *" value=""/>

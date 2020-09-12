@@ -12,11 +12,11 @@
 </head>
 <body>
 <p> ${advertisement}</p>
-<p>COST: ${advertisement.cost} </p>
-<p>ROOMS: ${advertisement.rooms}</p>
-<p>FLOOR: ${advertisement.floor}</p>
-<p>SQUARE: ${advertisement.square}</p>
-<p>KITCHEN ${advertisement.kitchen_square}</p>
+<p>COST: ${advertisement.advertisement.cost} </p>
+<p>ROOMS: ${advertisement.advertisement.rooms}</p>
+<p>FLOOR: ${advertisement.advertisement.floor}</p>
+<p>SQUARE: ${advertisement.advertisement.square}</p>
+<p>KITCHEN ${advertisement.advertisement.kitchenSquare}</p>
 <%--<p>LIVING SQUARE: ${living_square}</p>--%>
 <%--<p>OWNER: ${owner}</p>--%>
 <%--<p>PHONE: ${phone}</p>--%>

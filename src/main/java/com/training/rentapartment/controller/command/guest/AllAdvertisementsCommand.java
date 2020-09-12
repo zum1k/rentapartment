@@ -2,7 +2,6 @@ package com.training.rentapartment.controller.command.guest;
 
 import com.training.rentapartment.controller.Command;
 import com.training.rentapartment.controller.HttpRequestParameters;
-import com.training.rentapartment.controller.SessionAttribute;
 import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.entity.dto.AdvertisementDto;
@@ -34,7 +33,6 @@ public class AllAdvertisementsCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-
         if (request.getParameter(HttpRequestParameters.PAGE_OFFSET) != null || request.getParameter(HttpRequestParameters.PAGE_LIMIT) != null) {
             advertisementOffset = Integer.parseInt(request.getParameter(HttpRequestParameters.PAGE_OFFSET));
             advertisementLimit = Integer.parseInt(request.getParameter(HttpRequestParameters.PAGE_LIMIT));

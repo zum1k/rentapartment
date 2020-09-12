@@ -19,8 +19,8 @@ public class AdvertisementByCostBetweenSpecification implements Specification {
 
     @Override
     public String toSqlRequest() {
-        return " WHERE " + SqlConstant.ADVERTISEMENT_COST + " > ? "
-                + " AND WHERE " + SqlConstant.ADVERTISEMENT_COST + " < ?";
+        return "AND " + SqlConstant.ADVERTISEMENT_COST + " >= ? "
+                + " AND " + SqlConstant.ADVERTISEMENT_COST + " <= ?";
     }
 
     @Override

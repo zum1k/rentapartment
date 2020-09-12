@@ -16,7 +16,7 @@ public class AdvertisementByFloorSpecification implements Specification {
     }
     @Override
     public String toSqlRequest() {
-        return " WHERE " + SqlConstant.ADVERTISEMENT_FLOOR + " = ?";
+        return " AND " + SqlConstant.ADVERTISEMENT_FLOOR + " = ?";
     }
 
     @Override

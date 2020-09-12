@@ -19,8 +19,8 @@ public class AdvertisementByFloorBetweenSpecification implements Specification {
 
     @Override
     public String toSqlRequest() {
-        return " WHERE " + SqlConstant.ADVERTISEMENT_FLOOR + " > ? " +
-                " AND WHERE " + SqlConstant.ADVERTISEMENT_FLOOR + " < ?";
+        return " AND " + SqlConstant.ADVERTISEMENT_FLOOR + " >= ? " +
+                " AND " + SqlConstant.ADVERTISEMENT_FLOOR + " <= ?";
     }
 
     @Override

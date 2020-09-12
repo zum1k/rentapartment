@@ -4,6 +4,7 @@ import com.training.rentapartment.entity.Address;
 import com.training.rentapartment.entity.Advertisement;
 import com.training.rentapartment.entity.Image;
 import com.training.rentapartment.entity.dto.AdvertisementDto;
+import com.training.rentapartment.entity.dto.AdvertisementQueryDto;
 import com.training.rentapartment.exception.RepositoryException;
 import com.training.rentapartment.exception.ServiceException;
 import com.training.rentapartment.model.repository.Specification;
@@ -12,9 +13,15 @@ import com.training.rentapartment.model.repository.impl.advertisement.Advertisem
 import com.training.rentapartment.model.repository.impl.image.ImageRepository;
 import com.training.rentapartment.model.repository.specification.address.AddressByAllParametersSpecification;
 import com.training.rentapartment.model.repository.specification.address.AddressByIdSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.AdvertisementByFiltersSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.AdvertisementByIdSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.AdvertisementByLimitAndOffsetSpecification;
-import com.training.rentapartment.model.repository.specification.adverstisement.AllAdvertisementsSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.cost.AdvertisementByCostBetweenSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.floor.AdvertisementByFloorBetweenSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.floor.AdvertisementByFloorSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.rooms.AdvertisementByRoomBetweenSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.rooms.AdvertisementByRoomSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.square.AdvertisementBySquareBetweenSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.user.AdvertisementByUserIdSpecification;
 import com.training.rentapartment.model.repository.specification.image.ImageByAdvertisementIdSpecification;
 import com.training.rentapartment.service.AdvertisementService;
@@ -23,9 +30,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-public class AdvertisementServiceImpl implements AdvertisementService { //TODO
+public class AdvertisementServiceImpl implements AdvertisementService { 
     private static final Logger LOGGER = LogManager.getLogger(AdvertisementServiceImpl.class);
     private final int DEFAULT_ID_VALUE = 0;
     private static AdvertisementServiceImpl instance = new AdvertisementServiceImpl();
@@ -75,6 +83,7 @@ public class AdvertisementServiceImpl implements AdvertisementService { //TODO
             throw new ServiceException(e.getMessage(), e);
         }
     }
+
     @Override
     public Optional<AdvertisementDto> findSingleAdvertisement(int advertisementId) throws ServiceException {
         try {
@@ -91,6 +100,7 @@ public class AdvertisementServiceImpl implements AdvertisementService { //TODO
             throw new ServiceException(e.getMessage(), e);
         }
     }
+
     @Override
     public List<AdvertisementDto> findAllAdvertisements(int pageOffset, int pageLimit) throws ServiceException {
         AdvertisementByLimitAndOffsetSpecification specification =
@@ -102,6 +112,48 @@ public class AdvertisementServiceImpl implements AdvertisementService { //TODO
     public List<AdvertisementDto> findUserAdvertisements(int userId) throws ServiceException {
         AdvertisementByUserIdSpecification specification = new AdvertisementByUserIdSpecification(userId);
         return findAdvertisements(specification);
+    }
+
+    @Override
+    public List<AdvertisementDto> findAdvertisementsByFilters(AdvertisementQueryDto queryDto) throws ServiceException {
+        AdvertisementByFiltersSpecification specification = new AdvertisementByFiltersSpecification(createSpecifications(queryDto));
+        return findAdvertisements(specification);
+    }
+
+    private List<Specification> createSpecifications(AdvertisementQueryDto queryDto) {
+        List<Specification> specifications = new ArrayList<>();
+        Map<String, Number> parameters = queryDto.getQueryParams();
+        for (String key : parameters.keySet()) {
+            Specification specification;
+            Number value = parameters.get(key);
+            switch (key) {
+                case "min_square":
+                    specification = new AdvertisementBySquareBetweenSpecification(value.intValue(), parameters.get("max_square").intValue());
+                    specifications.add(specification);
+                    break;
+                case "min_cost":
+                    specification = new AdvertisementByCostBetweenSpecification(value.intValue(), parameters.get("max_cost").intValue());
+                    specifications.add(specification);
+                    break;
+                case "room":
+                    specification = new AdvertisementByRoomSpecification(value.intValue());
+                    specifications.add(specification);
+                    break;
+                case "min_room":
+                    specification = new AdvertisementByRoomBetweenSpecification(value.intValue(), parameters.get("max_room").intValue());
+                    specifications.add(specification);
+                    break;
+                case "floor":
+                    specification = new AdvertisementByFloorSpecification(value.intValue());
+                    specifications.add(specification);
+                    break;
+                case "min_floor":
+                    specification = new AdvertisementByFloorBetweenSpecification(value.intValue(), parameters.get("max_floor").intValue());
+                    specifications.add(specification);
+                    break;
+            }
+        }
+        return specifications;
     }
 
     private List<AdvertisementDto> findAdvertisements(Specification specification) throws ServiceException {
@@ -155,7 +207,8 @@ public class AdvertisementServiceImpl implements AdvertisementService { //TODO
         Optional<Address> addressOptional = addressRepository.singleQuery(specification);
         return addressOptional.orElseGet(Address::new);
     }
-    private AddressByAllParametersSpecification createAddressSpecification(Address address){
+
+    private AddressByAllParametersSpecification createAddressSpecification(Address address) {
         String city = address.getCity();
         String street = address.getStreet();
         int houseNumber = address.getHouseNumber();
