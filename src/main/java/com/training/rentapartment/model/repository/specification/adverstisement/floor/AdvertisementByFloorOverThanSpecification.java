@@ -1,4 +1,4 @@
-package com.training.rentapartment.model.repository.specification.adverstisement.rooms;
+package com.training.rentapartment.model.repository.specification.adverstisement.floor;
 
 import com.training.rentapartment.model.repository.Specification;
 import com.training.rentapartment.model.repository.SqlConstant;
@@ -8,20 +8,20 @@ import com.training.rentapartment.model.repository.specification.queryparameters
 import java.util.Arrays;
 import java.util.List;
 
-public class AdvertisementByRoomOverThanSpecification implements Specification {
-    private final IntegerSqlQueryParameter roomNumber;
+public class AdvertisementByFloorOverThanSpecification implements Specification {
+    private final IntegerSqlQueryParameter minValue;
 
-    public AdvertisementByRoomOverThanSpecification(int roomNumber) {
-        this.roomNumber = new IntegerSqlQueryParameter(roomNumber);
+    public AdvertisementByFloorOverThanSpecification(int minValue) {
+        this.minValue = new IntegerSqlQueryParameter(minValue);
     }
 
     @Override
     public String toSqlRequest() {
-        return " AND " + SqlConstant.ADVERTISEMENT_ROOMS + " >= ?";
+        return " AND " + SqlConstant.ADVERTISEMENT_FLOOR + " >= ? ";
     }
 
     @Override
     public List<SqlQueryParameter> receiveParameters() {
-        return Arrays.asList(roomNumber);
+        return Arrays.asList(minValue);
     }
 }

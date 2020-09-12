@@ -16,12 +16,16 @@ import com.training.rentapartment.model.repository.specification.address.Address
 import com.training.rentapartment.model.repository.specification.adverstisement.AdvertisementByFiltersSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.AdvertisementByIdSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.AdvertisementByLimitAndOffsetSpecification;
-import com.training.rentapartment.model.repository.specification.adverstisement.cost.AdvertisementByCostBetweenSpecification;
-import com.training.rentapartment.model.repository.specification.adverstisement.floor.AdvertisementByFloorBetweenSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.cost.AdvertisementByCostLessThanSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.cost.AdvertisementByCostOverThanSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.floor.AdvertisementByFloorLessThanSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.floor.AdvertisementByFloorOverThanSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.floor.AdvertisementByFloorSpecification;
-import com.training.rentapartment.model.repository.specification.adverstisement.rooms.AdvertisementByRoomBetweenSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.rooms.AdvertisementByRoomLessThanSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.rooms.AdvertisementByRoomOverThanSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.rooms.AdvertisementByRoomSpecification;
-import com.training.rentapartment.model.repository.specification.adverstisement.square.AdvertisementBySquareBetweenSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.square.AdvertisementBySquareLessThanSpecification;
+import com.training.rentapartment.model.repository.specification.adverstisement.square.AdvertisementBySquareOverThanSpecification;
 import com.training.rentapartment.model.repository.specification.adverstisement.user.AdvertisementByUserIdSpecification;
 import com.training.rentapartment.model.repository.specification.image.ImageByAdvertisementIdSpecification;
 import com.training.rentapartment.service.AdvertisementService;
@@ -33,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class AdvertisementServiceImpl implements AdvertisementService { 
+public class AdvertisementServiceImpl implements AdvertisementService {
     private static final Logger LOGGER = LogManager.getLogger(AdvertisementServiceImpl.class);
     private final int DEFAULT_ID_VALUE = 0;
     private static AdvertisementServiceImpl instance = new AdvertisementServiceImpl();
@@ -128,11 +132,19 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             Number value = parameters.get(key);
             switch (key) {
                 case "min_square":
-                    specification = new AdvertisementBySquareBetweenSpecification(value.intValue(), parameters.get("max_square").intValue());
+                    specification = new AdvertisementBySquareOverThanSpecification(value.doubleValue());
+                    specifications.add(specification);
+                    break;
+                case "max_square":
+                    specification = new AdvertisementBySquareLessThanSpecification(value.doubleValue());
                     specifications.add(specification);
                     break;
                 case "min_cost":
-                    specification = new AdvertisementByCostBetweenSpecification(value.intValue(), parameters.get("max_cost").intValue());
+                    specification = new AdvertisementByCostOverThanSpecification(value.intValue());
+                    specifications.add(specification);
+                    break;
+                case "max_cost":
+                    specification = new AdvertisementByCostLessThanSpecification(value.intValue());
                     specifications.add(specification);
                     break;
                 case "room":
@@ -140,7 +152,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                     specifications.add(specification);
                     break;
                 case "min_room":
-                    specification = new AdvertisementByRoomBetweenSpecification(value.intValue(), parameters.get("max_room").intValue());
+                    specification = new AdvertisementByRoomOverThanSpecification(value.intValue());
+                    specifications.add(specification);
+                    break;
+                case "max_room":
+                    specification = new AdvertisementByRoomLessThanSpecification(value.intValue());
                     specifications.add(specification);
                     break;
                 case "floor":
@@ -148,7 +164,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
                     specifications.add(specification);
                     break;
                 case "min_floor":
-                    specification = new AdvertisementByFloorBetweenSpecification(value.intValue(), parameters.get("max_floor").intValue());
+                    specification = new AdvertisementByFloorOverThanSpecification(value.intValue());
+                    specifications.add(specification);
+                    break;
+                case "max_floor":
+                    specification = new AdvertisementByFloorLessThanSpecification(value.intValue());
                     specifications.add(specification);
                     break;
             }

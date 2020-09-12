@@ -58,7 +58,7 @@
     <br/>
     <label for="min_square">Min Square </label>
     <input type="number" step="1" min="0" max="999" id="min_square" name="min_square"/>
-    <label for="max_square">Max Floor </label>
+    <label for="max_square">Max Square </label>
     <input type="number" step="1" min="0" max="1000" id="max_square" name="max_square"/>
     <br/>
     <button type="submit">Поиск</button>

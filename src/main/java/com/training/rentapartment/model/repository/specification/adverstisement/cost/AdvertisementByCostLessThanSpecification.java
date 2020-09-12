@@ -1,4 +1,4 @@
-package com.training.rentapartment.model.repository.specification.adverstisement.square;
+package com.training.rentapartment.model.repository.specification.adverstisement.cost;
 
 import com.training.rentapartment.model.repository.Specification;
 import com.training.rentapartment.model.repository.SqlConstant;
@@ -8,23 +8,20 @@ import com.training.rentapartment.model.repository.specification.queryparameters
 import java.util.Arrays;
 import java.util.List;
 
-public class AdvertisementBySquareBetweenSpecification implements Specification {
-    private final IntegerSqlQueryParameter minValue;
+public class AdvertisementByCostLessThanSpecification implements Specification {
     private final IntegerSqlQueryParameter maxValue;
 
-    public AdvertisementBySquareBetweenSpecification(int minValue, int maxValue) {
-        this.minValue = new IntegerSqlQueryParameter(minValue);
+    public AdvertisementByCostLessThanSpecification(int maxValue) {
         this.maxValue = new IntegerSqlQueryParameter(maxValue);
     }
 
     @Override
     public String toSqlRequest() {
-        return " AND " + SqlConstant.ADVERTISEMENT_SQUARE + ">="
-                + " AND  " + SqlConstant.ADVERTISEMENT_SQUARE + " <= ?";
+        return " AND " + SqlConstant.ADVERTISEMENT_COST + " <= ? ";
     }
 
     @Override
     public List<SqlQueryParameter> receiveParameters() {
-        return Arrays.asList(minValue, maxValue);
+        return Arrays.asList(maxValue);
     }
 }
