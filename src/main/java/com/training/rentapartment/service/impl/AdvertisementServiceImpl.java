@@ -5,6 +5,7 @@ import com.training.rentapartment.entity.Advertisement;
 import com.training.rentapartment.entity.Image;
 import com.training.rentapartment.entity.dto.AdvertisementDto;
 import com.training.rentapartment.entity.dto.AdvertisementQueryDto;
+import com.training.rentapartment.entity.dto.ImageDto;
 import com.training.rentapartment.exception.RepositoryException;
 import com.training.rentapartment.exception.ServiceException;
 import com.training.rentapartment.model.repository.Specification;
@@ -32,10 +33,10 @@ import com.training.rentapartment.service.AdvertisementService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import javax.imageio.ImageIO;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.*;
 
 public class AdvertisementServiceImpl implements AdvertisementService {
     private static final Logger LOGGER = LogManager.getLogger(AdvertisementServiceImpl.class);
@@ -197,11 +198,15 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     private AdvertisementDto createAdvertisementDto(Advertisement advertisement) throws RepositoryException {
-        int advertisementId = advertisement.getAdId();
-        int addressId = advertisement.getAddressId();
-        List<Image> imageList = findImagesByAdId(advertisementId);
-        Address address = findAddressByAdId(addressId);
-        return new AdvertisementDto(advertisement, address, imageList);
+        try {
+            int advertisementId = advertisement.getAdId();
+            int addressId = advertisement.getAddressId();
+            List<ImageDto> imageList = convertToDtoImage(findImagesByAdId(advertisementId));
+            Address address = findAddressByAdId(addressId);
+            return new AdvertisementDto(advertisement, address, imageList);
+        } catch (IOException e) {
+            throw new RepositoryException(e.getMessage());
+        }
     }
 
     @Override
@@ -214,6 +219,20 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
+    }
+
+    private List<ImageDto> convertToDtoImage(List<Image> images) throws IOException {
+        List<ImageDto> imageDtos = new ArrayList<>();
+        for (Image image : images) {
+            ImageDto imageDto = convertFromBytesToImageDto(image.getImageData());
+            imageDtos.add(imageDto);
+        }
+        return imageDtos;
+    }
+
+    private ImageDto convertFromBytesToImageDto(byte[] bytes) throws IOException {
+        String base64Image = Base64.getEncoder().encodeToString(bytes);
+        return new ImageDto(base64Image);
     }
 
     private List<Image> findImagesByAdId(int advertisementId) throws RepositoryException {

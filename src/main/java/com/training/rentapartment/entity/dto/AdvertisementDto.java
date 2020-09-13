@@ -10,9 +10,9 @@ import java.util.Objects;
 public class AdvertisementDto {
     private final Advertisement advertisement;
     private final Address address;
-    private final List<Image> imageList;
+    private final List<ImageDto> imageList;
 
-    public AdvertisementDto(Advertisement advertisement, Address address, List<Image> imageList) {
+    public AdvertisementDto(Advertisement advertisement, Address address, List<ImageDto> imageList) {
         this.advertisement = advertisement;
         this.address = address;
         this.imageList = imageList;
@@ -26,7 +26,7 @@ public class AdvertisementDto {
         return address;
     }
 
-    public List<Image> getImageList() {
+    public List<ImageDto> getImageList() {
         return imageList;
     }
 

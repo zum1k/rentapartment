@@ -29,6 +29,7 @@
 <%--<p> STREET: ${street}</p>--%>
 <%--<p> HOUSE NUMBER ${house_number} </p>--%>
 <%--<p>HOUSE INDEX ${house_index} </p>--%>
+<a href="/controller"
 
 </body>
 </html>

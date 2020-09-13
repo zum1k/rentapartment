@@ -30,11 +30,11 @@ public class DeleteAdCommand implements Command {
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         IntegerValidator validator = new IntegerValidator();
         String page = PagePath.EXCEPTION;
-        if (validator.validate(HttpRequestParameters.ADVERTISEMENT_ID)) {
+        if (validator.validate(request.getParameter(HttpRequestParameters.ADVERTISEMENT_ID))) {
             try {
                 int advertisementId = Integer.parseInt(request.getParameter(HttpRequestParameters.ADVERTISEMENT_ID));
                 advertisementService.deleteAdvertisement(advertisementId);
-                page = PagePath.CLIENT;
+                page = PagePath.LINK_TO_CLIENT;
             } catch (ServiceException e) {
                 LOGGER.error(e.getMessage(), e);
                 throw new CommandException(e.getMessage(), e);

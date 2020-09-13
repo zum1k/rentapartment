@@ -22,11 +22,20 @@
     <div class="container">
         <div class="row">
             <c:forEach var="advertisement" items="${advertisements}">
-                <a class="advertisement_wrapper col-4" href="${pageContext.request.contextPath}/controller?command=show_advertisement&advertisement_id=${advertisement.advertisement.adId}">
-                     <div class="shadow m-2 p-1 bg-white rounded">
+                <a class="advertisement_wrapper col-4"
+                   href="${pageContext.request.contextPath}/controller?command=show_advertisement&advertisement_id=${advertisement.advertisement.adId}">
+                    <div class="shadow m-2 p-1 bg-white rounded">
                         <div class="advertisement-image">
                         </div>
                         <div class="advertisement-info">
+                            <c:if test="${advertisement.imageList[0] != null}">
+                                <img src="data:image/jpg;base64,${advertisement.imageList[0].getImage()}" width="300"
+                                     height="200"/>
+                            </c:if>
+                            <c:if test="${advertisement.imageList[0] == null}">
+                                <img src="${pageContext.request.contextPath}/Images/default_apartment.png" width="300"
+                                     height="200"/>
+                            </c:if>
                                 ${advertisement.advertisement.cost}
                             </br>
                                 ${advertisement.advertisement.rooms}к ${advertisement.advertisement.square}/${advertisement.advertisement.livingSquare}/${advertisement.advertisement.kitchenSquare}

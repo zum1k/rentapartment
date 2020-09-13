@@ -14,23 +14,28 @@
  <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css"/>
 </head>
 <body>
-HELLO FROM CLIENT PAGE
-<a href="${pageContext.request.contextPath}/controller?command=link_to_add_ad">Добавить объявление</a>
-<a href="${pageContext.request.contextPath}/controller?command=link_to_main">На главную</a>
-<br/>
+<jsp:include page="header.jsp"/>
 МОИ ОБЪЯВЛЕНИЯ:
-<c:forEach var="advertisement" items="${advertisements}">
- <a class="advertisement_wrapper col-4"
-    href="${pageContext.request.contextPath}/controller?command=show_advertisement&advertisement_id=${advertisement.advertisement.adId}">
-  <p>${advertisement.advertisement} ${advertisement.address} </p>
- </a>
-</c:forEach>
-${sessionScope.user}
-${sessionScope.user.id}
-${sessionScope.user.login}
-</ul>
-почта:
-<br/>
-<a href="${pageContext.request.contextPath}/controller?command=logout">Выйти</a>
+<div class="container">
+ <div class="row">
+  <c:forEach var="advertisement" items="${advertisements}">
+   <a class="advertisement_wrapper col-4" href="${pageContext.request.contextPath}/controller?command=show_advertisement&advertisement_id=${advertisement.advertisement.adId}">
+    <div class="shadow m-2 p-1 bg-white rounded">
+     <div class="advertisement-image">
+     </div>
+     <div class="advertisement-info">
+       ${advertisement.advertisement.cost}
+      </br>
+       ${advertisement.advertisement.rooms}к ${advertisement.advertisement.square}/${advertisement.advertisement.livingSquare}/${advertisement.advertisement.kitchenSquare}
+     </div>
+     <div class="advertisement-address">
+       ${advertisement.address.street} ${advertisement.address.houseNumber}
+     </div>
+    </div>
+   </a>
+   <a href="${pageContext.request.contextPath}/controller?command=delete_ad&advertisement_id=${advertisement.advertisement.adId}" class="nav-link">Удалить объявление</a>
+  </c:forEach>
+ </div>
+</div>
 </body>
 </html>

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class ImageValidator {
-    private static final String IMAGE_EXTENSION_PATTERN = "jpg|png|bmp";
+    private static final String IMAGE_EXTENSION_PATTERN = "image/jpeg";
 
     public boolean validateImage(HttpServletRequest request) {
         try {
