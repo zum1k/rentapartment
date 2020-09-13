@@ -42,7 +42,7 @@ public class LogInCommand implements Command {
                 Optional<User> currentUser = service.logIn(loginValue, passwordValue);
                 if (currentUser.isPresent()) {
                     request.getSession().setAttribute(SessionAttribute.USER, currentUser.get());
-                    page = PagePath.MAIN;
+                    page = PagePath.LINK_TO_MAIN;
                 }
             } catch (ServiceException exception) {
                 LOGGER.error(exception.getMessage(), exception);

@@ -1,9 +1,10 @@
 package com.training.rentapartment.controller.command.user;
 
 import com.training.rentapartment.controller.Command;
-import com.training.rentapartment.controller.HttpRequestParameters;
+import com.training.rentapartment.controller.SessionAttribute;
 import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
+import com.training.rentapartment.controller.mapper.UserMapper;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
 import com.training.rentapartment.service.impl.UserServiceImpl;
@@ -26,13 +27,18 @@ public class DeleteAccountCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        int userId = Integer.parseInt(request.getParameter(HttpRequestParameters.USER_ID));
-        try {
-            service.deleteAccount(userId);
-        } catch (ServiceException e) {
-            LOGGER.error(e.getMessage(), e);
-            throw new CommandException(e.getMessage(), e);
+        if (request.getSession().getAttribute(SessionAttribute.USER) != null) {
+            try {
+                UserMapper mapper = new UserMapper();
+                int userId = mapper.parseSession(request).getId();
+                service.deleteAccount(userId);
+                request.getSession().invalidate();
+                return CommandResult.forward(PagePath.LINK_TO_MAIN);
+            } catch (ServiceException e) {
+                LOGGER.error(e.getMessage(), e);
+                throw new CommandException(e.getMessage(), e);
+            }
         }
-        return CommandResult.redirect(PagePath.CLIENT);
+        return CommandResult.forward(PagePath.CLIENT);
     }
 }

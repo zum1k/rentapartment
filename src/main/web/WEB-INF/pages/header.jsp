@@ -15,7 +15,9 @@
             <a href="${pageContext.request.contextPath}/controller?command=link_to_login" class="nav-link">Войти</a>
         </c:if>
         <c:if test="${sessionScope.user != null && sessionScope.user.type == UserType.ADMIN}">
-            <a href="${pageContext.request.contextPath}/controller?command=show_all_users" class="nav-link">Все юзеры</a>
+            <a href="${pageContext.request.contextPath}/controller?command=show_all_users" class="nav-link">Все пользователи</a>
+            <a href="${pageContext.request.contextPath}/controller?command=show_admins" class="nav-link">Все админы</a>
+            <a href="${pageContext.request.contextPath}/controller?command=register_admin" class="nav-link">Зарегистрировать админа</a>
         </c:if>
         <c:if test="${sessionScope.user != null && sessionScope.user.type != UserType.ADMIN}">
             <a href="${pageContext.request.contextPath}/controller?command=show_user_ad" class="nav-link">Страница пользователя</a>
@@ -23,5 +25,6 @@
         <c:if test="${sessionScope.user != null}">
             <a href="${pageContext.request.contextPath}/controller?command=logout" class="nav-link">Выйти</a>
         </c:if>
+
     </nav>
 </div>

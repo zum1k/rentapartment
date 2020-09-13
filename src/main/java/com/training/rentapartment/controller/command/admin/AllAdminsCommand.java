@@ -14,24 +14,23 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class AllUsersCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(AllUsersCommand.class);
+public class AllAdminsCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(AllAdminsCommand.class);
     private UserServiceImpl service;
 
-
-    public AllUsersCommand() {
-        this.service = UserServiceImpl.getInstance();
+    public AllAdminsCommand(UserServiceImpl service) {
+        this.service = service;
     }
 
-    public AllUsersCommand(UserServiceImpl service) {
-        this.service = service;
+    public AllAdminsCommand() {
+        this.service = UserServiceImpl.getInstance();
     }
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        String page = PagePath.MAIN;
+        String page = PagePath.LINK_TO_MAIN;
         try {
-            List<User> users = service.findAllClientUsers();
+            List<User> users = service.findAllAdminUsers();
             request.setAttribute(HttpRequestParameters.USERS, users);
             page = PagePath.USERS;
         } catch (ServiceException e) {

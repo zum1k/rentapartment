@@ -13,10 +13,9 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password,UserType type, String email,int verified) {
+    public User(String login, String password, String email,int verified) {
         this.login = login;
         this.password = password;
-        this.type = type;
         this.email = email;
         this.verified = verified;
     }

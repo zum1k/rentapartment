@@ -4,6 +4,7 @@ import com.training.rentapartment.controller.Command;
 import com.training.rentapartment.controller.HttpRequestParameters;
 import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
+import com.training.rentapartment.controller.validator.impl.NotNullValidator;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
 import com.training.rentapartment.service.UserService;
@@ -13,7 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class DeleteUserCommand implements Command {
     private final UserService service;
-    public DeleteUserCommand(){
+
+    public DeleteUserCommand() {
         this.service = UserServiceImpl.getInstance();
     }
 
@@ -23,14 +25,16 @@ public class DeleteUserCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        String page = PagePath.CLIENT;
-        int userId = Integer.parseInt(request.getParameter(HttpRequestParameters.USER_ID));
+        NotNullValidator validator = new NotNullValidator();
+        String userIdRequest = request.getParameter(HttpRequestParameters.USER_ID);
+        if(validator.validate(userIdRequest))
         try {
+            int userId = Integer.parseInt(userIdRequest);
             service.deleteAccount(userId);
         } catch (ServiceException e) {
             e.printStackTrace();
             throw new CommandException(e.getMessage(), e);
         }
-        return CommandResult.redirect(page);
+        return CommandResult.forward(PagePath.USERS);
     }
 }

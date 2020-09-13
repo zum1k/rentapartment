@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface UserService {
     void deleteAccount(int userId) throws ServiceException;
-    List<User> findAllUsers() throws ServiceException;
+    List<User> findAllClientUsers() throws ServiceException;
+    List<User> findAllAdminUsers() throws ServiceException;
 }

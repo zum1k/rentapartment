@@ -17,10 +17,9 @@ public class UserMapper implements EntityMapper<User> {
     public User toEntity(HttpServletRequest request) throws IOException, ServletException {
         String login = request.getParameter(SqlConstant.USER_LOGIN);
         String password = request.getParameter(SqlConstant.USER_PASSWORD);
-        UserType type = UserType.CLIENT;
         String email = request.getParameter(SqlConstant.USER_EMAIL);
         int verified = 0;
-        return new User(login, password, type, email, verified);
+        return new User(login, password, email, verified);
     }
 
     @Override

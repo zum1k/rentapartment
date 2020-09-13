@@ -10,13 +10,25 @@
 <html>
 <head>
     <title>All users</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css"/>
 </head>
 <body>
-<ul>
-    <c:forEach var="user" items="${users}">
-        <p>${user}</p>
-    </c:forEach>
-</ul>
-
+<div class="wrapper">
+    <jsp:include page="header.jsp"/>
+    <div class="container">
+        <div class="row">
+            <c:forEach var="user" items="${users}">
+                <a class="advertisement_wrapper_wrapper col-4">
+                    <div class="shadow m-2 p-1 bg-white rounded">
+                        <div class="user-info">
+                                ${user.login} ${user.email}
+                        </div>
+                    </div>
+                </a>
+            </c:forEach>
+        </div>
+    </div>
+</div>
 </body>
 </html>
