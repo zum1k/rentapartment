@@ -14,28 +14,46 @@
  <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css"/>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
-МОИ ОБЪЯВЛЕНИЯ:
-<div class="container">
- <div class="row">
-  <c:forEach var="advertisement" items="${advertisements}">
-   <a class="advertisement_wrapper col-4" href="${pageContext.request.contextPath}/controller?command=show_advertisement&advertisement_id=${advertisement.advertisement.adId}">
-    <div class="shadow m-2 p-1 bg-white rounded">
-     <div class="advertisement-image">
+
+<div class="wrapper">
+ <jsp:include page="header.jsp"/>
+ <h3>МОИ ОБЪЯВЛЕНИЯ:</h3>
+ <div class="container">
+  <div class="row">
+   <c:forEach var="advertisement" items="${advertisements}">
+    <a class="advertisement_wrapper col-4"
+       href="${pageContext.request.contextPath}/controller?command=show_advertisement&advertisement_id=${advertisement.advertisement.adId}">
+     <div class="shadow m-2 p-1 bg-white rounded">
+      <div class="advertisement-image">
+      </div>
+      <div class="advertisement-info">
+       <c:if test="${advertisement.imageList[0] != null}">
+        <img src="data:image/jpg;base64,${advertisement.imageList[0].getImage()}" width="300"
+             height="200"/>
+       </c:if>
+       <c:if test="${advertisement.imageList[0] == null}">
+        <img src="${pageContext.request.contextPath}/Images/default_apartment2.jpg" width="300"
+             height="200"/>
+       </c:if>
+        ${advertisement.advertisement.cost}
+       </br>
+        ${advertisement.advertisement.rooms}к ${advertisement.advertisement.square}/${advertisement.advertisement.livingSquare}/${advertisement.advertisement.kitchenSquare}
+      </div>
+      <div class="advertisement-address">
+        ${advertisement.address.street} ${advertisement.address.houseNumber}
+      </div>
      </div>
-     <div class="advertisement-info">
-       ${advertisement.advertisement.cost}
-      </br>
-       ${advertisement.advertisement.rooms}к ${advertisement.advertisement.square}/${advertisement.advertisement.livingSquare}/${advertisement.advertisement.kitchenSquare}
-     </div>
-     <div class="advertisement-address">
-       ${advertisement.address.street} ${advertisement.address.houseNumber}
-     </div>
-    </div>
-   </a>
-   <a href="${pageContext.request.contextPath}/controller?command=delete_ad&advertisement_id=${advertisement.advertisement.adId}" class="nav-link">Удалить объявление</a>
-  </c:forEach>
+    </a>
+    <form>
+      <button type="submit" formmethod="post" formaction="${pageContext.request.contextPath}/controller?command=delete_ad&advertisement_id=${advertisement.advertisement.adId}">Удалить объявление</button>
+    </form>
+
+   </c:forEach>
+  </div>
  </div>
 </div>
+
+
+
 </body>
 </html>

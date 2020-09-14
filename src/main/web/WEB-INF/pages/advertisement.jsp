@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: smugl
@@ -11,25 +12,29 @@
     <title>Advertisement</title>
 </head>
 <body>
-<p> ${advertisement}</p>
+
 <p>COST: ${advertisement.advertisement.cost} </p>
 <p>ROOMS: ${advertisement.advertisement.rooms}</p>
 <p>FLOOR: ${advertisement.advertisement.floor}</p>
 <p>SQUARE: ${advertisement.advertisement.square}</p>
 <p>KITCHEN ${advertisement.advertisement.kitchenSquare}</p>
-<%--<p>LIVING SQUARE: ${living_square}</p>--%>
-<%--<p>OWNER: ${owner}</p>--%>
-<%--<p>PHONE: ${phone}</p>--%>
-<%--<p>AD DATE ${ad_date}</p>--%>
-<%--<p>LIVING SQUARE: ${living_square}</p>--%>
-<%--<p>OWNER: ${owner}</p>--%>
-<%--<p>PHONE:: ${phone}</p>--%>
-<%--<p> DESCRIPTION: ${description}</p>--%>
-<%--<p> CITY: ${city}</p>--%>
-<%--<p> STREET: ${street}</p>--%>
-<%--<p> HOUSE NUMBER ${house_number} </p>--%>
-<%--<p>HOUSE INDEX ${house_index} </p>--%>
-<a href="/controller"
+<p>LIVING SQUARE: ${advertisement.advertisement.livingSquare}</p>
+<p>OWNER: ${advertisement.advertisement.owner}</p>
+<p>PHONE: ${advertisement.advertisement.phoneNumber}</p>
+<p> DESCRIPTION: ${advertisement.advertisement.description}</p>
+<p> CITY: ${advertisement.address.city}</p>
+<p> STREET: ${advertisement.address.street}</p>
+<p> HOUSE NUMBER ${advertisement.address.houseNumber} </p>
+<p>HOUSE INDEX ${advertisement.address.houseIndex} </p>
 
+<c:if test="${advertisement.imageList[0] != null}">
+    <c:forEach var="image" items="${advertisement.imageList}">
+        <img src="data:image/jpg;base64,${image.getImage()}" width="300" height="200"/>
+    </c:forEach>
+</c:if>
+<c:if test="${advertisement.imageList[0] == null}">
+    <img src="${pageContext.request.contextPath}/Images/default_apartment2.jpg" width="300" height="200"
+    alt="Default Image"/>
+</c:if>
 </body>
 </html>

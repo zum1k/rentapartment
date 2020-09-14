@@ -65,6 +65,8 @@ public class CommandFactory {
                 return new LinkToLoginPageCommand();
             case "link_to_upload_images":
                 return new LinkToUploadImagesCommand();
+            case "link_to_register_admin":
+                return new LinkToRegisterAdminPageCommand();
             default:
                 return new AllAdvertisementsCommand();
         }

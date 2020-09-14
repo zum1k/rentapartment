@@ -33,7 +33,7 @@
                                      height="200"/>
                             </c:if>
                             <c:if test="${advertisement.imageList[0] == null}">
-                                <img src="${pageContext.request.contextPath}/Images/default_apartment.png" width="300"
+                                <img src="${pageContext.request.contextPath}/Images/default_apartment2.jpg" width="300"
                                      height="200"/>
                             </c:if>
                                 ${advertisement.advertisement.cost}

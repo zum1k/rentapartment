@@ -43,6 +43,7 @@ public class LogInCommand implements Command {
                 if (currentUser.isPresent()) {
                     request.getSession().setAttribute(SessionAttribute.USER, currentUser.get());
                     page = PagePath.LINK_TO_MAIN;
+                    return CommandResult.redirect(page);
                 }
             } catch (ServiceException exception) {
                 LOGGER.error(exception.getMessage(), exception);

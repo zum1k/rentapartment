@@ -5,21 +5,24 @@
   Time: 21:25
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="UTF-8" isELIgnored="false" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<fmt:requestEncoding value="utf-8"/>
 <html>
 <head>
     <title>Add_Advertisement</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-<form name="add_Ad_Form" method="POST" action="controller?command=add_ad">
+<form name="add_Ad_Form" accept-charset = "UTF-8" method="POST" action="controller?command=add_ad">
     <br/>
     <br/>
     <label>
-        <input type="text" name="city" placeholder="Введите название города" value="">
+        <input type="text"  name="city" placeholder="Введите название города" value="">
     </label><br/>
     <br/>
     <label>
-        <input type="text" name="street" placeholder="Введите название улицы" value="">
+        <input type="text"accept-charset="UTF-8" name="street" placeholder="Введите название улицы" value="">
     </label><br/>
     House Number:<br/>
     <label>
@@ -77,7 +80,7 @@
     <br/>
     <p>
         <label for="comment">Ваш комментарий:</label><br/>
-        <textarea name="description" id="comment" placeholder="Не более 400 символов" maxlength="400"></textarea>
+        <textarea name="description" accept-charset="UTF-8" id="comment" placeholder="Не более 400 символов" maxlength="400"></textarea>
     </p>
     <input type="submit" value="Отправить">
 </form>

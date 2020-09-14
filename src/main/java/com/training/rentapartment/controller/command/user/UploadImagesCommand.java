@@ -1,7 +1,6 @@
 package com.training.rentapartment.controller.command.user;
 
 import com.training.rentapartment.controller.Command;
-import com.training.rentapartment.controller.HttpRequestParameters;
 import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.controller.mapper.ImageMapper;
@@ -34,16 +33,16 @@ public class UploadImagesCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         ImageValidator validator = new ImageValidator();
-
         if (validator.validateImage(request)) {
             try {
                 List<Image> images = new ImageMapper().toEntityList(request);
                 service.addImages(images);
+                return CommandResult.redirect(PagePath.LINK_TO_CLIENT);
             } catch (ServletException | IOException | ServiceException e) {
                 LOGGER.error(e.getMessage(), e);
                 throw new CommandException(e.getMessage(), e);
             }
         }
-        return CommandResult.forward(PagePath.LINK_TO_CLIENT);
+        return CommandResult.forward(PagePath.LINK_TO_MAIN);
     }
 }
