@@ -41,6 +41,7 @@ public class HttpRequestParameters {
     public static final String COST_MAX = "max_cost";
     public static final String SQUARE_MIN = "min_square";
     public static final String SQUARE_MAX = "max_square";
+    public static final String COMMAND = "command";
 
     private HttpRequestParameters() {
     }

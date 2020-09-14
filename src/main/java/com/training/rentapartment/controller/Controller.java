@@ -22,7 +22,6 @@ import java.util.Objects;
 @MultipartConfig(maxFileSize = 16172216)
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Controller.class);
-    private static final String REQUEST_PARAMETER_COMMAND = "command";
 
     public void init() {
         try {
@@ -55,7 +54,7 @@ public class Controller extends HttpServlet {
 
     private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CommandFactory commandFactory = new CommandFactory();
-        String commandType = request.getParameter(REQUEST_PARAMETER_COMMAND);
+        String commandType = request.getParameter(HttpRequestParameters.COMMAND);
         Command command = commandFactory.createCommand(commandType);
 
         CommandResult commandResult = null;
