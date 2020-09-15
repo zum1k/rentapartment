@@ -34,7 +34,8 @@ public enum CommandType {
     SHOW_ADVERTISEMENTS_BY_FILTER("show_all_advertisements_by_filter", Arrays.asList(UserType.ADMIN, UserType.GUEST, UserType.CLIENT)),
     SHOW_ALL_ADVERTISEMENTS("show_all_advertisements", Arrays.asList(UserType.ADMIN, UserType.GUEST, UserType.CLIENT)),
     LINK_TO_SHOW_AD("link_to_show_ad", Arrays.asList(UserType.ADMIN, UserType.GUEST, UserType.CLIENT)),
-    LINK_TO_MAIN("link_to_main", Arrays.asList(UserType.ADMIN, UserType.GUEST, UserType.CLIENT));
+    LINK_TO_MAIN("link_to_main", Arrays.asList(UserType.ADMIN, UserType.GUEST, UserType.CLIENT)),
+    SET_LOCALE("set_locale", Arrays.asList(UserType.ADMIN, UserType.GUEST, UserType.CLIENT));
 
     private final String commandValue;
     private final List<UserType> roles;

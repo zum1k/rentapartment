@@ -16,7 +16,7 @@ public class DeleteUserCommand implements Command {
     private final UserService service;
 
     public DeleteUserCommand() {
-        this.service = UserServiceImpl.getInstance();
+        this.service = new UserServiceImpl();
     }
 
     public DeleteUserCommand(UserService service) {
@@ -27,14 +27,14 @@ public class DeleteUserCommand implements Command {
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         NotNullValidator validator = new NotNullValidator();
         String userIdRequest = request.getParameter(HttpRequestParameters.USER_ID);
-        if(validator.validate(userIdRequest))
-        try {
-            int userId = Integer.parseInt(userIdRequest);
-            service.deleteAccount(userId);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-            throw new CommandException(e.getMessage(), e);
-        }
+        if (validator.validate(userIdRequest))
+            try {
+                int userId = Integer.parseInt(userIdRequest);
+                service.deleteAccount(userId);
+            } catch (ServiceException e) {
+                e.printStackTrace();
+                throw new CommandException(e.getMessage(), e);
+            }
         return CommandResult.forward(PagePath.USERS);
     }
 }

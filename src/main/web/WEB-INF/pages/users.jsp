@@ -14,18 +14,18 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css"/>
 </head>
 <body>
-<div class="wrapper">
+<div class="wrapper shadow pb-5">
     <jsp:include page="header.jsp"/>
     <div class="container">
         <div class="row">
             <c:forEach var="user" items="${users}">
-                <a class="advertisement_wrapper_wrapper col-4">
-                    <div class="shadow m-2 p-1 bg-white rounded">
-                        <div class="user-info">
-                                ${user.login} ${user.email}
-                        </div>
+                <div class="col-4">
+                    <div class="shadow-sm m-2 p-2 bg-white rounded">
+                        <p>${user.login}</p>
+                        <p>${user.email}</p>
+                        <a href="link" class="btn btn-danger">ADD LOCALE, remove user</a>
                     </div>
-                </a>
+                </div>
             </c:forEach>
         </div>
     </div>

@@ -15,19 +15,19 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ConnectionPool {
-    private static Logger logger = LogManager.getLogger(ConnectionPool.class);
+    private static final Logger logger = LogManager.getLogger(ConnectionPool.class);
 
     private static ConnectionPool INSTANCE;
     private final ConnectionCreator connectionCreator = new ConnectionCreator();
 
     private static final int POOL_SIZE = 20;
-    private Queue<Connection> connections;
+    private final Queue<Connection> connections;
 
     private static final Lock INSTANCE_LOCK = new ReentrantLock();
     private static final Lock CONNECTION_LOCK = new ReentrantLock();
-    private Semaphore connectionSemaphore = new Semaphore(POOL_SIZE);
+    private final Semaphore connectionSemaphore = new Semaphore(POOL_SIZE);
 
-    private static AtomicBoolean initialized = new AtomicBoolean(false);
+    private static final AtomicBoolean initialized = new AtomicBoolean(false);
 
     private ConnectionPool() throws ConnectionException {
         connections = new ArrayDeque<>();

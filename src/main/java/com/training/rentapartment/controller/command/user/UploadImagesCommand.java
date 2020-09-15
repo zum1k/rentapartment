@@ -22,12 +22,8 @@ public class UploadImagesCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(UploadImagesCommand.class);
     private final AdvertisementService service;
 
-    public UploadImagesCommand(AdvertisementService service) {
-        this.service = service;
-    }
-
     public UploadImagesCommand() {
-        this.service = AdvertisementServiceImpl.getInstance();
+        this.service = new AdvertisementServiceImpl();
     }
 
     @Override

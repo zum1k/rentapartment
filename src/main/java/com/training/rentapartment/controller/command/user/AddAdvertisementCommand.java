@@ -11,6 +11,7 @@ import com.training.rentapartment.entity.Address;
 import com.training.rentapartment.entity.Advertisement;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.service.AdvertisementService;
 import com.training.rentapartment.service.impl.AdvertisementServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,10 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 
 public class AddAdvertisementCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(AddAdvertisementCommand.class);
-    private AdvertisementServiceImpl service;
+    private AdvertisementService service;
 
     public AddAdvertisementCommand() {
-        this.service = AdvertisementServiceImpl.getInstance();
+        this.service = new AdvertisementServiceImpl();
     }
 
     public AddAdvertisementCommand(AdvertisementServiceImpl service) {

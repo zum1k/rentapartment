@@ -8,6 +8,7 @@ import com.training.rentapartment.entity.dto.AdvertisementQueryDto;
 import com.training.rentapartment.entity.dto.ImageDto;
 import com.training.rentapartment.exception.RepositoryException;
 import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.model.repository.Repository;
 import com.training.rentapartment.model.repository.Specification;
 import com.training.rentapartment.model.repository.impl.address.AddressRepository;
 import com.training.rentapartment.model.repository.impl.advertisement.AdvertisementRepository;
@@ -33,38 +34,24 @@ import com.training.rentapartment.service.AdvertisementService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.imageio.ImageIO;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.*;
 
 public class AdvertisementServiceImpl implements AdvertisementService {
     private static final Logger LOGGER = LogManager.getLogger(AdvertisementServiceImpl.class);
-    private final int DEFAULT_ID_VALUE = 0;
-    private static AdvertisementServiceImpl instance = new AdvertisementServiceImpl();
-    private final AdvertisementRepository advertisementRepository;
-    private final AddressRepository addressRepository;
-    private final ImageRepository imageRepository;
 
-    private AdvertisementServiceImpl() {
-        this.advertisementRepository = new AdvertisementRepository();
-        this.addressRepository = new AddressRepository();
-        this.imageRepository = new ImageRepository();
-    }
-
-    public static AdvertisementServiceImpl getInstance() {
-        return instance;
+    public AdvertisementServiceImpl() {
     }
 
     @Override
     public boolean deleteAdvertisement(int advertisementId) throws ServiceException {
         AdvertisementByIdSpecification idSpecification = new AdvertisementByIdSpecification(advertisementId);
         ImageByAdvertisementIdSpecification imageSpecification = new ImageByAdvertisementIdSpecification(advertisementId);
-        try {
+        try (Repository<Advertisement> advertisementRepository = new AdvertisementRepository(); Repository<Image> imageRepository = new ImageRepository()) {
             advertisementRepository.remove(idSpecification);
             imageRepository.remove(imageSpecification);
             return true;
-        } catch (RepositoryException e) {
+        } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
@@ -72,8 +59,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public int addAdvertisement(Advertisement advertisement, Address address) throws ServiceException {
-        int advertisementId = DEFAULT_ID_VALUE;
-        try {
+        try (Repository<Address> addressRepository = new AddressRepository(); Repository<Advertisement> advertisementRepository = new AdvertisementRepository()) {
             int addressId;
             Optional<Address> optionalAddress = addressRepository.singleQuery(createAddressSpecification(address));
             if (optionalAddress.isPresent()) {
@@ -81,9 +67,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             } else {
                 addressId = addressRepository.add(address);
             }
-            advertisementId = addAdvertisementWithAddress(addressId, advertisement);
-            return advertisementId;
-        } catch (RepositoryException e) {
+            return addAdvertisementWithAddress(addressId, advertisement, advertisementRepository);
+        } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
@@ -91,7 +76,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public Optional<AdvertisementDto> findSingleAdvertisement(int advertisementId) throws ServiceException {
-        try {
+        try (Repository<Advertisement> advertisementRepository = new AdvertisementRepository()) {
             AdvertisementByIdSpecification idSpecification = new AdvertisementByIdSpecification(advertisementId);
             Optional<Advertisement> optionalAdvertisement = advertisementRepository.singleQuery(idSpecification);
             if (optionalAdvertisement.isPresent()) {
@@ -100,7 +85,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             }
             return Optional.empty();
 
-        } catch (RepositoryException e) {
+        } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
@@ -179,43 +164,43 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     private List<AdvertisementDto> findAdvertisements(Specification specification) throws ServiceException {
         List<AdvertisementDto> dtos = new ArrayList<>();
-        try {
+        try (Repository<Advertisement> advertisementRepository = new AdvertisementRepository()) {
             List<Advertisement> queriedAdvertisements = advertisementRepository.query(specification);
             for (Advertisement advertisement : queriedAdvertisements) {
                 AdvertisementDto advertisementDto = createAdvertisementDto(advertisement);
                 dtos.add(advertisementDto);
             }
-        } catch (RepositoryException e) {
+        } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e);
         }
         return dtos;
     }
 
-    private int addAdvertisementWithAddress(int addressId, Advertisement advertisement) throws RepositoryException {
+    private int addAdvertisementWithAddress(int addressId, Advertisement advertisement, Repository<Advertisement> advertisementRepository) throws RepositoryException {
         advertisement.setAddressId(addressId);
         return advertisementRepository.add(advertisement);
     }
 
     private AdvertisementDto createAdvertisementDto(Advertisement advertisement) throws RepositoryException {
-        try {
+        try (Repository<Image> imageRepository = new ImageRepository(); Repository<Address> addressRepository = new AddressRepository()) {
             int advertisementId = advertisement.getAdId();
             int addressId = advertisement.getAddressId();
-            List<ImageDto> imageList = convertToDtoImage(findImagesByAdId(advertisementId));
-            Address address = findAddressByAdId(addressId);
+            List<ImageDto> imageList = convertToDtoImage(findImagesByAdId(advertisementId, imageRepository));
+            Address address = findAddressByAdId(addressId, addressRepository);
             return new AdvertisementDto(advertisement, address, imageList);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public void addImages(List<Image> images) throws ServiceException {
-        try {
+        try (Repository<Image> imageRepository = new ImageRepository()) {
             for (Image image : images) {
                 imageRepository.add(image);
             }
-        } catch (RepositoryException e) {
+        } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
@@ -235,13 +220,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         return new ImageDto(base64Image);
     }
 
-    private List<Image> findImagesByAdId(int advertisementId) throws RepositoryException {
+    private List<Image> findImagesByAdId(int advertisementId, Repository<Image> imageRepository) throws RepositoryException {
         ImageByAdvertisementIdSpecification imageByIdSpecification =
                 new ImageByAdvertisementIdSpecification(advertisementId);
         return imageRepository.query(imageByIdSpecification);
     }
 
-    private Address findAddressByAdId(int addressId) throws RepositoryException {
+    private Address findAddressByAdId(int addressId, Repository<Address> addressRepository) throws RepositoryException {
         AddressByIdSpecification specification = new AddressByIdSpecification(addressId);
         Optional<Address> addressOptional = addressRepository.singleQuery(specification);
         return addressOptional.orElseGet(Address::new);

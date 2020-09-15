@@ -12,6 +12,7 @@ import com.training.rentapartment.entity.User;
 import com.training.rentapartment.entity.UserType;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.service.GuestService;
 import com.training.rentapartment.service.impl.GuestServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,10 +29,10 @@ public class RegisterCommand implements Command {
             " For successful verification follow next link. Thank you.";
     private final String VERIFICATION_EMAIL_SUBJECT = "Continue Registration on RentApartment";
 
-    private GuestServiceImpl service;
+    private GuestService service;
 
     public RegisterCommand() {
-        this.service = GuestServiceImpl.getInstance();
+        this.service = new GuestServiceImpl();
     }
 
     public RegisterCommand(GuestServiceImpl service) {

@@ -31,12 +31,12 @@ public class Controller extends HttpServlet {
         }
     }
 
-    @Override//TODO
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doProcess(request, response);
     }
 
-    @Override//TODO
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doProcess(request, response);
     }

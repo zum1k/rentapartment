@@ -1,6 +1,6 @@
 package com.training.rentapartment.exception;
 
-public class ConnectionException extends Throwable {
+public class ConnectionException extends Exception {
     public ConnectionException(String message) {
         super(message);
     }

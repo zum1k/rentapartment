@@ -84,7 +84,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, type, login, password, email, verified); //TODO
+        return Objects.hash(userId, type, login, password, email, verified);
     }
 
     @Override

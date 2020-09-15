@@ -10,27 +10,41 @@
 <fmt:setLocale value="en"/>
 <fmt:setBundle basename="pagecontent"/>
 <html>
-<head><title>Login</title>
+<head>
+    <title>Login</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css"/>
 </head>
 <body>
-<div class="login-form-1">
-    <h3><fmt:message key="titles.login"/></h3>
-    <form action="${pageContext.request.contextPath}/controller?command=login" method="post">
-        <div class="form-group">
-            <input type="text" required name="login" class="form-control" placeholder=<fmt:message key="message.login"/> value=""/>
+<div class="wrapper shadow pb-5">
+    <jsp:include page="header.jsp"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-4 m-auto py-4 text-center">
+                <h3><fmt:message key="titles.login"/></h3>
+                <form action="${pageContext.request.contextPath}/controller?command=login" method="post">
+                    <div class="form-group">
+                        <input type="text" required name="login" class="form-control" placeholder=
+                        <fmt:message key="message.login"/> value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" required name="password" class="form-control" placeholder=
+                        <fmt:message key="message.password"/> value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-dark" value=<fmt:message key="button.login"/> />
+                    </div>
+                    <div class="form-group">
+                        <a href="${pageContext.request.contextPath}/controller?command=link_to_register"
+                           class="btn btn-danger">
+                            <fmt:message key="titles.register"/>
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <input type="password" required name="password" class="form-control" placeholder=<fmt:message key="message.password"/> value=""/>
-        </div>
-        <div class="form-group">
-            <input type="submit" class="btnSubmit" value=<fmt:message key="button.login"/> />
-        </div>
-        <div class="form-group">
-            <a href="${pageContext.request.contextPath}/controller?command=link_to_register" class="btnForgetPwd"><fmt:message key="titles.register"/></a>
-        </div>
-    </form>
+    </div>
 </div>
+
 </body>
 </html>

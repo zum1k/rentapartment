@@ -10,6 +10,7 @@ import com.training.rentapartment.entity.dto.AdvertisementDto;
 import com.training.rentapartment.entity.dto.AdvertisementQueryDto;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.service.AdvertisementService;
 import com.training.rentapartment.service.impl.AdvertisementServiceImpl;
 
 import javax.servlet.ServletException;
@@ -18,10 +19,10 @@ import java.io.IOException;
 import java.util.List;
 
 public class AllAdvertisementsByQueryCommand implements Command {
-    private final AdvertisementServiceImpl service;
+    private final AdvertisementService service;
 
     public AllAdvertisementsByQueryCommand() {
-        this.service = AdvertisementServiceImpl.getInstance();
+        this.service = new AdvertisementServiceImpl();
     }
 
     public AllAdvertisementsByQueryCommand(AdvertisementServiceImpl service) {

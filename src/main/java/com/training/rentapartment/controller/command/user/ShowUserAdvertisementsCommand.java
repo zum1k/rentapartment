@@ -9,6 +9,7 @@ import com.training.rentapartment.controller.mapper.UserMapper;
 import com.training.rentapartment.entity.dto.AdvertisementDto;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.service.AdvertisementService;
 import com.training.rentapartment.service.impl.AdvertisementServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,14 +19,10 @@ import java.util.List;
 
 public class ShowUserAdvertisementsCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(ShowUserAdvertisementsCommand.class);
-    private final AdvertisementServiceImpl advertisementService;
+    private final AdvertisementService advertisementService;
 
     public ShowUserAdvertisementsCommand() {
-        this.advertisementService = AdvertisementServiceImpl.getInstance();
-    }
-
-    public ShowUserAdvertisementsCommand(AdvertisementServiceImpl advertisementService) {
-        this.advertisementService = advertisementService;
+        this.advertisementService = new AdvertisementServiceImpl();
     }
 
     @Override

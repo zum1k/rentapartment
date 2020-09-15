@@ -7,6 +7,7 @@ import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.entity.dto.AdvertisementDto;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.service.AdvertisementService;
 import com.training.rentapartment.service.impl.AdvertisementServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,10 +22,10 @@ public class AllAdvertisementsCommand implements Command {
     private int advertisementOffset = DEFAULT_OFFSET_VALUE;
     private int advertisementLimit = DEFAULT_LIMIT_VALUE;
 
-    private final AdvertisementServiceImpl service;
+    private final AdvertisementService service;
 
     public AllAdvertisementsCommand() {
-        this.service = AdvertisementServiceImpl.getInstance();
+        this.service = new AdvertisementServiceImpl();
     }
 
     public AllAdvertisementsCommand(AdvertisementServiceImpl service) {

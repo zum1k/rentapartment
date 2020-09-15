@@ -12,7 +12,7 @@ import java.util.Properties;
 
 
 public class ConnectionCreator {
-    private static Logger logger = LogManager.getLogger(ConnectionCreator.class);
+    private static final Logger logger = LogManager.getLogger(ConnectionCreator.class);
 
     private static final String DB_PROPERTIES_PATH = "/res/config.properties";
     private static final String DB_HOST = "db.host";

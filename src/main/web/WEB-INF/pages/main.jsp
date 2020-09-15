@@ -10,71 +10,99 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <fmt:setLocale value="en"/>
 <fmt:setBundle basename="pagecontent"/>
-<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
     <title>Main</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css"/>
 </head>
 <body>
-<div class="wrapper">
+<div class="wrapper shadow pb-5">
     <jsp:include page="header.jsp"/>
     <div class="container">
         <div class="row">
-            <c:forEach var="advertisement" items="${advertisements}">
-                <a class="advertisement_wrapper col-4"
-                   href="${pageContext.request.contextPath}/controller?command=show_advertisement&advertisement_id=${advertisement.advertisement.adId}">
-                    <div class="shadow m-2 p-1 bg-white rounded">
-                        <div class="advertisement-image">
-                        </div>
-                        <div class="advertisement-info">
-                            <c:if test="${advertisement.imageList[0] != null}">
-                                <img src="data:image/jpg;base64,${advertisement.imageList[0].getImage()}" width="300"
-                                     height="200"/>
-                            </c:if>
-                            <c:if test="${advertisement.imageList[0] == null}">
-                                <img src="${pageContext.request.contextPath}/Images/default_apartment2.jpg" width="300"
-                                     height="200"/>
-                            </c:if>
-                                ${advertisement.advertisement.cost}
-                            </br>
-                                ${advertisement.advertisement.rooms}<fmt:message key="advertisement.room-key"/> ${advertisement.advertisement.square}/${advertisement.advertisement.livingSquare}/${advertisement.advertisement.kitchenSquare}
-                        </div>
-                        <div class="advertisement-address">
-                                ${advertisement.address.street} ${advertisement.address.houseNumber}
-                        </div>
+            <div class="col-2 py-3">
+                <form action="${pageContext.request.contextPath}/controller?command=show_all_advertisements_by_filter"
+                      method="get">
+                    <div class="form-group">
+                        <label for="min_cost"><fmt:message key="filter.min-cost"/> </label>
+                        <input type="number" step="1" min="0" max="1999999" id="min_cost" name="min_cost"
+                               class="form-control"/>
                     </div>
-                </a>
-            </c:forEach>
+                    <div class="form-group">
+                        <label for="max_cost"><fmt:message key="filter.max-cost"/></label>
+                        <input type="number" step="1" min="0" max="2000000" id="max_cost" name="max_cost"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="min_room"><fmt:message key="filter.min-rooms"/></label>
+                        <input type="number" step="1" min="0" max="5" id="min_room" name="min_room"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="max_room"><fmt:message key="filter.max-rooms"/></label>
+                        <input type="number" step="1" min="0" max="6" id="max_room" name="max_room"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="min_floor"><fmt:message key="filter.min-floor"/></label>
+                        <input type="number" step="1" min="0" max="29" id="min_floor" name="min_floor"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="max_floor"><fmt:message key="filter.max-floor"/></label>
+                        <input type="number" step="1" min="0" max="30" id="max_floor" name="max_floor"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="min_square"><fmt:message key="filter.min-square"/></label>
+                        <input type="number" step="1" min="0" max="999" id="min_square" name="min_square"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="max_square"><fmt:message key="filter.max-square"/></label>
+                        <input type="number" step="1" min="0" max="1000" id="max_square" name="max_square"
+                               class="form-control"/>
+                    </div>
+                    <button type="submit" class="btn btn-dark"><fmt:message key="button.search"/></button>
+                </form>
+            </div>
+            <div class="col-10">
+                <div class="container">
+                    <div class="row">
+                        <c:forEach var="advertisement" items="${advertisements}">
+                            <div class="col-4 col-sm-4">
+                                <a
+                                        href="${pageContext.request.contextPath}/controller?command=show_advertisement&advertisement_id=${advertisement.advertisement.adId}">
+                                    <div class="shadow-sm m-2 p-2 bg-white rounded">
+                                        <div>
+                                            <c:if test="${advertisement.imageList[0] != null}">
+                                                <img src="data:image/jpg;base64,${advertisement.imageList[0].getImage()}"
+                                                     class="w-100"
+                                                />
+                                            </c:if>
+                                            <c:if test="${advertisement.imageList[0] == null}">
+                                                <img src="${pageContext.request.contextPath}/Images/default_apartment2.jpg"
+                                                     class="w-100"
+                                                />
+                                            </c:if>
+                                        </div>
+                                        <div>
+                                            <p><fmt:message key="address.address"/>: ${advertisement.address.street} ${advertisement.address.houseNumber}</p>
+                                            <p><fmt:message key="advertisement.cost"/>: ${advertisement.advertisement.cost}$</p>
+                                            <p><fmt:message key="advertisement.floor"/>: ${advertisement.advertisement.rooms}</p>
+                                            <p><fmt:message
+                                                    key="advertisement.room-key"/> ${advertisement.advertisement.square}/${advertisement.advertisement.livingSquare}/${advertisement.advertisement.kitchenSquare}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-
 </div>
-<form action="${pageContext.request.contextPath}/controller?command=show_all_advertisements_by_filter" method="post">
-    <label for="min_cost"><fmt:message key="filter.min-cost"/> </label>
-    <input type="number" step="100" min="0" max="1999999" id="min_cost" name="min_cost"/>
-    <label for="max_cost"><fmt:message key="filter.max-cost"/></label>
-    <input type="number" step="100" min="0" max="2000000" id="max_cost" name="max_cost"/>
-    <br/>
-    <label for="min_room"><fmt:message key="filter.min-rooms"/></label>
-    <input type="number" step="1" min="0" max="5" id="min_room" name="min_room"/>
-    <label for="max_room"><fmt:message key="filter.max-rooms"/></label>
-    <input type="number" step="1" min="0" max="6" id="max_room" name="max_room"/>
-    <br/>
-    <label for="min_floor"><fmt:message key="filter.min-floor"/></label>
-    <input type="number" step="1" min="0" max="29" id="min_floor" name="min_floor"/>
-    <label for="max_floor"><fmt:message key="filter.max-floor"/></label>
-    <input type="number" step="1" min="0" max="30" id="max_floor" name="max_floor"/>
-    <br/>
-    <label for="min_square"><fmt:message key="filter.min-square"/></label>
-    <input type="number" step="1" min="0" max="999" id="min_square" name="min_square"/>
-    <label for="max_square"><fmt:message key="filter.max-square"/></label>
-    <input type="number" step="1" min="0" max="1000" id="max_square" name="max_square"/>
-    <br/>
-    <button type="submit"><fmt:message key="button.search"/></button>
-</form>
 </body>
 </html>

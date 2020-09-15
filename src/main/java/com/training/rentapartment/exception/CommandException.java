@@ -1,6 +1,6 @@
 package com.training.rentapartment.exception;
 
-public class CommandException extends Throwable {
+public class CommandException extends Exception {
     public CommandException(String message) {
         super(message);
     }

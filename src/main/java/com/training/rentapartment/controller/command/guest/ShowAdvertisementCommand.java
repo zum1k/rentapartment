@@ -8,6 +8,7 @@ import com.training.rentapartment.controller.validator.impl.IntegerValidator;
 import com.training.rentapartment.entity.dto.AdvertisementDto;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.service.AdvertisementService;
 import com.training.rentapartment.service.impl.AdvertisementServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,16 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ShowAdvertisementCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(ShowAdvertisementCommand.class);
-    private final AdvertisementServiceImpl advertisementService;
-
-    public ShowAdvertisementCommand(AdvertisementServiceImpl advertisementService) {
-        this.advertisementService = advertisementService;
-    }
+    private final AdvertisementService advertisementService;
 
     public ShowAdvertisementCommand() {
-        this.advertisementService = AdvertisementServiceImpl.getInstance();
+        this.advertisementService = new AdvertisementServiceImpl();
     }
-
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {

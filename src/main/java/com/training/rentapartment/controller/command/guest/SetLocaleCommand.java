@@ -11,7 +11,7 @@ import com.training.rentapartment.exception.CommandException;
 import javax.servlet.http.HttpServletRequest;
 
 public class SetLocaleCommand implements Command {
-    private static final String DEFAULT_LOCALE = "ru_RU";
+    private static final String DEFAULT_LOCALE = "ru";
 
     public SetLocaleCommand() {
     }

@@ -15,29 +15,35 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css"/>
 </head>
-<h4 align="center">
-    <body>
-    <a href="${pageContext.request.contextPath}/controller?command=show_all_advertisements"> <fmt:message key = "header.home"/> </a>
-    <br/>
-    <div class="login-form-1" >
-        <h2><fmt:message key = "titles.register"/></h2>
-        </br>
-        <form action="${pageContext.request.contextPath}/controller?command=register" method="post">
-            <div class="form-group">
-                <input type="text" required name="login" class="form-control" placeholder=<fmt:message key = "message.think-login"/> value=""/>
+<body>
+<div class="wrapper shadow pb-5">
+    <jsp:include page="header.jsp"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-4 m-auto py-4 text-center">
+                <h3>
+                    <fmt:message key="titles.register"/>
+                </h3>
+                <form action="${pageContext.request.contextPath}/controller?command=register" method="post">
+                    <div class="form-group">
+                        <input type="text" required name="login" class="form-control" placeholder=
+                        <fmt:message key="message.think-login"/> value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" required name="password" class="form-control" placeholder=
+                        <fmt:message key="message.think-password"/> value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" required name="email" class="form-control" placeholder=
+                        <fmt:message key="message.email"/> value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-dark" value=<fmt:message key="button.register"/> />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <input type="password" required name = "password" class="form-control" placeholder=<fmt:message key = "message.think-password"/> value=""/>
-            </div>
-            <div class="form-group">
-                <input type="email" required name = "email" class="form-control" placeholder=<fmt:message key = "message.email"/> value=""/>
-            </div>
-             </br>
-            <div class="form-group">
-                <input type="submit" class="btnSubmit" value=<fmt:message key = "button.register"/>
-            </div>
-        </form>
+        </div>
     </div>
-    </body>
-   </h4>
+</div>
+</body>
 </html>

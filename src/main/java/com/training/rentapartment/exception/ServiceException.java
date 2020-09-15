@@ -1,6 +1,6 @@
 package com.training.rentapartment.exception;
 
-public class ServiceException extends Throwable {
+public class ServiceException extends Exception {
     public ServiceException() {
     }
 

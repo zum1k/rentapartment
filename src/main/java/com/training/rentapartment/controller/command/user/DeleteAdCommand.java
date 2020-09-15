@@ -19,11 +19,7 @@ public class DeleteAdCommand implements Command {
     private final AdvertisementService advertisementService;
 
     public DeleteAdCommand() {
-        this.advertisementService = AdvertisementServiceImpl.getInstance();
-    }
-
-    public DeleteAdCommand(AdvertisementService advertisementService) {
-        this.advertisementService = advertisementService;
+        this.advertisementService = new AdvertisementServiceImpl();
     }
 
     @Override

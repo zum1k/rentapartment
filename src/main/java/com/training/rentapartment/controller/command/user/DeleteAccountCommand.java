@@ -7,6 +7,7 @@ import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.controller.mapper.UserMapper;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.service.UserService;
 import com.training.rentapartment.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,10 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 
 public class DeleteAccountCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(DeleteAccountCommand.class);
-    private final UserServiceImpl service;
+    private final UserService service;
 
     public DeleteAccountCommand() {
-        this.service = UserServiceImpl.getInstance();
+        this.service = new UserServiceImpl();
     }
 
     public DeleteAccountCommand(UserServiceImpl service) {

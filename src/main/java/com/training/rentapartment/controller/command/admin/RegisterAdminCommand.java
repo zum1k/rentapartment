@@ -11,6 +11,7 @@ import com.training.rentapartment.entity.User;
 import com.training.rentapartment.entity.UserType;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.service.GuestService;
 import com.training.rentapartment.service.impl.GuestServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,9 +23,10 @@ import java.util.Optional;
 
 public class RegisterAdminCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(RegisterAdminCommand.class);
-    private GuestServiceImpl service;
+    private final GuestService service;
+
     public RegisterAdminCommand() {
-        this.service = GuestServiceImpl.getInstance();
+        this.service = new GuestServiceImpl();
     }
 
     public RegisterAdminCommand(GuestServiceImpl service) {
@@ -48,8 +50,8 @@ public class RegisterAdminCommand implements Command {
                     page = PagePath.CLIENT;
                 }
             } catch (IOException | ServletException | ServiceException e) {
-               LOGGER.error(e.getMessage(), e);
-               throw new CommandException(e.getMessage(), e);
+                LOGGER.error(e.getMessage(), e);
+                throw new CommandException(e.getMessage(), e);
             }
         }
         return CommandResult.forward(page);

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public abstract class AbstractRepository<T> implements Repository<T>, AutoCloseable {
+public abstract class AbstractRepository<T> implements Repository<T> {
     private final String doublePType = "DOUBLE";
     private final String intType = "INT";
     private final String stringType = "STRING";
@@ -51,7 +51,7 @@ public abstract class AbstractRepository<T> implements Repository<T>, AutoClosea
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         connectionPool.releaseConnection(connection);
     }
@@ -90,7 +90,7 @@ public abstract class AbstractRepository<T> implements Repository<T>, AutoClosea
         }
     }
 
-    private String doInsertQuery(Map<String, SqlQueryParameter> fields) { //TODO
+    private String doInsertQuery(Map<String, SqlQueryParameter> fields) {
         StringBuilder columns = new StringBuilder(" (");
         StringBuilder values = new StringBuilder("VALUES (");
         for (Map.Entry<String, SqlQueryParameter> entry : fields.entrySet()) {

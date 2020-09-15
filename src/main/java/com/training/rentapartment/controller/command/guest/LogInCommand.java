@@ -8,6 +8,7 @@ import com.training.rentapartment.controller.validator.GuestValidator;
 import com.training.rentapartment.entity.User;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.service.GuestService;
 import com.training.rentapartment.service.impl.GuestServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,10 +21,10 @@ public class LogInCommand implements Command {
     private static final String LOGIN_PARAMETER = "login";
     private static final String PASSWORD_PARAMETER = "password";
 
-    private final GuestServiceImpl service;
+    private final GuestService service;
 
     public LogInCommand() {
-        this.service = GuestServiceImpl.getInstance();
+        this.service = new GuestServiceImpl();
     }
 
     public LogInCommand(GuestServiceImpl service) {

@@ -45,9 +45,6 @@
             </c:if>
         </div>
     </div>
-    <a class="navbar-brand" href="${pageContext.request.contextPath}/controller?command=set_locale&locale=ru_RU"><fmt:message key="header.lang-ru" /></a>
-    <a class="navbar-brand" href="${pageContext.request.contextPath}/controller?command=set_locale&locale=en_EN"><fmt:message key="header.lang-en" /></a>
-    <c:if test="${sessionScope.locale==null}">
-
-    </c:if>
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/controller?command=set_locale&locale=ru"><fmt:message key="header.lang-ru" /></a>
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/controller?command=set_locale&locale=en"><fmt:message key="header.lang-en" /></a>
 </nav>

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-public class AdvertisementRepository extends AbstractRepository<Advertisement> { //TODO
+public class AdvertisementRepository extends AbstractRepository<Advertisement> {
     private static final Logger LOGGER = LogManager.getLogger(AdvertisementRepository.class);
 
     public AdvertisementRepository() {

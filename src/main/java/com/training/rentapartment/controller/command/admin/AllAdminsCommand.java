@@ -7,6 +7,7 @@ import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.entity.User;
 import com.training.rentapartment.exception.CommandException;
 import com.training.rentapartment.exception.ServiceException;
+import com.training.rentapartment.service.UserService;
 import com.training.rentapartment.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,14 +17,14 @@ import java.util.List;
 
 public class AllAdminsCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(AllAdminsCommand.class);
-    private UserServiceImpl service;
+    private final UserService service;
 
     public AllAdminsCommand(UserServiceImpl service) {
         this.service = service;
     }
 
     public AllAdminsCommand() {
-        this.service = UserServiceImpl.getInstance();
+        this.service = new UserServiceImpl();
     }
 
     @Override
