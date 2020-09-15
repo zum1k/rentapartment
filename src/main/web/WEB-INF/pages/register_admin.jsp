@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<fmt:setLocale value="en"/>
+<fmt:setBundle basename="pagecontent"/>
 <html>
 <head>
     <title>Registration</title>
@@ -14,24 +17,24 @@
 </head>
 <h4 align="center">
     <body>
-    <a href="${pageContext.request.contextPath}/controller?command=show_all_advertisements">На главную</a>
+    <a href="${pageContext.request.contextPath}/controller?command=show_all_advertisements"> <fmt:message key ="header.home"/> </a>
     <br/>
     <div class="login-form-1" >
-        <h2>Register Admin</h2>
+        <h2><fmt:message key ="titles.register-admin"/></h2>
         </br>
         <form action="${pageContext.request.contextPath}/controller?command=register_admin" method="post">
             <div class="form-group">
-                <input type="text" required name="login" class="form-control" placeholder="Write Login *" value=""/>
+                <input type="text" required name="login" class="form-control" placeholder= <fmt:message key ="message.put-login"/> value=""/>
             </div>
             <div class="form-group">
-                <input type="password" required name = "password" class="form-control" placeholder="Write Password *" value=""/>
+                <input type="password" required name = "password" class="form-control" placeholder=<fmt:message key ="message.put-password"/> value=""/>
             </div>
             <div class="form-group">
-                <input type="email" required name = "email" class="form-control" placeholder="Write Email*" value=""/>
+                <input type="email" required name = "email" class="form-control" placeholder=<fmt:message key ="message.put-email"/> value=""/>
             </div>
             </br>
             <div class="form-group">
-                <input type="submit" class="btnSubmit" value="Register"/>
+                <input type="submit" class="btnSubmit" value=<fmt:message key ="button.register"/>/>
             </div>
         </form>
     </div>

@@ -45,15 +45,14 @@
      </div>
     </a>
     <form>
-      <button type="submit" formmethod="post" formaction="${pageContext.request.contextPath}/controller?command=delete_ad&advertisement_id=${advertisement.advertisement.adId}">Удалить объявление</button>
+     <button type="submit" formmethod="post"
+             formaction="${pageContext.request.contextPath}/controller?command=delete_ad&advertisement_id=${advertisement.advertisement.adId}">
+      Удалить объявление
+     </button>
     </form>
-
    </c:forEach>
   </div>
  </div>
 </div>
-
-
-
 </body>
 </html>

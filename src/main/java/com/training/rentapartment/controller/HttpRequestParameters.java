@@ -2,6 +2,7 @@ package com.training.rentapartment.controller;
 
 public class HttpRequestParameters {
     public static final String ERROR = "error";
+    public static final String LOCALE = "locale";
     //user parameters
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
