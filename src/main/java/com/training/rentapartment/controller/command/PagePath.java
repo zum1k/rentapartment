@@ -13,6 +13,7 @@ public class PagePath {
     public static final String USERS = "WEB-INF/pages/users.jsp";
     public static final String IMAGES = "WEB-INF/pages/upload_images.jsp";
     public static final String REGISTER_ADMIN = "WEB-INF/pages/register_admin.jsp";
+    public static final String ADMINS = "WEB-INF/pages/admins.jsp";
     //links
     public static final String LINK_TO_MAIN = "/controller?command=show_all_advertisements";
     public static final String LINK_TO_CLIENT = "/controller?command=show_all_advertisements";

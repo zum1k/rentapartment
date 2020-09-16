@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: smugl
-  Date: 25.08.2020
-  Time: 13:36
+  Date: 16.09.2020
+  Time: 04:26
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -26,8 +26,6 @@
                     <div class="shadow-sm m-2 p-2 bg-white rounded">
                         <p>${user.login}</p>
                         <p>${user.email}</p>
-                        <p>${user.getId()}</p>
-                        <a href="${pageContext.request.contextPath}/controller?command=delete_user&user_id=${user.getId()}" class="btn btn-danger"> <fmt:message key ="button.delete-user"/></a>
                     </div>
                 </div>
             </c:forEach>

@@ -40,8 +40,7 @@
                         <fmt:message key="message.email"/> value=""/>
                     </div>
                     <div class="form-group">
-                        <input type="submit" class="btn btn-dark" value=
-                        <fmt:message key="button.register"/>/>
+                        <input type="submit" class="btn btn-dark" value=<fmt:message key="button.register"/>/>
                     </div>
                 </form>
             </div>

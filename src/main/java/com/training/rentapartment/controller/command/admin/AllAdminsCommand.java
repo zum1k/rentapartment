@@ -33,7 +33,7 @@ public class AllAdminsCommand implements Command {
         try {
             List<User> users = service.findAllAdminUsers();
             request.setAttribute(HttpRequestParameters.USERS, users);
-            page = PagePath.USERS;
+            page = PagePath.ADMINS;
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage(), e);
             throw new CommandException(e.getMessage(), e);
