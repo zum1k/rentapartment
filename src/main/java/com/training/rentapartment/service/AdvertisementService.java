@@ -12,10 +12,16 @@ import java.util.Optional;
 
 public interface AdvertisementService {
     int addAdvertisement(Advertisement advertisement, Address address) throws ServiceException;
+
     List<AdvertisementDto> findAllAdvertisements(int pageOffset, int pageLimit) throws ServiceException;
+
     List<AdvertisementDto> findUserAdvertisements(int userId) throws ServiceException;
+
     List<AdvertisementDto> findAdvertisementsByFilters(AdvertisementQueryDto queryDto) throws ServiceException;
+
     void addImages(List<Image> images) throws ServiceException;
+
     boolean deleteAdvertisement(int advertisementId) throws ServiceException;
+
     Optional<AdvertisementDto> findSingleAdvertisement(int advertisementId) throws ServiceException;
 }
