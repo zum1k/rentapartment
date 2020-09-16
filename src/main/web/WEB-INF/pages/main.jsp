@@ -7,8 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<fmt:setLocale value="en"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<fmt:setLocale value="${sessionScope.sessionLanguage}"/>
 <fmt:setBundle basename="pagecontent"/>
 <html>
 <head>
@@ -17,13 +18,14 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css"/>
 </head>
 <body>
+<%--<fmt:setLocale value="${sessionScope.sessionLanguage}"/>--%>
 <div class="wrapper shadow pb-5">
     <jsp:include page="header.jsp"/>
     <div class="container">
         <div class="row">
             <div class="col-2 py-3">
                 <form action="${pageContext.request.contextPath}/controller?command=show_all_advertisements_by_filter"
-                      method="get">
+                      method="post">
                     <div class="form-group">
                         <label for="min_cost"><fmt:message key="filter.min-cost"/> </label>
                         <input type="number" step="1" min="0" max="1999999" id="min_cost" name="min_cost"
@@ -90,9 +92,8 @@
                                         <div>
                                             <p><fmt:message key="address.address"/>: ${advertisement.address.street} ${advertisement.address.houseNumber}</p>
                                             <p><fmt:message key="advertisement.cost"/>: ${advertisement.advertisement.cost}$</p>
-                                            <p><fmt:message key="advertisement.floor"/>: ${advertisement.advertisement.rooms}</p>
-                                            <p><fmt:message
-                                                    key="advertisement.room-key"/> ${advertisement.advertisement.square}/${advertisement.advertisement.livingSquare}/${advertisement.advertisement.kitchenSquare}</p>
+                                            <p><fmt:message key="advertisement.rooms"/>: ${advertisement.advertisement.rooms}</p>
+                                            ${advertisement.advertisement.square}/${advertisement.advertisement.livingSquare}/${advertisement.advertisement.kitchenSquare}</p>
                                         </div>
                                     </div>
                                 </a>

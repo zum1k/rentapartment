@@ -6,7 +6,6 @@ import com.training.rentapartment.controller.SessionAttribute;
 import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.controller.mapper.UserMapper;
-import com.training.rentapartment.controller.utils.MailSender;
 import com.training.rentapartment.controller.validator.GuestValidator;
 import com.training.rentapartment.entity.User;
 import com.training.rentapartment.entity.UserType;
@@ -51,11 +50,8 @@ public class RegisterCommand implements Command {
                 user.setType(UserType.CLIENT);
                 Optional<User> currentUser = service.register(user);
                 if (currentUser.isPresent()) {
-                    request.getSession().setAttribute(SessionAttribute.USER, currentUser);
-                    page = PagePath.CLIENT;
-                    MailSender mailSender = new MailSender(VERIFICATION_EMAIL_SUBJECT, VERIFICATION_EMAIL_MESSAGE,
-                            request.getParameter(HttpRequestParameters.EMAIL));
-                    mailSender.send();
+                    request.getSession().setAttribute(SessionAttribute.USER, currentUser.get());
+                    return CommandResult.redirect(PagePath.LINK_TO_MAIN);
                 }
             } catch (IOException | ServletException | ServiceException e) {
                 LOGGER.error(e.getMessage(), e);

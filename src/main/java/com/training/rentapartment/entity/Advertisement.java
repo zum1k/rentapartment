@@ -23,7 +23,7 @@ public class Advertisement {
     }
 
     public Advertisement(int cost, int rooms, int floor, double square, double livingSquare,
-                         double kitchenSquare, OwnerType owner, String phoneNumber, int userId, String description) {
+                         double kitchenSquare, OwnerType owner, String phoneNumber, String description) {
         this.cost = cost;
         this.rooms = rooms;
         this.floor = floor;
@@ -32,7 +32,6 @@ public class Advertisement {
         this.kitchenSquare = kitchenSquare;
         this.owner = owner;
         this.phoneNumber = phoneNumber;
-        this.userId = userId;
         this.description = description;
     }
 

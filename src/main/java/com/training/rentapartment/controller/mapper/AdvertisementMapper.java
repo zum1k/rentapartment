@@ -23,10 +23,9 @@ public class AdvertisementMapper implements EntityMapper<Advertisement> {
         double kitchenSquare = Double.parseDouble(request.getParameter(HttpRequestParameters.KITCHEN_SQUARE));
         OwnerType owner = OwnerType.valueOf(request.getParameter(HttpRequestParameters.OWNER));
         String phone = request.getParameter(HttpRequestParameters.PHONE);
-        int userId = Integer.parseInt(request.getParameter(HttpRequestParameters.USER_ID));
         String description = request.getParameter(HttpRequestParameters.DESCRIPTION);
         Advertisement advertisement = new Advertisement(cost, rooms, floor, square, livingSquare,
-                kitchenSquare, owner, phone, userId, description);
+                kitchenSquare, owner, phone, description);
         return advertisement;
     }
 

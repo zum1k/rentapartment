@@ -57,6 +57,7 @@ public class AdvertisementValidator {
                 return new PatternValidator(STREET_NAME_PATTERN);
             case "owner":
                 return new NotNullValidator();
+
         }
         return validator;
     }

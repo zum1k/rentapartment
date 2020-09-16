@@ -7,8 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<fmt:setLocale value="en"/>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.sessionLanguage}"/>
 <fmt:setBundle basename="pagecontent"/>
 <html>
 <head>
@@ -115,7 +115,6 @@
                             <input type="text" required name="phone" placeholder="+375xxxxxxxxx" value="">
                         </label>
                     </div>
-                    <input type="hidden" name="user_id" value=${sessionScope.user.id}> CRINGE
                     <div class="form-group">
                         <label for="comment"> <fmt:message key="advertisement.description"/></label>
                         <textarea name="description" accept-charset="UTF-8" id="comment" placeholder=

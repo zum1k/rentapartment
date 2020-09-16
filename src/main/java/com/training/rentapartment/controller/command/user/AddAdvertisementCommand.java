@@ -2,10 +2,12 @@ package com.training.rentapartment.controller.command.user;
 
 import com.training.rentapartment.controller.Command;
 import com.training.rentapartment.controller.HttpRequestParameters;
+import com.training.rentapartment.controller.SessionAttribute;
 import com.training.rentapartment.controller.command.CommandResult;
 import com.training.rentapartment.controller.command.PagePath;
 import com.training.rentapartment.controller.mapper.AddressMapper;
 import com.training.rentapartment.controller.mapper.AdvertisementMapper;
+import com.training.rentapartment.controller.mapper.UserMapper;
 import com.training.rentapartment.controller.validator.AdvertisementValidator;
 import com.training.rentapartment.entity.Address;
 import com.training.rentapartment.entity.Advertisement;
@@ -34,10 +36,11 @@ public class AddAdvertisementCommand implements Command {
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         String page = PagePath.ADD_ADVERTISEMENT;
         AdvertisementValidator validator = new AdvertisementValidator();
-        if (validator.validateAdvertisement(request)) {
+        if (validator.validateAdvertisement(request) && request.getSession().getAttribute(SessionAttribute.USER) != null) {
             try {
                 Address address = new AddressMapper().toEntity(request);
                 Advertisement advertisement = new AdvertisementMapper().toEntity(request);
+                advertisement.setUserId(parseUserId(request));
                 int advertisementId = service.addAdvertisement(advertisement, address);
                 request.setAttribute(HttpRequestParameters.ADVERTISEMENT_ID, advertisementId);
                 page = PagePath.IMAGES;
@@ -47,5 +50,10 @@ public class AddAdvertisementCommand implements Command {
             }
         }
         return CommandResult.forward(page);
+    }
+
+    private int parseUserId(HttpServletRequest request) {
+        UserMapper mapper = new UserMapper();
+        return mapper.parseSession(request).getId();
     }
 }

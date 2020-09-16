@@ -1,6 +1,7 @@
 package com.training.rentapartment.controller.mapper;
 
 import com.training.rentapartment.controller.EntityMapper;
+import com.training.rentapartment.controller.HttpRequestParameters;
 import com.training.rentapartment.controller.SessionAttribute;
 import com.training.rentapartment.entity.User;
 import com.training.rentapartment.entity.UserType;
@@ -15,9 +16,9 @@ import java.util.List;
 public class UserMapper implements EntityMapper<User> {
     @Override
     public User toEntity(HttpServletRequest request) throws IOException, ServletException {
-        String login = request.getParameter(SqlConstant.USER_LOGIN);
-        String password = request.getParameter(SqlConstant.USER_PASSWORD);
-        String email = request.getParameter(SqlConstant.USER_EMAIL);
+        String login = request.getParameter(HttpRequestParameters.LOGIN);
+        String password = request.getParameter(HttpRequestParameters.PASSWORD);
+        String email = request.getParameter(HttpRequestParameters.EMAIL);
         int verified = 0;
         return new User(login, password, email, verified);
     }

@@ -10,7 +10,7 @@
 <%@ page import="com.training.rentapartment.entity.UserType" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<fmt:setLocale value="en"/>
+<fmt:setLocale value="${sessionScope.sessionLanguage}"/>
 <fmt:setBundle basename="pagecontent"/>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -45,6 +45,6 @@
             </c:if>
         </div>
     </div>
-    <a class="navbar-brand" href="${pageContext.request.contextPath}/controller?command=set_locale&locale=ru"><fmt:message key="header.lang-ru" /></a>
-    <a class="navbar-brand" href="${pageContext.request.contextPath}/controller?command=set_locale&locale=en"><fmt:message key="header.lang-en" /></a>
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/controller?command=set_locale&sessionLanguage=ru"><fmt:message key="header.lang-ru" /></a>
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/controller?command=set_locale&sessionLanguage=en"><fmt:message key="header.lang-en" /></a>
 </nav>

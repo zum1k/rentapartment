@@ -35,8 +35,6 @@ public class RegisterAdminCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-
-        String page = PagePath.REGISTRATION;
         GuestValidator guestValidator = new GuestValidator();
         if (guestValidator.validateRegistration(request.getParameter(HttpRequestParameters.LOGIN),
                 request.getParameter(HttpRequestParameters.PASSWORD),
@@ -46,14 +44,14 @@ public class RegisterAdminCommand implements Command {
                 user.setType(UserType.ADMIN);
                 Optional<User> currentUser = service.register(user);
                 if (currentUser.isPresent()) {
-                    request.getSession().setAttribute(SessionAttribute.USER, currentUser);
-                    page = PagePath.CLIENT;
+                    request.getSession().setAttribute(SessionAttribute.USER, currentUser.get());
+                    return CommandResult.redirect(PagePath.LINK_TO_MAIN);
                 }
             } catch (IOException | ServletException | ServiceException e) {
                 LOGGER.error(e.getMessage(), e);
                 throw new CommandException(e.getMessage(), e);
             }
         }
-        return CommandResult.forward(page);
+        return CommandResult.forward(PagePath.REGISTER_ADMIN);
     }
 }

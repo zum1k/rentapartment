@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>All users</title>
@@ -23,7 +24,7 @@
                     <div class="shadow-sm m-2 p-2 bg-white rounded">
                         <p>${user.login}</p>
                         <p>${user.email}</p>
-                        <a href="link" class="btn btn-danger">ADD LOCALE, remove user</a>
+                        <a href="${pageContext.request.contextPath}/controller?command=delete_user&user_id="${user.userId}" class="btn btn-danger"><fmt:message key ="button.delete-user"/></a>
                     </div>
                 </div>
             </c:forEach>

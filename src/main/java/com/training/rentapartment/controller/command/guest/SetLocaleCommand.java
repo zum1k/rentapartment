@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class SetLocaleCommand implements Command {
     private static final String DEFAULT_LOCALE = "ru";
-
     public SetLocaleCommand() {
     }
 
@@ -21,9 +20,9 @@ public class SetLocaleCommand implements Command {
         NotNullValidator validator = new NotNullValidator();
         if (validator.validate(request.getParameter(HttpRequestParameters.LOCALE))) {
             request.getSession().setAttribute(SessionAttribute.LOCALE, request.getParameter(HttpRequestParameters.LOCALE));
-            return CommandResult.redirect(PagePath.LINK_TO_MAIN);
+            return CommandResult.forward(PagePath.LINK_TO_MAIN);
         }
         request.getSession().setAttribute(SessionAttribute.LOCALE, DEFAULT_LOCALE);
-        return CommandResult.redirect(PagePath.LINK_TO_MAIN);
+        return CommandResult.forward(PagePath.LINK_TO_MAIN);
     }
 }

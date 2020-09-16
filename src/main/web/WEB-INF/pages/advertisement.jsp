@@ -8,9 +8,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<fmt:setLocale value="en"/>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.sessionLanguage}"/>
 <fmt:setBundle basename="pagecontent"/>
+<html>
 <html>
 <head>
     <title>Ad</title>
@@ -42,19 +43,20 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <p>COST: ${advertisement.advertisement.cost} </p>
-                    <p>ROOMS: ${advertisement.advertisement.rooms}</p>
-                    <p>FLOOR: ${advertisement.advertisement.floor}</p>
-                    <p>SQUARE: ${advertisement.advertisement.square}</p>
-                    <p>KITCHEN ${advertisement.advertisement.kitchenSquare}</p>
-                    <p>LIVING SQUARE: ${advertisement.advertisement.livingSquare}</p>
-                    <p>OWNER: ${advertisement.advertisement.owner}</p>
-                    <p>PHONE: ${advertisement.advertisement.phoneNumber}</p>
-                    <p>DESCRIPTION: ${advertisement.advertisement.description}</p>
-                    <p>CITY: ${advertisement.address.city}</p>
-                    <p>STREET: ${advertisement.address.street}</p>
-                    <p>HOUSE NUMBER ${advertisement.address.houseNumber} </p>
-                    <p>HOUSE INDEX ${advertisement.address.houseIndex} </p>
+                    <p><fmt:message key="advertisement.cost"/> ${advertisement.advertisement.cost} </p>
+                    <p><fmt:message key="advertisement.rooms"/> ${advertisement.advertisement.rooms}</p>
+                    <p><fmt:message key="advertisement.floor"/> ${advertisement.advertisement.floor}</p>
+                    <p><fmt:message key="advertisement.square"/> ${advertisement.advertisement.square}</p>
+                    <p><fmt:message key="advertisement.kitchen-square"/> ${advertisement.advertisement.kitchenSquare}</p>
+                    <p><fmt:message key="advertisement.living-square"/> ${advertisement.advertisement.livingSquare}</p>
+                    <p><fmt:message key="advertisement.owner"/> ${advertisement.advertisement.owner}</p>
+                    <p><fmt:message key="advertisement.phone"/> ${advertisement.advertisement.phoneNumber}</p>
+
+                    <p><fmt:message key="address.city"/> ${advertisement.address.city}</p>
+                    <p><fmt:message key="address.street"/> ${advertisement.address.street}</p>
+                    <p><fmt:message key="message.address.put-house-number"/> ${advertisement.address.houseNumber} </p>
+                    <p><fmt:message key="message.address.put-house-index"/> ${advertisement.address.houseIndex} </p>
+                    <p><fmt:message key="advertisement.description"/> ${advertisement.advertisement.description}</p>
                 </div>
             </div>
         </div>
