@@ -26,11 +26,11 @@
                 <h3><fmt:message key="titles.login"/></h3>
                 <form action="${pageContext.request.contextPath}/controller?command=login" method="post">
                     <div class="form-group">
-                        <input type="text" required name="login" class="form-control" placeholder=
+                        <input type="text" pattern="^\p{Alpha}[\w]{5,14}$" required name="login" class="form-control" placeholder=
                         <fmt:message key="message.login"/> value=""/>
                     </div>
                     <div class="form-group">
-                        <input type="password" required name="password" class="form-control" placeholder=
+                        <input type="password" pattern="^[\p{Alpha}\d]{7,14}$" name="password" class="form-control" placeholder=
                         <fmt:message key="message.password"/> value=""/>
                     </div>
                     <div class="form-group">

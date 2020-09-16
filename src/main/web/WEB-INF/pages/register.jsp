@@ -27,15 +27,15 @@
                 </h3>
                 <form action="${pageContext.request.contextPath}/controller?command=register" method="post">
                     <div class="form-group">
-                        <input type="text" required name="login" class="form-control" placeholder=
+                        <input type="text"  pattern="^\p{Alpha}[\w]{5,14}$" name="login" class="form-control" placeholder=
                         <fmt:message key="message.think-login"/> value=""/>
                     </div>
                     <div class="form-group">
-                        <input type="password" required name="password" class="form-control" placeholder=
+                        <input type="password" pattern="^[\p{Alpha}\d]{7,14}$" required name="password" class="form-control" placeholder=
                         <fmt:message key="message.think-password"/> value=""/>
                     </div>
                     <div class="form-group">
-                        <input type="email" required name="email" class="form-control" placeholder=
+                        <input type="email"  pattern="^([\w\-\.]+)@([\w\-\.]+)\.(\p{Alpha}{2,5})$" name="email" class="form-control" placeholder=
                         <fmt:message key="message.email"/> value=""/>
                     </div>
                     <div class="form-group">

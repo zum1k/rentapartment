@@ -93,7 +93,7 @@
                                             <p><fmt:message key="address.address"/>: ${advertisement.address.street} ${advertisement.address.houseNumber}</p>
                                             <p><fmt:message key="advertisement.cost"/>: ${advertisement.advertisement.cost}$</p>
                                             <p><fmt:message key="advertisement.rooms"/>: ${advertisement.advertisement.rooms}</p>
-                                            ${advertisement.advertisement.square}/${advertisement.advertisement.livingSquare}/${advertisement.advertisement.kitchenSquare}</p>
+                                            <p>${advertisement.advertisement.square}/${advertisement.advertisement.livingSquare}/${advertisement.advertisement.kitchenSquare}</p>
                                         </div>
                                     </div>
                                 </a>

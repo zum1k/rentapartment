@@ -21,6 +21,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 
 public class AddAdvertisementCommand implements Command {
+    private static final String AMPERSANT_PART = "&";
+    private static final String EQUALLY_PART = "=";
+
     private static final Logger LOGGER = LogManager.getLogger(AddAdvertisementCommand.class);
     private AdvertisementService service;
 
@@ -43,7 +46,7 @@ public class AddAdvertisementCommand implements Command {
                 advertisement.setUserId(parseUserId(request));
                 int advertisementId = service.addAdvertisement(advertisement, address);
                 request.setAttribute(HttpRequestParameters.ADVERTISEMENT_ID, advertisementId);
-                return CommandResult.redirect(PagePath.LINK_TO_UPLOAD_IMAGE + "&" + HttpRequestParameters.ADVERTISEMENT_ID + "=" + advertisementId);
+                return CommandResult.redirect(PagePath.LINK_TO_UPLOAD_IMAGE + AMPERSANT_PART + HttpRequestParameters.ADVERTISEMENT_ID + EQUALLY_PART + advertisementId);
             } catch (ServiceException e) {
                 LOGGER.error(e.getMessage(), e);
                 throw new CommandException(e.getMessage(), e);

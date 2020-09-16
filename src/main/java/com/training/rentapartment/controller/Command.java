@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 public interface Command {
     /**
      * @param request http request
-     * @param response http response
      * @return instance of {@code CommandResult} class, which is stands for target for forward or redirect after command
      * @throws CommandException if some unforeseen circumstances arose in the code
      */

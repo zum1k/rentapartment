@@ -18,7 +18,7 @@ import java.util.List;
 public class AllAdvertisementsCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(AllAdvertisementsCommand.class);
     private final int DEFAULT_OFFSET_VALUE = 0;
-    private final int DEFAULT_LIMIT_VALUE = 20;
+    private final int DEFAULT_LIMIT_VALUE = 50;
     private int advertisementOffset = DEFAULT_OFFSET_VALUE;
     private int advertisementLimit = DEFAULT_LIMIT_VALUE;
 

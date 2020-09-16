@@ -1,6 +1,5 @@
 package com.training.rentapartment.controller.validator;
 
-import com.training.rentapartment.controller.validator.impl.NotNullValidator;
 import com.training.rentapartment.controller.validator.impl.PatternValidator;
 
 public class GuestValidator {
