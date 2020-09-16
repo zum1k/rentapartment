@@ -43,7 +43,7 @@ public class AddAdvertisementCommand implements Command {
                 advertisement.setUserId(parseUserId(request));
                 int advertisementId = service.addAdvertisement(advertisement, address);
                 request.setAttribute(HttpRequestParameters.ADVERTISEMENT_ID, advertisementId);
-                page = PagePath.IMAGES;
+                return CommandResult.redirect(PagePath.LINK_TO_UPLOAD_IMAGE + "&" + HttpRequestParameters.ADVERTISEMENT_ID + "=" + advertisementId);
             } catch (ServiceException e) {
                 LOGGER.error(e.getMessage(), e);
                 throw new CommandException(e.getMessage(), e);

@@ -38,8 +38,7 @@
                     </div>
                     <div class="form-group">
                         <a href="${pageContext.request.contextPath}/controller?command=link_to_register"
-                           class="btn btn-danger">
-                            <fmt:message key="titles.register"/>
+                           class="btn btn-danger"> <fmt:message key="titles.register"/>
                         </a>
                     </div>
                 </form>

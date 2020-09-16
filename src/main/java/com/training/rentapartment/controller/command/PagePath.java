@@ -17,7 +17,7 @@ public class PagePath {
     //links
     public static final String LINK_TO_MAIN = "/controller?command=show_all_advertisements";
     public static final String LINK_TO_CLIENT = "/controller?command=show_all_advertisements";
-    public static final String LINK_TO_UPLOAD_IMAGE = "/controller?command=show_all_advertisements";
+    public static final String LINK_TO_UPLOAD_IMAGE = "/controller?command=link_to_upload_images";
     private PagePath() {
     }
 }

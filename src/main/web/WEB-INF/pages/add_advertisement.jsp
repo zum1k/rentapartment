@@ -101,8 +101,7 @@
                                   placeholder=
                                   <fmt:message key="message.ad.less-than"/> maxlength="400"></textarea>
                     </div>
-                    <input type="submit" value=
-                    <fmt:message key="button.send"/>/>
+                    <input type="submit" value=<fmt:message key="button.send"/>/>
                 </form>
             </div>
         </div>
