@@ -25,12 +25,12 @@
                 <form name="add_Ad_Form" accept-charset="UTF-8" method="POST" action="controller?command=add_ad">
                     <div class="form-group">
                         <label for="city"> <fmt:message key="address.city"/> </label>
-                        <input type="text" class="form-control" required id="city" name="city" placeholder=
+                        <input type="text" pattern="^[a-zA-Zа-яА-Я]+(?:[\s-][a-zA-Zа-яА-Я]+)*$" class="form-control" required id="city" name="city" placeholder=
                         <fmt:message key="message.address.put-city"/> value="">
                     </div>
                     <div class="form-group">
                         <label for="street"> <fmt:message key="address.street"/> </label>
-                        <input type="text" class="form-control" required id="street" name="street" placeholder=
+                        <input type="text" pattern="^[a-zA-Zа-яА-Я]+(?:[\s-][a-zA-Zа-яА-Я]+)*$" class="form-control" required id="street" name="street" placeholder=
                         <fmt:message key="message.address.put-street"/> value="">
                     </div>
                     <div class="form-group">
@@ -92,7 +92,7 @@
                     </div>
                     <div class="form-group">
                         <label for="phone"> <fmt:message key="advertisement.phone"/> </label>
-                        <input type="text" class="form-control" id="phone" required name="phone"
+                        <input type="text" pattern="^(\+375)(29|25|44|33|17)(\d{3})(\d{2})(\d{2})$" class="form-control" id="phone" required name="phone"
                                placeholder="+375xxxxxxxxx" value="">
                     </div>
                     <div class="form-group">
