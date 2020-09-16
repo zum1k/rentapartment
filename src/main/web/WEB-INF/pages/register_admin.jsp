@@ -37,7 +37,7 @@
                     </div>
                     <div class="form-group">
                         <input type="email" required name="email" class="form-control" placeholder=
-                        <fmt:message key="message.email"/> value=""/>
+                        <fmt:message key="message.put-email"/> value=""/>
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-dark" value=<fmt:message key="button.register"/>/>

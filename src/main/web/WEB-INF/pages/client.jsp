@@ -12,7 +12,7 @@
 <fmt:setBundle basename="pagecontent"/>
 <html>
 <head>
-    <title>Client Page</title>
+    <title> <fmt:message key = "titles.login"/></title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css"/>
 </head>
@@ -20,8 +20,11 @@
 
 <div class="wrapper shadow pb-5">
     <jsp:include page="header.jsp"/>
-    <h3><fmt:message key="advertisement.my-advertisements"/></h3>
+
     <div class="container">
+        <p><h5><fmt:message key="user.login"/> : ${user.login}</h5></p>
+        <p><h5><fmt:message key="user.email"/> : ${user.email}</h5></p>
+        <p><h3><fmt:message key="advertisement.my-advertisements"/></h3></p>
         <div class="row">
             <c:forEach var="advertisement" items="${advertisements}">
                 <div class="advertisement_wrapper col-4">

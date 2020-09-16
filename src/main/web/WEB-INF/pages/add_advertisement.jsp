@@ -24,104 +24,85 @@
             <div class="col-4 m-auto py-4 text-center">
                 <form name="add_Ad_Form" accept-charset="UTF-8" method="POST" action="controller?command=add_ad">
                     <div class="form-group">
-                        <label for="min_cost"><fmt:message key="filter.min-cost"/> </label>
-                        <input type="number" step="1" min="0" max="1999999" id="min_cost" name="min_cost"
-                               class="form-control"/>
-                        <label>
-                            <input type="text" name="city" placeholder=
-                            <fmt:message key="message.address.put-city"/> value="">
-                        </label>
+                        <label for="city"> <fmt:message key="address.city"/> </label>
+                        <input type="text" class="form-control" required id="city" name="city" placeholder=
+                        <fmt:message key="message.address.put-city"/> value="">
                     </div>
                     <div class="form-group">
-                        <label>
-                            <input type="text" accept-charset="UTF-8" name="street" placeholder=
-                            <fmt:message key="message.address.put-street"/> value="">
-                        </label>
+                        <label for="street"> <fmt:message key="address.street"/> </label>
+                        <input type="text" class="form-control" required id="street" name="street" placeholder=
+                        <fmt:message key="message.address.put-street"/> value="">
                     </div>
                     <div class="form-group">
-                        <fmt:message key="message.address.put-house-number"/>
-                        <label>
-                            <input type="text" name="house_number" placeholder=
-                            <fmt:message key="message.address.put-house-number"/> value=""/>
-                        </label>
+                        <label for="house-number"> <fmt:message key="address.house-number"/> </label>
+                        <input type="text" class="form-control" required id="house-number" name="house_number"
+                               placeholder=
+                               <fmt:message key="message.address.put-house-number"/> value="">
                     </div>
                     <div class="form-group">
-                        <fmt:message key="message.address.put-house-index"/>
-                        <label>
-                            <input type="text" name="house_index" placeholder=
-                            <fmt:message key="message.address.put-house-index"/> value="">
-                        </label></div>
-                    <div class="form-group">
-                        <label>
-                            <fmt:message key="advertisement.rooms"/>
-                            <select id="room" name="rooms">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6+</option>
-                            </select>
-                        </label>
+                        <label for="house-index"> <fmt:message key="address.house-index"/> </label>
+                        <input type="text" class="form-control" required id="house-index" name="house_index"
+                               placeholder=
+                               <fmt:message key="message.address.put-house-index"/> value="">
                     </div>
                     <div class="form-group">
-                        <fmt:message key="advertisement.floor"/>
-                        <label>
-                            <input type="text" name="floor" required placeholder=
-                            <fmt:message key="advertisement.floor"/> value="">
-                        </label>
+                        <label for="rooms"> <fmt:message key="advertisement.rooms"/> </label>
+                        <select class="form-control" id="rooms" name="rooms">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6+</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <fmt:message key="advertisement.square"/>
-                        <label>
-                            <input type="text" name="square" required placeholder=
-                            <fmt:message key="advertisement.square"/> value="">
-                        </label>
+                        <label for="floor"> <fmt:message key="advertisement.floor"/> </label>
+                        <input type="text" class="form-control" required id="floor" name="floor" placeholder=
+                        <fmt:message key="advertisement.floor"/> value="">
                     </div>
                     <div class="form-group">
-                        <fmt:message key="advertisement.living-square"/>
-                        <label>
-                            <input type="text" name="living_square" required placeholder=
-                            <fmt:message key="advertisement.living-square"/> value="">
-                        </label>
+                        <label for="square"> <fmt:message key="advertisement.square"/> </label>
+                        <input type="text" class="form-control" required id="square" name="square" placeholder=
+                        <fmt:message key="advertisement.square"/> value="">
                     </div>
                     <div class="form-group">
-                        <fmt:message key="advertisement.kitchen-square"/>
-                        <label>
-                            <input type="text" name="kitchen_square" required
-                                   placeholder=
-                                   <fmt:message key="advertisement.kitchen-square"/> value="">
-                        </label>
+                        <label for="living-square"> <fmt:message key="advertisement.living-square"/> </label>
+                        <input type="text" class="form-control" required id="living-square" name="living_square"
+                               placeholder=
+                               <fmt:message key="advertisement.living-square"/> value="">
                     </div>
                     <div class="form-group">
-                        <label>
-                            <fmt:message key="advertisement.owner"/>
-                            <select id="owner_list" name="owner">
-                                <option value="PRIVATE">PRIVATE</option>
-                                <option value="COMPANY">COMPANY</option>
-                            </select>
-                        </label>
+                        <label for="kitchen-square"> <fmt:message key="advertisement.kitchen-square"/> </label>
+                        <input type="text" class="form-control" required id="kitchen-square" name="kitchen_square"
+                               placeholder=
+                               <fmt:message key="advertisement.kitchen-square"/> value="">
                     </div>
                     <div class="form-group">
-                        <fmt:message key="advertisement.cost"/>
-                        <label>
-                            <input type="text" required name="cost" placeholder=
-                            <fmt:message key="advertisement.cost"/> value="">
-                        </label>
+                        <label for="owner_list"> <fmt:message key="advertisement.owner"/> </label>
+                        <select class="form-control" id="owner_list" name="owner">
+                            <option value="PRIVATE">PRIVATE</option>
+                            <option value="COMPANY">COMPANY</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <fmt:message key="advertisement.phone"/>
-                        <label>
-                            <input type="text" required name="phone" placeholder="+375xxxxxxxxx" value="">
-                        </label>
+                        <label for="cost"> <fmt:message key="advertisement.cost"/> </label>
+                        <input type="text" class="form-control" id="cost" required name="cost" placeholder=
+                        <fmt:message key="advertisement.cost"/> value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone"> <fmt:message key="advertisement.phone"/> </label>
+                        <input type="text" class="form-control" id="phone" required name="phone"
+                               placeholder="+375xxxxxxxxx" value="">
                     </div>
                     <div class="form-group">
                         <label for="comment"> <fmt:message key="advertisement.description"/></label>
-                        <textarea name="description" accept-charset="UTF-8" id="comment" placeholder=
-                        <fmt:message key="message.ad.less-than"/> maxlength="400"></textarea>
+                        <textarea class="form-control" name="description" accept-charset="UTF-8" id="comment"
+                                  placeholder=
+                                  <fmt:message key="message.ad.less-than"/> maxlength="400"></textarea>
                     </div>
                     <input type="submit" value=
-                            <fmt:message key="button.send"/>/>
+                    <fmt:message key="button.send"/>/>
                 </form>
             </div>
         </div>
